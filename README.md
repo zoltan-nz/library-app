@@ -107,3 +107,51 @@ Open `./app/styles/app.scss` file in your editor and add the following line:
     @import "bootstrap";
 
 Relaunch your app with `ember server`. You should see in the browser, that 'Welcome to Ember' uses Bootstrap default font.
+
+### Create a navigation partial
+
+We will use bootstrap navigation bar to create a nice header section for our app.
+
+Update your main template file. Delete the example content and add the following code to your `./app/templates/application.hbs`.
+
+    <div class="container">
+      {{partial 'navbar'}}
+      {{outlet}}
+    </div>
+
+Generate a `navbar.hbs` file with the following command in you terminal.
+
+    ember generate template navbar
+
+You can open `./app/templates/navbar.hbs` in your editor and add the following lines:
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {{#link-to 'index' class="navbar-brand"}}Library App{{/link-to}}
+        </div>
+
+        <div class="collapse navbar-collapse" id="main-navbar">
+          <ul class="nav navbar-nav">
+                {{#link-to 'index' tagName="li"}}<a href>Home</a>{{/link-to}}
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+Launch your application with `ember server`. You should see your new navigation bar in your browser.
+
+You can update your `app.scss` file to add some extra padding to the top. The updated `./app/styles/app.scss` content:
+
+    @import "bootstrap";
+
+    body {
+      padding-top: 20px;
+    }
+
