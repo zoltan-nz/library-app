@@ -155,3 +155,39 @@ You can update your `app.scss` file to add some extra padding to the top. The up
       padding-top: 20px;
     }
 
+### Create a new About page and add the link to the menu bar
+
+Run the following command in your terminal
+
+    ember generate route about
+
+A new route and template created in your project.
+
+Open your new `./app/templates/about.hbs` file in your editor, delete its content and add the following line:
+
+    <h1>About Page</h1>
+
+You can launch your app with `ember server` and navigate to http://localhost:4200/about page, you should see the created `About Page` header message. If you click on `Home` in your menu bar, your page will be empty. Let's fix that.
+
+Create a new `index` template with the following command in your terminal:
+
+    ember generate template index
+
+Open in your editor the generated `./app/templates/index.hbs` file and add the following:
+
+    <h1>Home Page</h1>
+
+If you launch your app, you should see the above message on your home page, however we still doesn't have About link in our menu bar.
+
+Open your `./app/templates/navbar.hbs` and add the following line to the `ul` section under `Home` link:
+
+    {{#link-to 'about' tagName="li"}}<a href>About</a>{{/link-to}}
+
+You `ul` section should look like this:
+
+    <ul class="nav navbar-nav">
+          {{#link-to 'index' tagName="li"}}<a href>Home</a>{{/link-to}}
+          {{#link-to 'about' tagName="li"}}<a href>About</a>{{/link-to}}
+    </ul>
+
+If you check your app in the browser, you should see `Home` and `About` link in your menu bar, you can click on them and you will see how the page content and the url are changed. The `active` state of the link changes the style of the menu link automatically as well.
