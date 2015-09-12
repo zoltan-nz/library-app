@@ -87,7 +87,7 @@ You can find a list of debugging options in `./config/environment.js` file. Remo
 
 Check your app and open the Console in Chrome. You will see a couple of extra information what Ember.js automatically doing.
 
-### Add Sass and Bootstrap sass version to your app
+### Add Sass and Bootstrap to your app
 
 Exit your `ember server` with `Ctrl+C` in your terminal.
 
@@ -183,7 +183,7 @@ Open your `./app/templates/navbar.hbs` and add the following line to the `ul` se
 
     {{#link-to 'about' tagName="li"}}<a href>About</a>{{/link-to}}
 
-You `ul` section should look like this:
+Your `ul` section in `navbar.hbs` should look like this:
 
     <ul class="nav navbar-nav">
           {{#link-to 'index' tagName="li"}}<a href>Home</a>{{/link-to}}
