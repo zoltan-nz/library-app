@@ -191,3 +191,41 @@ Your `ul` section in `navbar.hbs` should look like this:
     </ul>
 
 If you check your app in the browser, you should see `Home` and `About` link in your menu bar, you can click on them and you will see how the page content and the url are changed. The `active` state of the link changes the style of the menu link automatically as well.
+
+Homework: Create a `Contact` page.
+
+### Coming Soon homepage with an email input box
+
+Let's create a coming soon jumbotron on the home page with an email input box, where users can subscribe for a newsletter.
+
+Add a static jumbotron, input box and a button to index.hbs.
+
+    <div class="jumbotron text-center">
+        <h1>Coming Soon</h1>
+
+        <br/><br/>
+
+        <p>Don't miss our launch date, request an invitation now.</p>
+
+        <div class="form-horizontal form-group form-group-lg row">
+            <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2">
+              <input type="email" class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus" />
+            </div>
+            <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3">
+                <button class="btn btn-primary btn-lg btn-block">Send invitation</button>
+            </div>
+
+        </div>
+
+        <br/><br/>
+    </div>
+
+Add condition to button style
+
+    <button class="btn btn-primary btn-lg btn-block {{if isDisabled 'disabled'}}">Send invitation</button>
+
+Create index controller
+
+    ember g controller index
+
+Add `isDisabled` property to the controller. Default value is `true`.
