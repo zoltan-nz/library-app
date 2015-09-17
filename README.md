@@ -36,7 +36,7 @@ Install Ember Inspector Chrome extension in your Chrome Browser: [Ember Inspecto
 
 Update version number of `"ember"` and `"ember-data"` in `./bower.json`:
 
-```json
+```
     {
       "name": "library-app",
       "dependencies": {
@@ -50,7 +50,7 @@ Update version number of `"ember"` and `"ember-data"` in `./bower.json`:
 
 Update version number of `"ember-data"` in `./package.json`:
 
-```json
+```
     {
       "name": "library-app",
       ...
@@ -317,7 +317,7 @@ If you type something in the input box, it will update this variable in the cont
 
 You can use the following code in your controller to demonstrate the differences between computed properties and observers:
 
-```javascript
+```
     emailAddress: '',
 
     actualEmailAddress: function() { 
