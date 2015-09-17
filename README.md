@@ -1,6 +1,12 @@
-# Library App
+# Library App (Draft)
 
-Ember.js 2.0 tutorial for absolute beginners.
+Ember.js 2.0 tutorial for absolute beginners. (Work in progress.)
+
+#### Previous tutorials
+
+* Bookstore API (Ruby on Rails): https://github.com/szines/bookstore-api
+* Bookstore Client (Ember.js): https://github.com/szines/bookstore-client
+* Contacts App Client (Ember.js): https://github.com/szines/contacts-app-client
 
 ## Prerequisites
 
