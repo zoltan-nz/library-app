@@ -421,7 +421,7 @@ Update your `<button>` line again.
 You can try out in your browser, that if you click on the button, you will get a nice error message, which explaines you has to implement this action in your controller. Let's do that.
 
 ```javascript
-\\ app/controllers/index.js
+// app/controllers/index.js
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
