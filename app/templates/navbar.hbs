@@ -16,6 +16,15 @@
             {{#link-to 'about' tagName="li"}}<a href>About</a>{{/link-to}}
             {{#link-to 'contact' tagName="li"}}<a href>Contact</a>{{/link-to}}
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  {{#link-to 'admin.invitations' tagName="li"}}<a href>Invitations</a>{{/link-to}}
+              </ul>
+          </li>
+      </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

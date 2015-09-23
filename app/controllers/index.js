@@ -10,10 +10,15 @@ export default Ember.Controller.extend({
 
   actions: {
     sendInvitation: function() {
+      var _that = this;
       var email = this.get('emailAddress');
-      alert('Sending in progress... To: ' + email);
-      this.set('responseMessage', "Thank you! We've just sent an email to the following address: " + email);
-      this.set('emailAddress', '');
+
+      var newInvitation = this.store.createRecord('invitation', {email: email});
+      newInvitation.save().then(function(response) {
+        _that.set('responseMessage', "Thank you! We saved your email address with the following id: " + response.get('id'));
+        _that.set('emailAddress', '');
+      })
+
     }
   }
 
