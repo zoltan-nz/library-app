@@ -9,15 +9,17 @@ export default Ember.Controller.extend({
   isValid: Ember.computed.match('emailAddress', /^.+@.+\..+$/),
 
   actions: {
-    sendInvitation: function() {
+    saveInvitation: function () {
       var _that = this;
       var email = this.get('emailAddress');
 
-      var newInvitation = this.store.createRecord('invitation', {email: email});
-      newInvitation.save().then(function(response) {
+      var newInvitation = this.store.createRecord('invitation', {
+        email: email
+      });
+      newInvitation.save().then(function (response) {
         _that.set('responseMessage', "Thank you! We saved your email address with the following id: " + response.get('id'));
         _that.set('emailAddress', '');
-      })
+      });
 
     }
   }
