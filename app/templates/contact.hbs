@@ -4,26 +4,32 @@
 
 <div class="row">
     <div class="col-md-6">
-      <div class="form-group has-feedback {{if isValidEmail 'has-success'}}">
-          <label>Your email address*:</label>
-          {{input type="email" class="form-control" placeholder="Your email address" value=emailAddress autofocus="autofocus"}}
-          {{#if isValidEmail}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
-      </div>
-      <div class="form-group has-feedback {{if isMessageEnoughLong 'has-success'}}">
-          <label>Your message*:</label>
-          {{textarea class="form-control" placeholder="Your message. (At least 5 characters.)" rows="5" value=message}}
-          {{#if isMessageEnoughLong}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
-      </div>
-      <button class="btn btn-success" {{action 'sendMessage'}} disabled="{{unless isValid 'disabled'}}">Send</button>
-    </div>
 
-  {{#if responseMessage}}
-      <div class="col-md-6">
-          <br/>
-          <div class="alert alert-success">
-              <h4>Thank you! Your message is sent.</h4>
-              <p>{{responseMessage}}</p>
-          </div>
-      </div>
-  {{/if}}
+      {{#if responseMessage}}
+
+        <br/>
+        <div class="alert alert-success">
+            <h4>Thank you! Your message is sent.</h4>
+            <p>To: {{model.email}}</p>
+            <p>Message: {{model.message}}</p>
+            <p>Reference ID: {{model.id}}</p>
+        </div>
+
+      {{else}}
+
+        <div class="form-group has-feedback {{if model.isValidEmail 'has-success'}}">
+            <label>Your email address*:</label>
+          {{input type="email" class="form-control" placeholder="Your email address" value=model.email autofocus="autofocus"}}
+          {{#if model.isValidEmail}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
+        </div>
+        <div class="form-group has-feedback {{if model.isMessageEnoughLong 'has-success'}}">
+            <label>Your message*:</label>
+          {{textarea class="form-control" placeholder="Your message. (At least 5 characters.)" rows="5" value=model.message}}
+          {{#if model.isMessageEnoughLong}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
+        </div>
+        <button class="btn btn-success" {{action 'sendMessage' model}} disabled="{{unless model.isValid 'disabled'}}">Send</button>
+
+      {{/if}}
+
+    </div>
 </div>
