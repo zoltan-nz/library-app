@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
-  model() {
+  model: function() {
     return this.store.createRecord('contact');
   },
 
@@ -10,11 +10,22 @@ export default Ember.Route.extend({
 
     sendMessage: function(newContactMessage) {
 
-      const controller = this.get('controller');
+      var _that = this;
 
-      newContactMessage.save().then(() => {
-        controller.set('responseMessage', true);
+      newContactMessage.save().then(function() {
+        _that.controller.set('responseMessage', true);
       });
+    },
+
+    willTransition: function(transition) {
+
+      var model = this.controller.get('model');
+
+      if (model.get('isNew')) {
+        model.destroyRecord();
+      }
+
+      this.controller.set('responseMessage', false);
     }
   }
 });

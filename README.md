@@ -907,7 +907,7 @@ export default Ember.Route.extend({
 
 In the above Route we create a new record and it will be the `model`. It automatically appears in the controller and in the template. In the `saveLibrary` action we accept a param and we save that model, after we send the application back to Libraries home page with `transitionTo`.
 
-There is a special action or event, called `willTransition`, which is an Ember.js action, will be called when you leave that page. It will remove the model if we don't save in the database.
+There is an Ember.js built in action (event) `willTransition`, which will be called when you leave a page (route). In our case, we use this action to reset the model if we didn't save in the database before.
 
 ### Homework
 
@@ -917,3 +917,40 @@ Improve further your Contact Page.
 2. Save that model in the server when someone click on "Send" button on Contact form. Update your contact.js controller.
 3. Create an Admin page under `http://localhost:4200/admin/contacts`
 4. List all saved messages in a table.
+
+Option 2: Refactor your app contact section with usage of model in route. Move validation in model, move action in route and remove contact controller.
+
+## Lesson 4
+
+### Deploy your app on Firebase
+
+Follow the [guide on Firebase](https://www.firebase.com/docs/web/libraries/ember/guide.html#section-ember-deploy).
+
+    npm install -g firebase-tools
+    ember build
+    firebase init
+
+Update `firebase.json`
+
+    {
+      "firebase": "your-app-name",
+      "public": "dist",
+      "rewrites": [{
+        "source": "**",
+        "destination": "/index.html"
+      }]
+    }
+
+And deploy:
+
+    firebase deploy
+
+Other great hosting service for deployment is [www.divshot.com](http://www.divshot.com). [More about Ember.js app deployment on Divshot.](https://docs.divshot.com/integrations/emberjs)
+
+
+### Add Delete and Edit button
+
+* Upgrade library list view to grid view.
+* Add buttons to panel footer.
+* Duplicate some code, create edit.js and edit.hbs
+* Add delete action
