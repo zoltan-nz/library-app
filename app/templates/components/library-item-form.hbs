@@ -1,0 +1,26 @@
+<div class="form-horizontal">
+    <div class="form-group has-feedback {{if item.isValid 'has-success'}}">
+        <label class="col-sm-2 control-label">Name*</label>
+        <div class="col-sm-10">
+          {{input type="text" value=item.name class="form-control" placeholder="The name of the Library"}}
+          {{#if item.isValid}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Address</label>
+        <div class="col-sm-10">
+          {{input type="text" value=item.address class="form-control" placeholder="The address of the Library"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Phone</label>
+        <div class="col-sm-10">
+          {{input type="text" value=item.phone class="form-control" placeholder="The phone number of the Library"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" {{action 'buttonClicked' item}} disabled="{{unless item.isValid 'disabled'}}">{{buttonLabel}}</button>
+        </div>
+    </div>
+</div>

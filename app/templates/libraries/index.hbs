@@ -2,19 +2,10 @@
 <div class="row">
   {{#each model as |library|}}
     <div class="col-md-4">
-      <div class="panel panel-default library-item">
-          <div class="panel-heading">
-              <h3 class="panel-title">{{library.name}}</h3>
-          </div>
-          <div class="panel-body">
-              <p>Address: {{library.address}}</p>
-              <p>Phone: {{library.phone}}</p>
-          </div>
-          <div class="panel-footer text-right">
-              {{#link-to 'libraries.edit' library.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
-              <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
-          </div>
-      </div>
+      {{#library-item item=library}}
+        {{#link-to 'libraries.edit' library.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
+          <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
+      {{/library-item}}
     </div>
   {{/each}}
 </div>
