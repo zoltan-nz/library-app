@@ -1,4 +1,4 @@
-# Ember.js 2.0 Tutorial - Bulding a complex web application
+# Ember.js 2.0 Tutorial - Building a complex web application
 
 Ember.js 2.0 tutorial for absolute beginners. (Work in progress.)
 
@@ -948,9 +948,192 @@ And deploy:
 Other great hosting service for deployment is [www.divshot.com](http://www.divshot.com). [More about Ember.js app deployment on Divshot.](https://docs.divshot.com/integrations/emberjs)
 
 
-### Add Delete and Edit button
+### Add Delete and Edit button and Edit route
 
-* Upgrade library list view to grid view.
-* Add buttons to panel footer.
-* Duplicate some code, create edit.js and edit.hbs
-* Add delete action
+#### Upgrading library list view to grid view
+
+Let's upgrade our `app/templates/libraries/index.hbs` to show a nice grid layout. We have to add a little tweak to our stylesheet as well. You can see, there are two buttons in `panel-footer`. First button is a link to Edit screen, the second is a Delete button with an action. We send `library` as a param with that action call.
+
+```html
+<!-- app/templates/libraries/index.hbs -->
+<h2>List</h2>
+<div class="row">
+  {{#each model as |library|}}
+    <div class="col-md-4">
+      <div class="panel panel-default library-item">
+          <div class="panel-heading">
+              <h3 class="panel-title">{{library.name}}</h3>
+          </div>
+          <div class="panel-body">
+              <p>Address: {{library.address}}</p>
+              <p>Phone: {{library.phone}}</p>
+          </div>
+          <div class="panel-footer text-right">
+              {{#link-to 'libraries.edit' library.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
+              <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
+          </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+```
+
+```css
+# app/styles/app.scss
+@import 'bootstrap';
+
+body {
+  padding-top: 20px;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+.library-item {
+  min-height: 150px;
+}
+```
+
+If you would try to launch the app now, probably you will get an error message, because we haven't implemented `edit` route yet, and the delete `action` is missing also. Let's implement these.
+
+#### Duplicate some code, create edit.js and edit.hbs
+
+Add manually the new `edit` route to `router.js`. We setup a unique `path:` in the second parameter of `this.route()`. Because there is a `:` sign before the `library_id`, that part of the url will be copied in that variable as route param, and we can use it in our routes. For example, if the url is `http://example.com/libraries/1234/edit`, than `1234` will be passed as a param to route, so we can use in that route to download the model.
+
+```javascript
+// app/router.js
+import Ember from 'ember';
+import config from './config/environment';
+
+var Router = Ember.Router.extend({
+  location: config.locationType
+});
+
+Router.map(function() {
+  this.route('about');
+  this.route('contact');
+
+  this.route('admin', function() {
+    this.route('invitations');
+    this.route('contacts');
+  });
+  this.route('libraries', function() {
+    this.route('new');
+    this.route('edit', { path: '/:library_id/edit' });
+  });
+});
+
+export default Router;
+```
+
+After we inserted this extra line in our router, time to create our `app/routes/libraries/edit.js`. You can use ember-cli or you can create manually. The code should looks like the following. More explanation below. (In this code, I use ES5 syntax, but later I will prefer ES6. If you would like you can use ES6 already.)
+
+```javascript
+// app/routes/libraries/edit.js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  model: function (params) {
+    return this.store.findRecord('library', params.library_id);
+  },
+
+  actions: {
+
+    saveLibrary: function (newLibrary) {
+      var _that = this;
+
+      newLibrary.save().then(function (response) {
+        _that.transitionTo('libraries');
+      })
+    },
+
+    willTransition: function (transition) {
+
+      var model = this.controller.get('model');
+
+      if (model.get('hasDirtyAttributes')) {
+        var confirmation = confirm("Your changes haven't saved yet. Would you like to leave this form?");
+
+        if (confirmation) {
+          model.rollbackAttributes();
+        } else {
+          transition.abort();
+        }
+      }
+    }
+  }
+});
+```
+
+More things happening in this file.
+
+First of all, in the `model` function, we have a `params` parameter. This params will get from the url that id. Simply, we can use it with `params.library_id`. The `this.store.findRecord('library', params.library_id);` line download only one record from the server with the given `id`. The `id` comes from the url.
+
+We added two actions as well. The first will save the changes and after redirect to the main `libraries` page.
+
+The second event-action will be called, when we are leaving this page, because we redirected from the previous action or the user clicked in a link on the website. In the first case, the changes already saved, but in the second case, it could happen, that the user modified something in the form, and haven't saved. It is a typical "dirty checking". We can read the `model` from the controller, we use Ember Model's `hasDirtyAttributes` computed property to check something changed in the model. So we popup an ugly confirmation window. If the user would like to leave the page, we just rollback changes with `model.rollbackAttributes()`. If the user would like to stay in the page we abort the transition with `transition.abort()`. You can see, that we use `transition` variable which is initiated as a param in `willTransition` function. Ember.js automatically provides this for us.
+
+Our template is still missing. Let's use our `new.hbs` and duplicate the code in `edit.hbs` with a little changes. We will fix this problem later with components, because code duplication is not nice.
+
+```html
+<h2>Edit Library</h2>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          {{input type="text" value=model.name class="form-control" placeholder="The name of the Library"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Address</label>
+        <div class="col-sm-10">
+          {{input type="text" value=model.address class="form-control" placeholder="The address of the Library"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Phone</label>
+        <div class="col-sm-10">
+          {{input type="text" value=model.phone class="form-control" placeholder="The phone number of the Library"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" {{action 'saveLibrary' model}}>Save changes</button>
+        </div>
+    </div>
+</div>
+```
+
+If you launch your app, it should work, and you are able to edit the information from a library. You can check what is happening if you modify the data in the form, but finally click in a link somewhere without saving.
+
+#### Add delete action
+
+The delete action is still missing. Let's update `app/routes/libraries/index.js`
+
+```
+// app/routes/libraries/index.js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  model: function() {
+    return this.store.findAll('library');
+  },
+
+  actions: {
+    deleteLibrary: function(library) {
+      var confirmation = confirm('Are you sure?');
+
+      if (confirmation) {
+        library.destroyRecord();
+      }
+    }
+  }
+
+})
+```
+
+Homework: You can add delete buttons to your lists on Admin pages, so you can delete invitations and contact messages. It would be nice improvement as well if you could clean up `app/controllers/index.js` and add `createRecord` in `app/routes/index.js`. It would be similar to `libraries/new` section.
