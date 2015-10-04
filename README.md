@@ -79,7 +79,7 @@ If you see something similar when you run `bower update`
 
 Select the number with `ember#2.0 which resolved to 2.0.2 and is required by library-app`, in this case the answer is `!3` and hit enter. (`2.0.2` could be different, because there could be newer version later.)
 
-Launch or relaunch your application with `ember server` or with `ember s` and check the verision number in browser console.
+Launch or relaunch your application with `ember server` or with `ember s` and check the version number in browser console.
 
 ### Turn on a couple of debugging option
 
@@ -948,7 +948,7 @@ And deploy:
 Other great hosting service for deployment is [www.divshot.com](http://www.divshot.com). [More about Ember.js app deployment on Divshot.](https://docs.divshot.com/integrations/emberjs)
 
 
-### Add Delete and Edit button and Edit route
+### Add Delete, Edit button and Edit route
 
 #### Upgrading library list view to grid view
 
@@ -1073,7 +1073,7 @@ First of all, in the `model` function, we have a `params` parameter. This params
 
 We added two actions as well. The first will save the changes and after redirect to the main `libraries` page.
 
-The second event-action will be called, when we are leaving this page, because we redirected from the previous action or the user clicked in a link on the website. In the first case, the changes already saved, but in the second case, it could happen, that the user modified something in the form, and haven't saved. It is a typical "dirty checking". We can read the `model` from the controller, we use Ember Model's `hasDirtyAttributes` computed property to check something changed in the model. So we popup an ugly confirmation window. If the user would like to leave the page, we just rollback changes with `model.rollbackAttributes()`. If the user would like to stay in the page we abort the transition with `transition.abort()`. You can see, that we use `transition` variable which is initiated as a param in `willTransition` function. Ember.js automatically provides this for us.
+The second event-action will be called, when we are trying to leave this page, because we redirected from the previous action or the user clicked in a link on the website. In the first case, the changes already saved, but in the second case, it could happen, that the user modified something in the form, and haven't saved. It is a typical "dirty checking". We can read the `model` from the controller, we use Ember Model's `hasDirtyAttributes` computed property to check something changed in the model. So we popup an ugly confirmation window. If the user would like to leave the page, we just rollback changes with `model.rollbackAttributes()`. If the user would like to stay in the page we abort the transition with `transition.abort()`. You can see, that we use `transition` variable which is initiated as a param in `willTransition` function. Ember.js automatically provides this for us.
 
 Our template is still missing. Let's use our `new.hbs` and duplicate the code in `edit.hbs` with a little changes. We will fix this problem later with components, because code duplication is not nice.
 
@@ -1113,7 +1113,7 @@ If you launch your app, it should work, and you are able to edit the information
 
 The delete action is still missing. Let's update `app/routes/libraries/index.js`
 
-```
+```javascript
 // app/routes/libraries/index.js
 import Ember from 'ember';
 
@@ -1136,4 +1136,52 @@ export default Ember.Route.extend({
 })
 ```
 
-Homework: You can add delete buttons to your lists on Admin pages, so you can delete invitations and contact messages. It would be nice improvement as well if you could clean up `app/controllers/index.js` and add `createRecord` in `app/routes/index.js`. It would be similar to `libraries/new` section.
+###Homework
+
+You can add delete buttons to your lists on Admin pages, so you can delete invitations and contact messages. It would be nice improvement as well if you could clean up `app/controllers/index.js` and add `createRecord` in `app/routes/index.js`. It would be similar to `libraries/new` section.
+
+## Lesson 5
+
+### We can update our project to Ember.js 2.1
+
+It is extreamly simple, what you have to update the version number in `bower.json` and `package.json`. After that, you have to run npm and bower update. It is a good practice to clean up the cache of npm and bower, because it could cause conflicts.
+
+In `package.json`, you should have the following line:
+
+```
+    "ember-data": "2.1",
+```
+
+And `bower.json`:
+
+```json
+{
+  "name": "library-app",
+  "dependencies": {
+    "ember": "2.1",
+    "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
+    "ember-cli-test-loader": "ember-cli-test-loader#0.1.3",
+    "ember-data": "2.1",
+    "ember-load-initializers": "ember-cli/ember-load-initializers#0.1.5",
+    "ember-qunit": "0.4.9",
+    "ember-qunit-notifications": "0.0.7",
+    "ember-resolver": "~0.1.18",
+    "jquery": "^1.11.3",
+    "loader.js": "ember-cli/loader.js#3.2.1",
+    "qunit": "~1.18.0",
+    "bootstrap-sass": "~3.3.5",
+    "firebase": "^2.1.0"
+  },
+  "resolutions": {
+    "ember": "2.1"
+  }
+}
+```
+
+Please note, that we use `resolutions` section as well.
+
+In your console run the following command:
+
+```
+npm cache clean && bower cache clean && npm update && bower update
+```
