@@ -1185,3 +1185,190 @@ In your console run the following command:
 ```
 npm cache clean && bower cache clean && npm update && bower update
 ```
+
+### Cleaning up our templates with components
+
+First of all, please read more about Components in Ember.js Guide: http://guides.emberjs.com/v2.1.0/components/defining-a-component/
+
+We can generate a component with `ember g component` command. Let's create two components. First for library panel and one for forms.
+
+```
+ember g component library-item
+ember g component library-item-form
+```
+
+Each command generates a javascript file and a handlebar file. Javascript part sits in `app/components` folder, the template in `app/templates/components`.
+
+We can insert the following code in the `library-item` template.
+
+```html
+<!-- app/templates/components/library-item.hbs -->
+<div class="panel panel-default library-item">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{item.name}}</h3>
+    </div>
+    <div class="panel-body">
+        <p>Address: {{item.address}}</p>
+        <p>Phone: {{item.phone}}</p>
+    </div>
+    <div class="panel-footer text-right">
+      {{yield}}
+    </div>
+</div>
+```
+
+You can see, that this code is quite similar what we have in `app/templates/libraries/index.hbs`, however instead of `model` we use `item`.
+
+The most important concept in terms of components, that they are totally independent from the context. They don't know more, only that what they originally have and what passed inside with attributes.
+
+We have a `{{yield}}` which means, that we can use this componenet as a block component. The code which wrapped with this component will be injected there.
+
+For example:
+
+```html
+     {{#library-item item=model}}
+        Closed
+     {{/library-item}}
+```
+
+In this case the `Closed` text will appear in the panel footer.
+
+Let's add html to our `library-item-form` component as well.
+
+```html
+<!-- app/templates/components/library-item-form.hbs -->
+<div class="form-horizontal">
+    <div class="form-group has-feedback {{if item.isValid 'has-success'}}">
+        <label class="col-sm-2 control-label">Name*</label>
+        <div class="col-sm-10">
+          {{input type="text" value=item.name class="form-control" placeholder="The name of the Library"}}
+          {{#if item.isValid}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Address</label>
+        <div class="col-sm-10">
+          {{input type="text" value=item.address class="form-control" placeholder="The address of the Library"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Phone</label>
+        <div class="col-sm-10">
+          {{input type="text" value=item.phone class="form-control" placeholder="The phone number of the Library"}}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" {{action 'buttonClicked' item}} disabled="{{unless item.isValid 'disabled'}}">{{buttonLabel}}</button>
+        </div>
+    </div>
+</div>
+```
+
+This code is almos the same what we used more times in our form in `libraries/new.hbs` and in `libraries/edit.hbs` templates.
+
+Some tiny improvement, that we can add a little validation to our `library` model. Please update `app/models/library.js` with a basic validation, where we check that the `name` is not empty.
+
+```js
+import DS from 'ember-data';
+
+export default DS.Model.extend({
+  name: DS.attr('string'),
+  address: DS.attr('string'),
+  phone: DS.attr('string'),
+
+  isValid: Ember.computed.notEmpty('name')
+});
+```
+
+Time to clean up our templates.
+
+Using the `library-item` component in `app/templates/libraries/index.hbs` reduce the code and change our template more clearer.
+
+```html
+<h2>List</h2>
+<div class="row">
+  {{#each model as |library|}}
+    <div class="col-md-4">
+      {{#library-item item=library}}
+        {{#link-to 'libraries.edit' library.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
+        <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
+      {{/library-item}}
+    </div>
+  {{/each}}
+</div>
+```
+
+We iterate our `model` and we pass deeper in the component that `library` local variable as `item`. The component's variable is always on the left side.
+
+Because this componenet is a block componenet, we can add some extra content to the library item footer. In this case, we add an Edit and a Delete button.
+
+You can check your project, you should see the same as before on the Libraries list page, however, the code is cleaner and we have a componenet, what we can reuse somewhere else as well.
+
+Update our `app/templates/libraries/new.hbs`.
+
+```html
+<!-- app/templates/libraries/new.hbs -->
+<h2>Add a new local Library</h2>
+
+<div class="row">
+
+  <div class="col-md-6">
+
+      {{library-item-form item=model buttonLabel='Add to library list' action='saveLibrary'}}
+
+  </div>
+
+  <div class="col-md-4">
+
+      {{#library-item item=model}}
+          <br/>
+      {{/library-item}}
+
+  </div>
+
+</div>
+```
+
+Update `app/templates/libraries/edit.hbs`.
+
+```html
+<h2>Edit Library</h2>
+
+<div class="row">
+    <div class="col-md-6">
+
+      {{library-item-form item=model buttonLabel='Save changes' action='saveLibrary'}}
+
+    </div>
+
+    <div class="col-md-4">
+
+      {{#library-item item=model}}
+        <br/>
+      {{/library-item}}
+
+    </div>
+
+</div>
+```
+
+Add action to `library-item-form.js`
+
+```javascript
+import Ember from 'ember';
+
+export default Ember.Component.extend({
+  buttonLabel: 'Save',
+
+  actions: {
+    buttonClicked: function(param){
+      this.sendAction('action', param);
+    }
+  }
+});
+```
+
+* Merge edit.hbs and new.hbs to form.hbs and use `renderTemplate()`
+* Setup some controller property (header, button label) in `setupController(controller, model)`
+* Creating modal component
