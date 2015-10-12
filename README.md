@@ -1371,4 +1371,8 @@ export default Ember.Component.extend({
 
 * Merge edit.hbs and new.hbs to form.hbs and use `renderTemplate()`
 * Setup some controller property (header, button label) in `setupController(controller, model)`
+* Create a tiny bootstrap `nav-link-to` component for `<li><a></a></li>`
+
+## Lesson 6
+
 * Creating modal component
