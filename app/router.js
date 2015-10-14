@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('admin', function() {
     this.route('invitations');
     this.route('contacts');
+    this.route('seeder');
   });
   this.route('libraries', function() {
     this.route('new');

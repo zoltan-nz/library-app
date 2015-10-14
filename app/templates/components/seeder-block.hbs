@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>{{sectionTitle}}</h3>
+
+    <table class="table table-bordered">
+      <tbody>
+      <tr>
+        <td>
+          {{modelName}} records:
+        </td>
+        <td>
+          {{length}}
+        </td>
+        <td>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="vertical-align-middle">
+          How many new records would you like to generate?
+        </td>
+
+        <td>
+          {{input value=counter class='form-control'}}
+        </td>
+
+        <td>
+          <button class="btn btn-primary" {{action 'generateAction'}}>Generate {{sectionTitle}}</button>
+          {{#fader-label isShowing=createReady}}Created!{{/fader-label}}
+          <button class="btn btn-danger" {{action 'deleteAction'}}>Delete All {{sectionTitle}}</button>
+          {{#fader-label isShowing=deleteReady}}Deleted!{{/fader-label}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

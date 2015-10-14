@@ -13,7 +13,8 @@
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
     "bootstrap-sass": "~3.3.5",
-    "firebase": "^2.1.0"
+    "firebase": "^2.1.0",
+    "Faker": "~3.0.1"
   },
   "resolutions": {
     "ember": "2.1"

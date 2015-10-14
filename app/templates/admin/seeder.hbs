@@ -1,0 +1,25 @@
+<h1>Seed some data</h1>
+
+<p>Number of books: {{books.length}}</p>
+
+{{seeder-block
+    sectionTitle='Libraries'
+    modelName='Library'
+    length=libraries.length
+    counter=librariesCounter
+    generateAction='generateLibraries'
+    deleteAction='deleteLibraries'
+    createReady=libDone
+    deleteReady=libDelDone
+}}
+
+{{seeder-block
+  sectionTitle='Authors with Books'
+  modelName='Author'
+  length=authors.length
+  counter=authorCounter
+  generateAction='generateBooksAndAuthors'
+  deleteAction='deleteBooksAndAuthors'
+  createReady=authDone
+  deleteReady=authDelDone
+}}
