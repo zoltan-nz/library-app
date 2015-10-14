@@ -24,7 +24,6 @@ export default Ember.Controller.extend({
 
     deleteLibraries() {
       this._destroyAll(this.get('libraries'));
-      const libraries = this.get('libraries');
 
       this.set('libDelDone', true);
     },
@@ -36,7 +35,7 @@ export default Ember.Controller.extend({
         let newAuthor = this.store.createRecord('author');
         newAuthor.randomize()
           .save().then(() => {
-             if (i == counter-1) {
+             if (i === counter-1) {
                this.set('authorCounter', 0);
                this.set('authDone', true);
              }
@@ -61,19 +60,25 @@ export default Ember.Controller.extend({
     const bookCounter = Faker.random.number(10);
 
     for (let j = 0; j < bookCounter; j++) {
+      const library = this._selectRandomLibrary();
       this.store.createRecord('book')
-        .randomize(author, this._selectRandomLibrary())
-        .save()
+        .randomize(author, library)
+        .save();
+      author.save();
+      library.save();
     }
   },
 
   _selectRandomLibrary() {
     const libraries = this.get('libraries');
     const librariesCounter = libraries.get('length');
-    const randomNumber = Faker.random.number(librariesCounter);
 
-    // You can convert any Ember Data record list to basic javascript array with .toArray()
-    return libraries.toArray()[randomNumber];
+    // Create a new array form ids
+    const libraryIds = libraries.map((lib) => {return lib.get('id')});
+    const randomNumber = Faker.random.number(librariesCounter-1);
+
+    const randomLibrary = libraries.findBy('id', libraryIds[randomNumber]);
+    return randomLibrary;
   },
 
   _destroyAll(records) {

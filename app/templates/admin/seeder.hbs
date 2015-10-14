@@ -1,6 +1,10 @@
-<h1>Seed some data</h1>
+<h1>Seeder, our Data Center</h1>
 
-<p>Number of books: {{books.length}}</p>
+<div class="row">
+  <div class="col-md-4">{{number-box title="Libraries" numbers=libraries.length}}</div>
+  <div class="col-md-4">{{number-box title="Authors" numbers=authors.length}}</div>
+  <div class="col-md-4">{{number-box title="Books" numbers=books.length}}</div>
+</div>
 
 {{seeder-block
     sectionTitle='Libraries'

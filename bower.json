@@ -9,11 +9,11 @@
     "ember-qunit": "0.4.9",
     "ember-qunit-notifications": "0.0.7",
     "ember-resolver": "~0.1.18",
-    "jquery": "^1.11.3",
+    "jquery": "^2.1.4",
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
     "bootstrap-sass": "~3.3.5",
-    "firebase": "^2.1.0",
+    "firebase": "^2.3.1",
     "Faker": "~3.0.1"
   },
   "resolutions": {

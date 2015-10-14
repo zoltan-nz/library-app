@@ -2,9 +2,9 @@
 <div class="row">
   {{#each model as |library|}}
     <div class="col-md-4">
-      {{#library-item item=library}}
+      {{#library-item item=library badge=library.books.length}}
         {{#link-to 'libraries.edit' library.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
-          <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
+        <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
       {{/library-item}}
     </div>
   {{/each}}
