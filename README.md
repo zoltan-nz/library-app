@@ -8,6 +8,15 @@ Ember.js 2.0 tutorial for absolute beginners. (Work in progress.)
 * Bookstore Client (Ember.js): https://github.com/szines/bookstore-client
 * Contacts App Client (Ember.js): https://github.com/szines/contacts-app-client
 
+## Contents
+
+* [Lesson 1](#user-content-lesson-1)
+* [Lesson 2](#user-content-lesson-2)
+* [Lesson 3](#user-content-lesson-3)
+* [Lesson 4](#user-content-lesson-4)
+* [Lesson 5](#user-content-lesson-5)
+* [Lesson 6](#user-content-lesson-6)
+
 ## Prerequisites
 
 * node.js 0.12.0 or newer
@@ -1369,10 +1378,512 @@ export default Ember.Component.extend({
 });
 ```
 
-* Merge edit.hbs and new.hbs to form.hbs and use `renderTemplate()`
-* Setup some controller property (header, button label) in `setupController(controller, model)`
-* Create a tiny bootstrap `nav-link-to` component for `<li><a></a></li>`
+### Merging `edit.hbs` and `new.hbs` to `form.hbs` and use `renderTemplate()` and `setupController()`
+
+As you can see `edit.hbs` and `new.hbs` are almost the same, so we can use the same template in both route.
+
+Let's create a `form.hbs` which will be our common template in Edit and in New page.
+
+```html
+<!-- /app/templates/libraries/form.hbs -->
+<h2>{{title}}</h2>
+
+<div class="row">
+    <div class="col-md-6">
+      {{library-item-form item=model buttonLabel=buttonLabel action='saveLibrary'}}
+    </div>
+
+    <div class="col-md-4">
+      {{#library-item item=model}}
+        <br/>
+      {{/library-item}}
+    </div>
+
+</div>
+```
+
+For using the above common template, we have to do two things. Firstly we have to set `title` and `buttonLabel` params in our controllers, secondly we have to determine somehow, that our template is not the conventional template, we would like to use something unique. Setting controller params in a Route, we can use `setupController` hook, determining a unique template, we can use `renderTemplate` hook.
+
+With the new two hooks our `app/routes/libraries/new.js` would look like this:
+
+```javascript
+// app/routes/libraries/new.js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  model: function () {
+    return this.store.createRecord('library');
+  },
+
+  setupController: function (controller, model) {
+    this._super(controller, model);
+
+    controller.set('title', 'Create a new library');
+    controller.set('buttonLabel', 'Create');
+  },
+
+  renderTemplate(controller, model) {
+    this.render('libraries/form');
+  },
+
+  actions: {
+    saveLibrary: function (newLibrary) {
+      var _that = this;
+
+      newLibrary.save().then(function (response) {
+        _that.transitionTo('libraries');
+      })
+    },
+
+    willTransition: function (transition) {
+      var model = this.controller.get('model');
+      if (model.get('isNew')) {
+        model.destroyRecord();
+      }
+    }
+  }
+});
+```
+
+And our `edit.js`
+
+```javascript
+// app/routes/libraries/edit.js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  model: function (params) {
+    return this.store.findRecord('library', params.library_id);
+  },
+
+  setupController: function (controller, model) {
+    this._super(controller, model);
+
+    controller.set('title', 'Edit library');
+    controller.set('buttonLabel', 'Save changes');
+  },
+
+  renderTemplate(controller, model) {
+    this.render('libraries/form');
+  },
+
+  actions: {
+
+    saveLibrary: function (newLibrary) {
+      var _that = this;
+
+      newLibrary.save().then(function (response) {
+        _that.transitionTo('libraries');
+      })
+    },
+
+    willTransition: function (transition) {
+
+      var model = this.controller.get('model');
+
+      if (model.get('hasDirtyAttributes')) {
+        var confirmation = confirm("Your changes haven't saved yet. Would you like to leave this form?");
+
+        if (confirmation) {
+          model.rollbackAttributes();
+        } else {
+          transition.abort();
+        }
+      }
+    }
+  }
+});
+```
+You can delete the `edit.hbs` and `new.hbs` from `app/templates/libraries/` folder. We don't need them anymore.
+
+More information about `setupController`: http://emberjs.com/api/classes/Ember.Route.html#method_setupController
+
+More information about `renderTemplate`: http://emberjs.com/api/classes/Ember.Route.html#method_renderTemplate
+
+### Create a tiny bootstrap `nav-link-to` component for `<li><a></a></li>`
+
+Time to clean up our navigation template. We can create a nice component to manage bootstrap navbar links properly.
+
+Open your terminal and generate a new component with `ember-cli`.
+
+`ember g component nav-link-to`
+
+Because we would like just slightly modify the main `LinkComponent`, we should just `extend` that class. There is a `tagName` property, which determines the main tag of a component.
+
+Update `app/components/nav-link-to.js`:
+
+```javascript
+// app/components/nav-link-to.js
+import Ember from 'ember';
+
+export default Ember.LinkComponent.extend({
+  tagName: 'li'
+});
+```
+Note: don't forget to rewrite `Ember.Component.extend` to `Ember.LinkComponent.extend`.
+
+Our connected template will be the following:
+
+```html
+<!-- app/templates/components/nav-link-to.hbs -->
+<a href="">{{yield}}</a>
+```
+
+After that we are ready to use our component and we can update our `navbar.hbs`.
+
+```html
+<!-- app/templates/navbar.hbs -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {{#link-to 'index' class="navbar-brand"}}Library App{{/link-to}}
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav">
+            {{#nav-link-to 'index'}}Home{{/nav-link-to}}
+            {{#nav-link-to 'libraries'}}Libraries{{/nav-link-to}}
+            {{#nav-link-to 'about'}}About{{/nav-link-to}}
+            {{#nav-link-to 'contact'}}Contact{{/nav-link-to}}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  {{#nav-link-to 'admin.invitations'}}Invitations{{/nav-link-to}}
+                  {{#nav-link-to 'admin.contacts'}}Contacts{{/nav-link-to}}
+              </ul>
+          </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+```
 
 ## Lesson 6
 
-* Creating modal component
+In this lesson we extend our models with `book` and `author`. Setup relation between models. We create a new page, where we using an external js library to generate dummy data to fill up our database automatically.
+
+### Creating some new models and setup relations
+
+In our simple World, we have Libraries. We have Authors, whoes could have a couple of books, however a book only could be in one Library. And one book has only one Author.
+
+To generate new models we use `ember-cli`.
+
+Run the followings in your terminal.
+
+```
+ember g model book title:string releaseYear:date library:belongsTo author:belongsTo
+
+ember g model author name:string books:hasMany
+```
+
+Add `hasMany` relation to `library` model manually.
+
+```javascript
+import DS from 'ember-data';
+
+export default DS.Model.extend({
+  name: DS.attr('string'),
+  address: DS.attr('string'),
+  phone: DS.attr('string'),
+
+  books: DS.hasMany('books'),
+
+  isValid: Ember.computed.notEmpty('name'),
+});
+```
+
+### Create a new Admin page 'Seeder' and download all models in the same route.
+
+Create a new page using `ember-cli` in your terminal:
+
+```
+ember g route admin/seeder
+```
+
+#### Using `Ember.RSVP.hash()` for downloading more models in the same route
+
+For downloading more models in the same route we have to use `Ember.RSVP.hash()` function in `model` hook.
+
+`RSVP.hash` wraps more promises and return a nicely structured hashed object. More information: http://emberjs.com/api/classes/RSVP.html#method_hash
+
+```javascript
+// app/routes/admin/seeder.js
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  model() {
+    return Ember.RSVP.hash({
+      libraries: this.store.findAll('library'),
+      books: this.store.findAll('book'),
+      authors: this.store.findAll('author')
+    })
+  },
+
+  setupController(controller, model) {
+    controller.set('libraries', model.libraries);
+    controller.set('books', model.books);
+    controller.set('authors', model.authors);
+  }
+});
+```
+
+RSVP tries to download all model, it will return with fullfield state only if all three download were successfull.
+
+In the `setupController` hook, we split the model and setup new controller properties.
+
+### Little summary about route`s hooks
+
+You already use a couple of hook in routes, which will be called in ceartain sequence.
+
+You can play with it and have a little experiment in one of your route.
+
+```javascript
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  init() {
+    debugger
+  },
+
+  beforeModel(transition) {
+    debugger;
+  }
+
+  model(params, transition) {
+    debugger;
+  },
+
+  afterModel(model, transition) {
+    debugger;
+  },
+
+  activate() {
+    debugger;
+  },
+
+  setupController(controller, model) {
+    debugger;
+  },
+
+  renderTemplate(controller, model) {
+    debugger;
+  }
+});
+```
+
+If you visit the route, where your above experiment code was insterted, and you open inspector console in your web browser, the code will stop for debugging in each call. You can see what is the sequence of hooks. The above code follows the pattern.
+
+1. `init()` http://emberjs.com/api/classes/Ember.Route.html#method_init
+2. `beforeModel(transition)` http://emberjs.com/api/classes/Ember.Route.html#method_beforeModel
+3. `model(params, transition)` http://emberjs.com/api/classes/Ember.Route.html#method_model
+4. `afterModel(model, transition)` http://emberjs.com/api/classes/Ember.Route.html#method_afterModel
+5. `activate()` http://emberjs.com/api/classes/Ember.Route.html#method_activate
+6. `setupController(controller, model)` http://emberjs.com/api/classes/Ember.Route.html#method_setupController
+7. `renderTemplate(controller, model)` http://emberjs.com/api/classes/Ember.Route.html#method_renderTemplate
+
+### Create number boxes on Admin/Seeder page to see how much data we have in our database
+
+We use a `number-box` component for visualizing numbers on our page. Let's create our fancy component.
+
+```
+ember g component number-box
+```
+
+Setup css classes in the component controller.
+
+```javascript
+// app/components/number-box.js
+import Ember from 'ember';
+
+export default Ember.Component.extend({
+
+  classNames: ['panel', 'panel-warning']
+
+});
+```
+
+And a little html in our component template:
+
+```html
+<!-- app/templates/components/number-box.hbs -->
+<div class="panel-heading">
+  <h3 class="text-center">{{title}}</h3>
+  <h1 class="text-center">{{if number number '...'}}</h1>
+</div>
+
+```
+
+As you see, we can pass in our component two attributes: `title`, `number`.
+If we have something in `number` shows that, if not shows three dots.
+
+Our template is ready, we can use it in our `app/templates/admin/seeder.hbs`
+
+```html
+<!-- app/templates/admin/seeder.hbs -->
+<h1>Seeder, our Data Center</h1>
+
+<div class="row">
+  <div class="col-md-4">{{number-box title="Libraries" number=libraries.length}}</div>
+  <div class="col-md-4">{{number-box title="Authors" number=authors.length}}</div>
+  <div class="col-md-4">{{number-box title="Books" number=books.length}}</div>
+</div>
+```
+
+If you open your browser now, you will see three boxes with numbers or with three dots. Remember, we setup `libraries`, `authors` and `books` property in our `setupController` hook, if our `model` hook downloaded our data from the server, those variables are not empty. `.length` method will return a number of the size of that array.
+
+### Building forms to generate dummy data.
+
+We have to generate two other components what we gonna use in this page. Actually we will use only one component, but inside that component we will use an other component.
+
+Run `ember-cli` commands in your terminal.
+
+```
+ember g component seeder-block
+ember g component fader-label
+```
+
+Insert the following codes in your templates.
+
+```javascript
+// app/components/seeder-block.js
+import Ember from 'ember';
+
+export default Ember.Component.extend({
+
+  actions: {
+    generateAction() {
+      this.sendAction('generateAction');
+    },
+
+    deleteAction() {
+      this.sendAction('deleteAction');
+    }
+  }
+});
+```
+
+```html
+<!-- app/templates/components/seeder-block.hbs -->
+<div class="row">
+  <div class="col-md-12">
+    <h3>{{sectionTitle}}</h3>
+
+    <div class="row">
+      <div class="form-horizontal">
+        <label class="col-sm-2 control-label">Number of new records:</label>
+        <div class="col-sm-2">
+          {{input value=counter class='form-control'}}
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-primary" {{action 'generateAction'}}>Generate {{sectionTitle}}</button>
+          {{#fader-label isShowing=createReady}}Created!{{/fader-label}}
+        </div>
+        <div class="col-sm-4">
+          <button class="btn btn-danger" {{action 'deleteAction'}}>Delete All {{sectionTitle}}</button>
+          {{#fader-label isShowing=deleteReady}}Deleted!{{/fader-label}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+```
+
+```javascript
+// app/components/fader-label.js
+import Ember from 'ember';
+
+export default Ember.Component.extend({
+  tagName: 'span',
+
+  classNames: ['label label-success label-fade'],
+  classNameBindings: ['isShowing:label-show'],
+
+  isShowing: false,
+
+  isShowingChanged: Ember.observer('isShowing', function() {
+    Ember.run.later(() => {
+      this.set('isShowing', false);
+    }, 3000);
+  })
+});
+
+```
+
+```html
+<!-- app/templates/components/fader-label.hbs -->
+{{yield}}
+```
+
+We need also a little scss snippet.
+
+```css
+// app/styles/app.scss
+@import 'bootstrap';
+
+body {
+  padding-top: 20px;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+.library-item {
+  min-height: 150px;
+}
+
+.label-fade {
+  opacity: 0;
+  @include transition(all 0.5s);
+  &.label-show {
+    opacity: 1;
+  }
+}
+
+```
+
+We have our components, let's insert them in `seeder.hbs`
+
+```html
+<!-- app/templates/admin/seeder.hbs -->
+<h1>Seeder, our Data Center</h1>
+
+<div class="row">
+  <div class="col-md-4">{{number-box title="Libraries" number=libraries.length}}</div>
+  <div class="col-md-4">{{number-box title="Authors" number=authors.length}}</div>
+  <div class="col-md-4">{{number-box title="Books" number=books.length}}</div>
+</div>
+
+{{seeder-block
+    sectionTitle='Libraries'
+    counter=librariesCounter
+    generateAction='generateLibraries'
+    deleteAction='deleteLibraries'
+    createReady=libDone
+    deleteReady=libDelDone
+}}
+
+{{seeder-block
+  sectionTitle='Authors with Books'
+  counter=authorCounter
+  generateAction='generateBooksAndAuthors'
+  deleteAction='deleteBooksAndAuthors'
+  createReady=authDone
+  deleteReady=authDelDone
+}}
+```
