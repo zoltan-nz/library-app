@@ -74,7 +74,7 @@ export default Ember.Controller.extend({
     const librariesCounter = libraries.get('length');
 
     // Create a new array form ids
-    const libraryIds = libraries.map((lib) => {return lib.get('id')});
+    const libraryIds = libraries.map((lib) => {return lib.get('id');});
     const randomNumber = Faker.random.number(librariesCounter-1);
 
     const randomLibrary = libraries.findBy('id', libraryIds[randomNumber]);

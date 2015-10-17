@@ -19,7 +19,7 @@ export default DS.Model.extend({
   },
 
   _bookTitle() {
-    return `${Faker.commerce.productName()} Cookbook`
+    return `${Faker.commerce.productName()} Cookbook`;
   },
 
   _randomYear() {

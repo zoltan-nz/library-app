@@ -1611,6 +1611,75 @@ Create a new page using `ember-cli` in your terminal:
 ember g route admin/seeder
 ```
 
+Check `router.js`. A new route should be there which point to `seeder`.
+
+```javascript
+// app/router.js
+import Ember from 'ember';
+import config from './config/environment';
+
+var Router = Ember.Router.extend({
+  location: config.locationType
+});
+
+Router.map(function() {
+  this.route('about');
+  this.route('contact');
+
+  this.route('admin', function() {
+    this.route('invitations');
+    this.route('contacts');
+    this.route('seeder');
+  });
+  this.route('libraries', function() {
+    this.route('new');
+    this.route('edit', { path: '/:library_id/edit' });
+  });
+});
+
+export default Router;
+```
+
+Extend your `navbar.hbs` with the new page.
+
+```html
+<!-- app/templates/navbar.hbs -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {{#link-to 'index' class="navbar-brand"}}Library App{{/link-to}}
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav">
+            {{#nav-link-to 'index'}}Home{{/nav-link-to}}
+            {{#nav-link-to 'libraries'}}Libraries{{/nav-link-to}}
+            {{#nav-link-to 'about'}}About{{/nav-link-to}}
+            {{#nav-link-to 'contact'}}Contact{{/nav-link-to}}
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  {{#nav-link-to 'admin.invitations'}}Invitations{{/nav-link-to}}
+                  {{#nav-link-to 'admin.contacts'}}Contacts{{/nav-link-to}}
+                  {{#nav-link-to 'admin.seeder'}}Seeder{{/nav-link-to}}
+              </ul>
+          </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+```
+
+
 #### Using `Ember.RSVP.hash()` for downloading more models in the same route
 
 For downloading more models in the same route we have to use `Ember.RSVP.hash()` function in `model` hook.
@@ -1886,4 +1955,197 @@ We have our components, let's insert them in `seeder.hbs`
   createReady=authDone
   deleteReady=authDelDone
 }}
+```
+### Install `faker.js` for dummy data
+
+To generate dummy data we have to install `faker.js`. https://github.com/johnotander/ember-faker
+
+```
+ember install ember-faker
+```
+
+We import `faker` in our models, where we extend each of our models with a `randomize()` function for generating dummy data.
+
+Update your models with the followings.
+
+```javascript
+// app/models/library.js
+import DS from 'ember-data';
+import Faker from 'faker';
+
+export default DS.Model.extend({
+  name: DS.attr('string'),
+  address: DS.attr('string'),
+  phone: DS.attr('string'),
+
+  books: DS.hasMany('book', {inverse: 'library', async: true}),
+
+  isValid: Ember.computed.notEmpty('name'),
+
+  randomize() {
+    this.set('name', Faker.company.companyName() + ' Library');
+    this.set('address', this._fullAddress());
+    this.set('phone', Faker.phone.phoneNumber());
+
+    // If you would like to use in chain.
+    return this;
+  },
+
+  _fullAddress() {
+    return `${Faker.address.streetAddress()}, ${Faker.address.city()}`;
+  }
+});
+
+```
+
+```javascript
+// app/models/book.js
+import DS from 'ember-data';
+import Faker from 'faker';
+
+export default DS.Model.extend({
+
+  title:        DS.attr('string'),
+  releaseYear:  DS.attr('date'),
+
+  author:       DS.belongsTo('author', {inverse: 'books', async: true}),
+  library:      DS.belongsTo('library', {inverse: 'books', async: true}),
+
+  randomize(author, library) {
+    this.set('title', this._bookTitle());
+    this.set('author', author);
+    this.set('releaseYear', this._randomYear());
+    this.set('library', library);
+
+    return this;
+  },
+
+  _bookTitle() {
+    return `${Faker.commerce.productName()} Cookbook`;
+  },
+
+  _randomYear() {
+    return new Date(this._getRandomArbitrary(1900, 2015));
+  },
+
+  _getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+});
+
+```
+
+```javascript
+// app/models/author.js
+import DS from 'ember-data';
+import Faker from 'faker';
+
+export default DS.Model.extend({
+
+  name: DS.attr('string'),
+
+  books: DS.hasMany('book', {inverse: 'author'}),
+
+  randomize() {
+    this.set('name', Faker.name.findName());
+    return this;
+  }
+
+});
+```
+
+We will implement our actions in our controller.
+
+```javascript
+// app/controllers/admin/seeder.js
+import Ember from 'ember';
+import Faker from 'faker';
+
+export default Ember.Controller.extend({
+
+  libraries: [],
+  books: [],
+  authors: [],
+
+  actions: {
+
+    generateLibraries() {
+      const counter = parseInt(this.get('librariesCounter'));
+
+      for (let i = 0; i < counter; i++) {
+        this.store.createRecord('library').randomize().save().then(() => {
+          if (i === counter-1) {
+            this.set('librariesCounter', 0);
+            this.set('libDone', true);
+          }
+        });
+      }
+    },
+
+    deleteLibraries() {
+      this._destroyAll(this.get('libraries'));
+
+      this.set('libDelDone', true);
+    },
+
+    generateBooksAndAuthors() {
+      const counter = parseInt(this.get('authorCounter'));
+
+      for (let i = 0; i < counter; i++) {
+        let newAuthor = this.store.createRecord('author');
+        newAuthor.randomize()
+          .save().then(() => {
+             if (i === counter-1) {
+               this.set('authorCounter', 0);
+               this.set('authDone', true);
+             }
+          }
+        );
+
+        this._generateSomeBooks(newAuthor);
+      }
+    },
+
+    deleteBooksAndAuthors() {
+      this._destroyAll(this.get('books'));
+      this._destroyAll(this.get('authors'));
+
+      this.set('authDelDone', true);
+    }
+  },
+
+  // Private methods
+
+  _generateSomeBooks(author) {
+    const bookCounter = Faker.random.number(10);
+
+    for (let j = 0; j < bookCounter; j++) {
+      const library = this._selectRandomLibrary();
+      this.store.createRecord('book')
+        .randomize(author, library)
+        .save();
+      author.save();
+      library.save();
+    }
+  },
+
+  _selectRandomLibrary() {
+    const libraries = this.get('libraries');
+    const librariesCounter = libraries.get('length');
+
+    // Create a new array form ids
+    const libraryIds = libraries.map((lib) => {return lib.get('id');});
+    const randomNumber = Faker.random.number(librariesCounter-1);
+
+    const randomLibrary = libraries.findBy('id', libraryIds[randomNumber]);
+    return randomLibrary;
+  },
+
+  _destroyAll(records) {
+    records.forEach((item) => {
+      item.destroyRecord();
+    });
+  }
+
+});
 ```
