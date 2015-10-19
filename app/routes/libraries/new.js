@@ -13,7 +13,7 @@ export default Ember.Route.extend({
     controller.set('buttonLabel', 'Create');
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render('libraries/form');
   },
 
@@ -21,12 +21,12 @@ export default Ember.Route.extend({
     saveLibrary: function (newLibrary) {
       var _that = this;
 
-      newLibrary.save().then(function (response) {
+      newLibrary.save().then(function () {
         _that.transitionTo('libraries');
-      })
+      });
     },
 
-    willTransition: function (transition) {
+    willTransition: function () {
       var model = this.controller.get('model');
       if (model.get('isNew')) {
         model.destroyRecord();

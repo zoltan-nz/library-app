@@ -17,7 +17,7 @@ export default Ember.Route.extend({
       });
     },
 
-    willTransition: function(transition) {
+    willTransition: function() {
 
       var model = this.controller.get('model');
 

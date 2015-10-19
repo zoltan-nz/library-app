@@ -13,7 +13,7 @@ export default Ember.Route.extend({
     controller.set('buttonLabel', 'Save changes');
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render('libraries/form');
   },
 
@@ -22,9 +22,9 @@ export default Ember.Route.extend({
     saveLibrary: function (newLibrary) {
       var _that = this;
 
-      newLibrary.save().then(function (response) {
+      newLibrary.save().then(function () {
         _that.transitionTo('libraries');
-      })
+      });
     },
 
     willTransition: function (transition) {
