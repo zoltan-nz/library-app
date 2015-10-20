@@ -1,6 +1,15 @@
 <h2>List</h2>
+
 <div class="row">
-  {{#each model as |library|}}
+  <div class="col-md-12">
+      <div class="form-group">
+        {{input value=filter class="form-control input-lg" placeholder="Filter by library name"}}
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  {{#each filteredList as |library|}}
     <div class="col-md-4">
       {{#library-item item=library badge=library.books.length}}
         {{#link-to 'libraries.edit' library.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
