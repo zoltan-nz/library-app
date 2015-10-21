@@ -16,5 +16,15 @@
         <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
       {{/library-item}}
     </div>
+  {{else}}
+    {{#if model.isUpdating}}
+      {{spinner-cube}}
+    {{else}}
+      <div class="col-md-12 text-center">
+        <div class="alert alert-info">
+          Sorry, no result.
+        </div>
+      </div>
+    {{/if}}
   {{/each}}
 </div>
