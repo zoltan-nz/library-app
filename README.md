@@ -1,6 +1,8 @@
 # Ember.js 2.0 Tutorial - Building a complex web application
 
-Ember.js 2.0 tutorial for absolute beginners. (Work in progress.)
+[Ember.js 2.0 tutorial](http://yoember.com) for absolute beginners. (Work in progress.)
+
+* Live demo: [library-app.firebaseapp.com](https://library-app.firebaseapp.com/)
 
 #### Previous tutorials
 
@@ -1274,7 +1276,7 @@ Let's add html to our `library-item-form` component as well.
 </div>
 ```
 
-This code is almos the same what we used more times in our form in `libraries/new.hbs` and in `libraries/edit.hbs` templates.
+This code is almost the same what we used more times in our form in `libraries/new.hbs` and in `libraries/edit.hbs` templates.
 
 Some tiny improvement, that we can add a little validation to our `library` model. Please update `app/models/library.js` with a basic validation, where we check that the `name` is not empty.
 
