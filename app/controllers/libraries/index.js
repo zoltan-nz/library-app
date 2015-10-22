@@ -2,8 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
 
-  queryParams: ['filter'],
-  search: '',
+  queryParams: ['filter', 'limit', 'letter'],
+  filter: '',
+  letter: '',
+  limit: 'all',
+
+  limitAll: Ember.computed.equal('limit', 'all'),
 
   filteredList: Ember.computed('model.@each.name', 'filter', function() {
 
@@ -11,7 +15,7 @@ export default Ember.Controller.extend({
     const query = this.get('filter');
 
     if (!!query) {
-      // Playing with regular expressions use this website: http://www.regexr.com/
+      // One of the best regular expression website: http://www.regexr.com/
       // Split the query at spaces and join them to get like this: /(word1)+.*(word2)+.*(word3)+.*/ig
       const regexString = '(' + query.split(' ').join(')+.*(') + ')+.*';
       // i: case insensitive, g: global
@@ -22,7 +26,7 @@ export default Ember.Controller.extend({
       });
     }
 
-    return results;
+    return results.sortBy('name');
   })
 
 });

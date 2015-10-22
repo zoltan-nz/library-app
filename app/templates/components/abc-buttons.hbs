@@ -1,0 +1,5 @@
+<div class="btn-group">
+  {{#each atoz as |letter|}}
+    {{#link-to (query-params limit='abc' letter=letter) class='btn btn-lg btn-narrow btn-default'}}{{letter}}{{/link-to}}
+  {{/each}}
+</div>
