@@ -1,4 +1,5 @@
 @import 'bootstrap';
+@import 'spinner';
 
 body {
   padding-top: 20px;
@@ -18,4 +19,9 @@ html {
   &.label-show {
     opacity: 1;
   }
+}
+
+.btn-narrow {
+  padding-left: 10px;
+  padding-right: 10px;
 }

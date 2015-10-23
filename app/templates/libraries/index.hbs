@@ -1,11 +1,43 @@
 <h2>List</h2>
+
 <div class="row">
-  {{#each model as |library|}}
+  <div class="col-md-1">
+    {{#link-to (query-params limit='all' letter='') class='btn btn-default btn-lg btn-block'}}All{{/link-to}}
+  </div>
+  <div class="col-md-1">
+    {{#link-to (query-params limit='abc') class='btn btn-default btn-lg btn-block'}}Abc{{/link-to}}
+  </div>
+
+  <div class="col-md-10">
+    {{#if limitAll}}
+      <div class="form-group">
+        {{input value=filter class="form-control input-lg" placeholder="Filter by library name"}}
+      </div>
+    {{else}}
+        <div class="form-group">
+          {{abc-buttons}}
+        </div>
+    {{/if}}
+  </div>
+</div>
+
+<div class="row">
+  {{#each filteredList as |library|}}
     <div class="col-md-4">
       {{#library-item item=library badge=library.books.length}}
         {{#link-to 'libraries.edit' library.id class='btn btn-success btn-xs'}}Edit{{/link-to}}
         <button class="btn btn-danger btn-xs" {{action 'deleteLibrary' library}}>Delete</button>
       {{/library-item}}
     </div>
+  {{else}}
+    {{#if model.isUpdating}}
+      {{spinner-cube}}
+    {{else}}
+      <div class="col-md-12 text-center">
+        <div class="alert alert-info">
+          Sorry, no result.
+        </div>
+      </div>
+    {{/if}}
   {{/each}}
 </div>
