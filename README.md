@@ -130,6 +130,12 @@ Open `./app/styles/app.scss` file in your editor and add the following line:
 
 Relaunch your app with `ember server`. You should see in the browser, that 'Welcome to Ember' uses Bootstrap default font.
 
+Above steps in a one liner. Copy-paste to your console:
+
+```
+ember install ember-cli-sass && ember install ember-cli-bootstrap-sassy && echo '@import "bootstrap";' > ./app/styles/app.scss && rm ./app/styles/app.css
+```
+
 ### Create a navigation partial
 
 We will use bootstrap navigation bar to create a nice header section for our app.
