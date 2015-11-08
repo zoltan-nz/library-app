@@ -962,9 +962,6 @@ And deploy:
 
     firebase deploy
 
-Other great hosting service for deployment is [www.divshot.com](http://www.divshot.com). [More about Ember.js app deployment on Divshot.](https://docs.divshot.com/integrations/emberjs)
-
-
 ### Add Delete, Edit button and Edit route
 
 #### Upgrading library list view to grid view
