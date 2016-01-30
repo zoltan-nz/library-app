@@ -1,6 +1,10 @@
-# Ember.js 2.0 Tutorial - Building a complex web application
+# Ember.js 2.3 Tutorial
 
-[Ember.js 2.0 tutorial](http://yoember.com) for absolute beginners. (Work in progress.)
+Updated: 30 Jan 2016
+
+This is the original repository of the Library App.
+ 
+For detailed, step by step implementation click here: [Ember.js 2 tutorial](http://yoember.com)
 
 * Live demo: [library-app.firebaseapp.com](https://library-app.firebaseapp.com/)
 
@@ -29,70 +33,63 @@ Suggested way to install node.js: https://github.com/creationix/nvm
 
 Install Ember Inspector Chrome extension in your Chrome Browser: [Ember Inspector](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi?hl=en)
 
+* (Optional) Watchman from Facebook
+
+Install Watchman on mac: `brew install watchman`
+More info: https://facebook.github.io/watchman/
+
 ## Lesson 1
+
+This tutorial uses the latest Ember-CLI tool (v2.3.0-beta.1 at end of Jan 2016).
 
 ### Install ember-cli
 
-    npm install -g ember-cli
+The following `npm` command installs Ember-CLI determined version in the global namespace.
+
+    $ npm install -g ember-cli@2.3.0-beta.1
+
+You have now a new `ember` command in your console. Check with
+
+    $ ember -v
+    
+You should see something similar:
+
+```
+version: 2.3.0-beta.1
+node: 5.5.0
+npm: 2.14.10
+os: darwin x64
+```
+
+(Node version, npm version and os version may be different in your configuration.)
+
+Please read more about Ember-CLI here: [www.ember-cli.com](http://www.ember-cli.com)
 
 ### Create the app
 
-    ember new library-app
+In your terminal, navigate in the folder where you usually create your web applications.
+For example, if you have a `project` folder use `cd ~/project`.
+
+Insider this folder run the following command.
+
+    $ ember new library-app
+
+This command will create the new app for you.
+Please enter in your new app with `cd library-app`.
+
+Open this folder in your favourite code editor and look around. You will see a couple of files and folders. Ember-CLI is scaffolded for you everything what need to run and create an amazing web application. 
 
 ### Launch the app
 
-    ember server
+Your skeleton app is ready and you can run it with the following command. Type in your terminal:
 
-### Update Ember.js and Ember-Data to 2.0
+    $ ember server
 
-Update version number of `"ember"` and `"ember-data"` in `./bower.json`:
-
-```
-    {
-      "name": "library-app",
-      "dependencies": {
-        "ember": "2.0",
-        ...
-        "ember-data": "2.0",
-        ...
-      }
-    }
-```
-
-Update version number of `"ember-data"` in `./package.json`:
-
-```
-    {
-      "name": "library-app",
-      ...
-      "devDependencies": {
-        ...
-        "ember-data": "2.0",
-        ...
-      }
-    }
-```
-
-Run `npm update` and `bower update` in your console:
-
-    npm update
-    bower update
-
-If you see something similar when you run `bower update`
-
-    Unable to find a suitable version for ember, please choose one:
-        1) ember#>=1.4 <2 which resolved to 1.13.10 and is required by ember-cli-shims#0.0.3, ember-load-initializers#0.1.5
-        2) ember#^2.0.0 which resolved to 2.0.2 and is required by ember-data#2.0.0
-        3) ember#2.0 which resolved to 2.0.2 and is required by library-app
-        4) ember#> 1.5.0-beta.3 which resolved to 2.0.2 and is required by ember-resolver#0.1.21
-
-    Prefix the choice with ! to persist it to bower.json
-
-Select the number with `ember#2.0 which resolved to 2.0.2 and is required by library-app`, in this case the answer is `!3` and hit enter. (`2.0.2` could be different, because there could be newer version later.)
-
-Launch or relaunch your application with `ember server` or with `ember s` and check the version number in browser console.
+Open your new empty app in your browser: http://localhost:4200
 
 ### Turn on a couple of debugging option
+
+If you would like to see more in your browser's console, what Ember.js is doing under the hood, you can turn on a couple of debugging option in your configuration file.
 
 You can find a list of debugging options in `./config/environment.js` file. Remove the comment sign as follow:
 
@@ -115,14 +112,14 @@ Exit your `ember server` with `Ctrl+C` in your terminal.
 
 Run the following two command in your terminal.
 
-    ember install ember-cli-sass
-    ember install ember-cli-bootstrap-sassy
+    $ ember install ember-cli-sass
+    $ ember install ember-cli-bootstrap-sassy
 
 You will see, that your `./package.json` and `./bower.json` are extended with a couple of lines.
 
 Rename your `app.css` to `app.scss` with the following terminal command or you can use your editor to rename the `./app/styles/app.css` file:
 
-    mv app/styles/app.css app/styles/app.scss
+    $ mv app/styles/app.css app/styles/app.scss
 
 Open `./app/styles/app.scss` file in your editor and add the following line:
 

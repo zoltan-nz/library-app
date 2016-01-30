@@ -25,3 +25,11 @@ html {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.page-footer {
+  padding: 20px 0;
+  margin-top: 50px;
+  color: darken($brand-primary, 50);
+  background-color: lighten($brand-primary, 45);
+  border-top: 1px solid lighten($brand-primary, 30);
+}
