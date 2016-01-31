@@ -47,6 +47,9 @@ module.exports = function(environment) {
       ENV['ember-faker'] = {
         enabled: true
       };
+      ENV['googleAnalytics'] = {
+        webPropertyId: 'UA-68981696-2'
+      };
     }
 
     return ENV;
