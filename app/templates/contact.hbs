@@ -27,7 +27,7 @@
           {{textarea class="form-control" placeholder="Your message. (At least 5 characters.)" rows="5" value=model.message}}
           {{#if model.isMessageEnoughLong}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
         </div>
-        <button class="btn btn-success" {{action 'sendMessage' model}} disabled="{{unless model.isValid 'disabled'}}">Send</button>
+        <button class="btn btn-success" {{action 'sendMessage' model}} disabled={{model.isNotValid}}>Send</button>
 
       {{/if}}
 

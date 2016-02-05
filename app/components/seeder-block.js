@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
   actions: {
+
     generateAction() {
       this.sendAction('generateAction');
     },
@@ -10,5 +11,6 @@ export default Ember.Component.extend({
     deleteAction() {
       this.sendAction('deleteAction');
     }
+
   }
 });

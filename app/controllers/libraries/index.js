@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 
   filteredList: Ember.computed('model.@each.name', 'filter', function() {
 
-    var results = this.get('model');
+    let results = this.get('model');
     const query = this.get('filter');
 
     if (!!query) {
@@ -21,9 +21,7 @@ export default Ember.Controller.extend({
       // i: case insensitive, g: global
       const regex = new RegExp(regexString, 'ig');
 
-      results =  results.filter(function(item) {
-        return item.get('name').match(regex);
-      });
+      results = results.filter((item) => item.get('name').match(regex));
     }
 
     return results.sortBy('name');

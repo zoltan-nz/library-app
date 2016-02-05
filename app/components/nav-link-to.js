@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.LinkComponent.extend({
-    tagName: 'li',
+
+  tagName: 'li',
 
     hrefForA: Ember.computed('models', 'qualifiedRouteName', function computeLinkToComponentHref() {
         let qualifiedRouteName = this.get('qualifiedRouteName');

@@ -18,16 +18,14 @@ export default Ember.Route.extend({
   },
 
   actions: {
-    saveLibrary: function (newLibrary) {
-      var _that = this;
 
-      newLibrary.save().then(function () {
-        _that.transitionTo('libraries');
-      });
+    saveLibrary(newLibrary) {
+      newLibrary.save().then(() => this.transitionTo('libraries'));
     },
 
-    willTransition: function () {
-      var model = this.controller.get('model');
+    willTransition() {
+      let model = this.controller.get('model');
+
       if (model.get('isNew')) {
         model.destroyRecord();
       }
