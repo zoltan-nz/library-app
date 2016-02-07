@@ -13,12 +13,8 @@ export default Ember.Controller.extend({
       const counter = parseInt(this.get('librariesCounter'));
 
       for (let i = 0; i < counter; i++) {
-        this.store.createRecord('library').randomize().save().then(() => {
-          if (i === counter-1) {
-            this.set('librariesCounter', 0);
-            this.set('libDone', true);
-          }
-        });
+        const isTheLast = i === counter-1;
+        this._saveRandomLibrary(isTheLast);
       }
     },
 
@@ -32,15 +28,8 @@ export default Ember.Controller.extend({
       const counter = parseInt(this.get('authorCounter'));
 
       for (let i = 0; i < counter; i++) {
-        let newAuthor = this.store.createRecord('author');
-        newAuthor.randomize()
-          .save().then(() => {
-             if (i === counter-1) {
-               this.set('authorCounter', 0);
-               this.set('authDone', true);
-             }
-          }
-        );
+        const isTheLast = i === counter-1;
+        const newAuthor = this._saveRandomAuthor(isTheLast);
 
         this._generateSomeBooks(newAuthor);
       }
@@ -55,6 +44,29 @@ export default Ember.Controller.extend({
   },
 
   // Private methods
+
+  _saveRandomLibrary(isLast) {
+    const randomLibrary = this.store.createRecord('library').randomize();
+
+    randomLibrary.save().then(() => {
+      if (isLast) {
+        this.set('librariesCounter', 0);
+        this.set('libDone', true);
+      }
+    });
+  },
+
+  _saveRandomAuthor(isLast) {
+    const newAuthor = this.store.createRecord('author').randomize();
+    newAuthor.save().then(() => {
+        if (isLast) {
+          this.set('authorCounter', 0);
+          this.set('authDone', true);
+        }
+      }
+    );
+    return newAuthor;
+  },
 
   _generateSomeBooks(author) {
     const bookCounter = Faker.random.number(10);
