@@ -6,7 +6,7 @@
     "ember-cli-test-loader": "0.2.2",
     "ember-qunit-notifications": "0.1.0",
     "bootstrap-sass": "^3.3.6",
-    "firebase": "^2.4.1",
-    "Faker": "~3.0.1"
+    "firebase": "^2.1.0",
+    "Faker": "^3.0.1"
   }
 }
