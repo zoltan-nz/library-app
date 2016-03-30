@@ -12,21 +12,24 @@
 
     <div class="collapse navbar-collapse" id="main-navbar">
       <ul class="nav navbar-nav">
-            {{#nav-link-to 'index'}}Home{{/nav-link-to}}
-            {{#nav-link-to 'libraries'}}Libraries{{/nav-link-to}}
-            {{#nav-link-to 'about'}}About{{/nav-link-to}}
-            {{#nav-link-to 'contact'}}Contact{{/nav-link-to}}
+        {{#nav-link-to 'index'}}Home{{/nav-link-to}}
+        {{#nav-link-to 'libraries'}}Libraries{{/nav-link-to}}
+        {{#nav-link-to 'authors'}}Authors{{/nav-link-to}}
+        {{#nav-link-to 'books'}}Books{{/nav-link-to}}
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                  {{#nav-link-to 'admin.invitations'}}Invitations{{/nav-link-to}}
-                  {{#nav-link-to 'admin.contacts'}}Contacts{{/nav-link-to}}
-                  {{#nav-link-to 'admin.seeder'}}Seeder{{/nav-link-to}}
-              </ul>
-          </li>
+        {{#nav-link-to 'about'}}About{{/nav-link-to}}
+        {{#nav-link-to 'contact'}}Contact{{/nav-link-to}}
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span
+              class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {{#nav-link-to 'admin.invitations'}}Invitations{{/nav-link-to}}
+            {{#nav-link-to 'admin.contacts'}}Contacts{{/nav-link-to}}
+            {{#nav-link-to 'admin.seeder'}}Seeder{{/nav-link-to}}
+          </ul>
+        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

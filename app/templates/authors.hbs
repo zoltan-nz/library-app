@@ -1,0 +1,41 @@
+<h1>Authors</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>
+      Name
+      <br><small class="small not-bold">(Click on name for editing)</small>
+    </th>
+    <th class="vtop">Books</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each model as |author|}}
+    <tr>
+      <td>
+        {{#if author.isEditing}}
+          <form {{action 'saveAuthor' author on='submit'}} class="form-inline">
+            <div class="input-group">
+              {{input value=author.name class='form-control'}}
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-success" disabled={{author.isNotValid}}>Save</button>
+                <button class="btn btn-danger" {{action 'cancelAuthorEdit' author}}>Cancel</button>
+              </div>
+            </div>
+          </form>
+        {{else}}
+          <span {{action 'editAuthor' author}}>{{author.name}}</span>
+        {{/if}}
+      </td>
+      <td>
+        <ul>
+          {{#each author.books as |book|}}
+            <li>{{book.title}}</li>
+          {{/each}}
+        </ul>
+      </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

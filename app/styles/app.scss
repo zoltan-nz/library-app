@@ -33,3 +33,11 @@ html {
   background-color: lighten($brand-primary, 45);
   border-top: 1px solid lighten($brand-primary, 30);
 }
+
+.vtop {
+  vertical-align: top!important;
+}
+
+.not-bold {
+  font-weight: normal!important;
+}
