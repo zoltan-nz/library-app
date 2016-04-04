@@ -23,7 +23,7 @@ export default DS.Model.extend({
   },
 
   _randomYear() {
-    return new Date(this._getRandomArbitrary(1900, 2015));
+    return new Date(this._getRandomArbitrary(1900, 2015).toPrecision(4));
   },
 
   _getRandomArbitrary(min, max) {
