@@ -39,3 +39,90 @@ $ ember server
 ```
 $ open http://localhost:4200
 ```
+
+### Managing Books
+
+Simple list and edit the title
+
+Template (books.hbs):
+
+```
+<h1>Books</h1>
+
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th class="vtop">Author</th>
+    <th>
+      Title
+      <br><small class="small not-bold">(Click on the title for editing)</small>
+    </th>
+    <th class="vtop">Release Year</th>
+    <th class="vtop">Library</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each model as |book|}}
+    <tr>
+
+      <td>
+        {{book.author.name}}
+      </td>
+
+      <td>
+        {{#if book.isEditing}}
+          <form {{action 'saveBook' book on='submit'}} class="form-inline">
+            <div class="input-group">
+              {{input value=book.title class='form-control'}}
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-success" disabled={{book.isNotValid}}>Save</button>
+                <button class="btn btn-danger" {{action 'cancelBookEdit' book}}>Cancel</button>
+              </div>
+            </div>
+          </form>
+        {{else}}
+          <span {{action 'editBook' book}}>{{book.title}}</span>
+        {{/if}}
+      </td>
+
+      <td>{{book.releaseYear}}</td>
+      <td>{{book.library.name}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
+```
+
+Route (books.js):
+
+```
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  model() {
+    return this.store.findAll('book');
+  },
+
+  actions: {
+
+    editBook(book) {
+      book.set('isEditing', true);
+    },
+
+    cancelBookEdit(book) {
+      book.set('isEditing', false);
+      book.rollbackAttributes();
+    },
+
+    saveBook(book) {
+      if (book.get('isNotValid')) {
+        return;
+      }
+
+      book.set('isEditing', false);
+      book.save();
+    }
+  }
+});
+```
