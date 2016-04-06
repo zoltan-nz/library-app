@@ -126,3 +126,56 @@ export default Ember.Route.extend({
   }
 });
 ```
+
+#### Change Author with Select box
+
+We need all Authors, download them in model hook with Ember.RSVP.hash.
+
+In setup controller we separate these models.
+
+    model() {
+      return Ember.RSVP.hash({
+        books: this.store.findAll('book'),
+        authors: this.store.findAll('author')
+      });
+    },
+  
+    setupController(controller, model) {
+      const books = model.books;
+      const authors = model.authors;
+  
+      this._super(controller, books);
+  
+      controller.set('authors', authors);
+    },
+
+Create `editAuthor` and `cancelAuthorEdit` action:
+ 
+
+    editAuthor(book) {
+      book.set('isAuthorEditing', true);
+    },
+    
+    cancelAuthorEdit(book) {
+      book.set('isAuthorEditing', false);
+      book.rollbackAttributes();
+    }
+    
+Template:
+
+      <td>
+        {{#if book.isAuthorEditing}}
+          Editing: {{book.author.name}}
+          <button class="btn btn-danger" {{action 'cancelAuthorEdit' book}}>Cancel</button>
+        {{else}}
+          <span {{action 'editAuthor' book}}>{{book.author.name}}</span>
+        {{/if}}
+      </td>
+
+We cannot use a simple input box in this case. Need a select box.
+
+For our select box, we need a helper.
+
+    $ ember g helper is-equal
+    
+

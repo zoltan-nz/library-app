@@ -3,13 +3,18 @@
 <table class="table table-bordered table-striped">
   <thead>
   <tr>
-    <th class="vtop">Author</th>
+    <th class="vtop wider">
+      Author
+      <br><small class="small not-bold">(Click on the name for editing)</small>
+    </th>
     <th>
       Title
       <br><small class="small not-bold">(Click on the title for editing)</small>
     </th>
     <th class="vtop">Release Year</th>
-    <th class="vtop">Library</th>
+    <th class="vtop">
+      Library
+      <br><small class="small not-bold">(Click on the name for editing)</small>    </th>
   </tr>
   </thead>
   <tbody>
@@ -17,7 +22,19 @@
     <tr>
 
       <td>
-        {{book.author.name}}
+        {{#if book.isAuthorEditing}}
+
+          {{author-select
+            book=book
+            authors=authors
+            default=book.author
+            action='saveAuthor'}}
+
+          <button class="btn btn-danger" {{action 'cancelAuthorEdit' book}}>Cancel</button>
+
+        {{else}}
+          <span {{action 'editAuthor' book}}>{{book.author.name}}</span>
+        {{/if}}
       </td>
 
       <td>
@@ -37,7 +54,22 @@
       </td>
 
       <td>{{book.releaseYear}}</td>
-      <td>{{book.library.name}}</td>
+      <td>
+
+        {{#if book.isLibraryEditing}}
+
+          {{library-select
+            book=book
+            libraries=libraries
+            default=book.library
+            action='saveLibrary'}}
+
+          <button class="btn btn-danger" {{action 'cancelLibraryEdit' book}}>Cancel</button>
+
+        {{else}}
+          <span {{action 'editLibrary' book}}>{{book.library.name}}</span>
+        {{/if}}
+      </td>
     </tr>
   {{/each}}
   </tbody>
