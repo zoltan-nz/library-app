@@ -179,3 +179,6 @@ For our select box, we need a helper.
     $ ember g helper is-equal
     
 
+* Implement selects
+* Add actions for saving relations
+* Firebase adapter buggy, we have to manually remove previous relations
