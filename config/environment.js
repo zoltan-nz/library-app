@@ -8,7 +8,7 @@ module.exports = function(environment) {
             'connect-src': "'self' https://auth.firebase.com wss://*.firebaseio.com"
         },
         // Create your own app on Firebase.com and update this line accordingly.
-        firebase: 'https://library-app.firebaseio.com/',
+        firebase: 'https://YOUR-FIREBASE-APP-NAME-COMES-HERE.firebaseio.com/',
         baseURL: '/',
         locationType: 'auto',
         EmberENV: {
