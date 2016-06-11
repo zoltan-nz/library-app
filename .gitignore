@@ -18,3 +18,5 @@ testem.log
 .divshot-cache
 
 .npmrc
+.firebase-debug.log
+.firebaserc
