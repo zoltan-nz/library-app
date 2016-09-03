@@ -1,15 +1,14 @@
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
-import { hasMany } from 'ember-data/relationships';
+import DS from 'ember-data';
 import Ember from 'ember';
 import Faker from 'faker';
 
-export default Model.extend({
-  name: attr('string'),
-  address: attr('string'),
-  phone: attr('string'),
+export default DS.Model.extend({
 
-  books: hasMany('book', {inverse: 'library', async: true}),
+  name: DS.attr('string'),
+  address: DS.attr('string'),
+  phone: DS.attr('string'),
+
+  books: DS.hasMany('book', {inverse: 'library', async: true}),
 
   isValid: Ember.computed.notEmpty('name'),
 
