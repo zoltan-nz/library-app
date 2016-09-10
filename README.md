@@ -1,10 +1,10 @@
-# Ember.js 2.7 Tutorial - Demo Application
+# Ember.js 2.8 Tutorial - Demo Application
 
-Updated: 26 Jul 2016
+Updated: 10 Sept 2016
 
 This is the original repository of the Library App.
  
-For detailed, step by step implementation click here: [Ember.js 2 tutorial](http://yoember.com)
+For detailed, step by step implementation click here: [Ember tutorial](http://yoember.com)
 
 Live demo: [library-app.firebaseapp.com](https://library-app.firebaseapp.com/)
 
@@ -26,11 +26,8 @@ $ cd library-app
 ```
 $ npm install && bower install
 ```
-* Setup in `config/environment.js` file your Firebase app name. This will be your own database server.
-```
-// config/environment.js
-firebase: 'https://YOUR-FIREBASE-APP-NAME-COMES-HERE.firebaseio.com/',
-```
+* Setup in `config/environment.js` Firebase settings. ([Setup firebase in your Ember project](http://yoember.com/#setup-a-server-on-firebase))
+
 * Launch the application with Ember server.
 ```
 $ ember server
@@ -39,6 +36,11 @@ $ ember server
 ```
 $ open http://localhost:4200
 ```
+---
+
+WIP notes...
+
+---
 
 ### Managing Books
 
