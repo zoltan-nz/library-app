@@ -1,23 +1,19 @@
-<div class="row">
-  <div class="col-md-12">
+<div class="well well-sm extra-padding-bottom">
+
     <h3>{{sectionTitle}}</h3>
 
-    <div class="row">
-      <div class="form-horizontal">
-        <label class="col-sm-2 control-label">Number of new records:</label>
-        <div class="col-sm-2">
-          {{input value=counter class='form-control'}}
+      <div class="form-inline">
+
+        <div class="form-group has-feedback {{unless isCounterValid 'has-error'}}">
+          <label class="control-label">Number of new records:</label>
+          {{input value=counter class='form-control' placeholder=placeholder}}
         </div>
-        <div class="col-sm-4">
-          <button class="btn btn-primary" {{action 'generateAction'}}>Generate {{sectionTitle}}</button>
-          {{#fader-label isShowing=createReady}}Created!{{/fader-label}}
-        </div>
-        <div class="col-sm-4">
-          <button class="btn btn-danger" {{action 'deleteAction'}}>Delete All {{sectionTitle}}</button>
-          {{#fader-label isShowing=deleteReady}}Deleted!{{/fader-label}}
-        </div>
+
+        <button class="btn btn-primary" {{action 'generateAction' counter}} disabled={{if isCounterValid false true}}>Generate {{sectionTitle}}</button>
+        {{#fader-label isShowing=createReady}}Created!{{/fader-label}}
+
+        <button class="btn btn-danger" {{action 'deleteAction' counter}}>Delete All {{sectionTitle}}</button>
+        {{#fader-label isShowing=deleteReady}}Deleted!{{/fader-label}}
       </div>
 
-    </div>
-  </div>
 </div>

@@ -41,12 +41,5 @@ export default Ember.Route.extend({
       books: this.store.findAll('book'),
       authors: this.store.findAll('author')
     });
-  },
-
-  setupController(controller, model) {
-    this._super(controller, model);
-    controller.set('libraries', model.libraries);
-    controller.set('books', model.books);
-    controller.set('authors', model.authors);
   }
 });

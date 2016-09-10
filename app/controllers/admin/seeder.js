@@ -3,14 +3,14 @@ import Faker from 'faker';
 
 export default Ember.Controller.extend({
 
-  libraries: [],
-  books: [],
-  authors: [],
+  libraries: Ember.computed.alias('model.libraries'),
+  books: Ember.computed.alias('model.books'),
+  authors: Ember.computed.alias('model.authors'),
 
   actions: {
 
-    generateLibraries() {
-      const counter = parseInt(this.get('librariesCounter'));
+    generateLibraries(volume) {
+      const counter = parseInt(volume);
 
       for (let i = 0; i < counter; i++) {
         const isTheLast = i === counter-1;
@@ -21,11 +21,12 @@ export default Ember.Controller.extend({
     deleteLibraries() {
       this._destroyAll(this.get('libraries'));
 
+      // Data down via seeder-block to fader-label that we ready to show the label
       this.set('libDelDone', true);
     },
 
-    generateBooksAndAuthors() {
-      const counter = parseInt(this.get('authorCounter'));
+    generateBooksAndAuthors(volume) {
+      const counter = parseInt(volume);
 
       for (let i = 0; i < counter; i++) {
         const isTheLast = i === counter-1;
@@ -39,6 +40,7 @@ export default Ember.Controller.extend({
       this._destroyAll(this.get('books'));
       this._destroyAll(this.get('authors'));
 
+      // Data down via seeder-block to fader-label that we ready to show the label
       this.set('authDelDone', true);
     }
   },
@@ -50,7 +52,8 @@ export default Ember.Controller.extend({
 
     randomLibrary.save().then(() => {
       if (isLast) {
-        this.set('librariesCounter', 0);
+
+        // Data down via seeder-block to fader-label that we ready to show the label
         this.set('libDone', true);
       }
     });
@@ -60,7 +63,8 @@ export default Ember.Controller.extend({
     const newAuthor = this.store.createRecord('author').randomize();
     newAuthor.save().then(() => {
         if (isLast) {
-          this.set('authorCounter', 0);
+
+          // Data down via seeder-block to fader-label that we ready to show the label
           this.set('authDone', true);
         }
       }
@@ -86,17 +90,19 @@ export default Ember.Controller.extend({
     const librariesCounter = libraries.get('length');
 
     // Create a new array form ids
-    const libraryIds = libraries.map((lib) => {return lib.get('id');});
-    const randomNumber = Faker.random.number(librariesCounter-1);
+    const libraryIds = libraries.map(lib => lib.get('id'));
 
+    // Randomly pick one id from the libraryIds array and return the library
+    const randomNumber = Faker.random.number(librariesCounter-1);
     const randomLibrary = libraries.findBy('id', libraryIds[randomNumber]);
+
     return randomLibrary;
   },
 
   _destroyAll(records) {
-    records.forEach((item) => {
-      item.destroyRecord();
-    });
+    records.forEach(
+      item => item.destroyRecord()
+    );
   }
 
 });

@@ -1,7 +1,7 @@
 {
   "name": "library-app",
-  "version": "2.7.0",
-  "description": "Demo application for learning Ember 2.7",
+  "version": "2.8.0",
+  "description": "Demo application for learning Ember 2.8",
   "private": false,
   "directories": {
     "doc": "doc",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "^2.0.1",
-    "ember-cli": "^2.7.0",
+    "ember-cli": "^2.8.0",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-bootstrap-sassy": "0.5.2",
@@ -39,7 +39,7 @@
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-data": "^2.7.0",
+    "ember-data": "^2.8.0",
     "ember-export-application-global": "^1.0.5",
     "ember-faker": "1.1.0",
     "ember-load-initializers": "^0.5.1",
