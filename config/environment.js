@@ -10,7 +10,7 @@ module.exports = function(environment) {
     firebase: {
       apiKey: 'xyz',
       authDomain: 'YOUR-FIREBASE-APP.firebaseapp.com',
-      databaseURL: 'https://YOUR-FIREBASE-APP.firebaseapp.com',
+      databaseURL: 'https://YOUR-FIREBASE-APP.firebaseio.com',
       storageBucket: 'YOUR-FIREBASE-APP.appspot.com',
     },
 

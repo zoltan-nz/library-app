@@ -3,6 +3,7 @@ import Faker from 'faker';
 
 export default Ember.Controller.extend({
 
+  // If you haven't mapped this properties in setupController, you can alias them here
   libraries: Ember.computed.alias('model.libraries'),
   books: Ember.computed.alias('model.books'),
   authors: Ember.computed.alias('model.authors'),
@@ -89,7 +90,7 @@ export default Ember.Controller.extend({
     const libraries = this.get('libraries');
     const librariesCounter = libraries.get('length');
 
-    // Create a new array form ids
+    // Create a new array from ids
     const libraryIds = libraries.map(lib => lib.get('id'));
 
     // Randomly pick one id from the libraryIds array and return the library

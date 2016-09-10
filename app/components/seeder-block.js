@@ -9,21 +9,20 @@ export default Ember.Component.extend({
   isCounterValid: Ember.computed.lte('counter', MAX_VALUE),
   placeholder: `Max ${MAX_VALUE}`,
 
+  createReady: false,
+  deleteReady: false,
+
   actions: {
 
-    generateAction(volume) {
+    generateAction() {
       if (this.get('isCounterValid')) {
 
-        // Send down to fader-label component that we ready to show an info label
-        this.set('showInfo', true);
-
-        // Actions up to Seeder Controller, please create a few dummy record
-        this.sendAction('generateAction', volume);
+        // Action up to Seeder Controller with the requested amount
+        this.sendAction('generateAction', this.get('counter'));
       }
     },
 
     deleteAction() {
-      this.set('showInfo', true);
       this.sendAction('deleteAction');
     }
 

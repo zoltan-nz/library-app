@@ -41,5 +41,12 @@ export default Ember.Route.extend({
       books: this.store.findAll('book'),
       authors: this.store.findAll('author')
     });
-  }
+  },
+
+  // Finally, I just created aliases in the Seeder Controller, so we can comment this out now.
+  // setupController(controller, model) {
+  //   controller.set('libraries', model.libraries);
+  //   controller.set('books', model.books);
+  //   controller.set('authors', model.authors);
+  // }
 });
