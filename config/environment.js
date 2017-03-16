@@ -7,12 +7,16 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'auto',
 
+    // !!! UPDATE THESE KEYS !!!
+    // Visit https://console.firebase.google.com/
+    // Click on your app. Click on Overview. Click on "Add Firebase to your web app". Copy paste those keys.
     firebase: {
-      apiKey: 'xyz',
-      authDomain: 'YOUR-FIREBASE-APP.firebaseapp.com',
-      databaseURL: 'https://YOUR-FIREBASE-APP.firebaseio.com',
-      storageBucket: 'YOUR-FIREBASE-APP.appspot.com',
-      messagingSenderId: '1234'
+      apiKey: 'UPDATE-THIS-TO-YOUR-OWN-API-KEY',
+      authDomain: 'UPDATE-THIS-TO-YOUR-OWN-FIREBASE-APP.firebaseapp.com',
+      projectId: 'UPDATE-THIS-TO-YOUR-OWN-PROJECT-ID',
+      databaseURL: 'https://UPDATE-THIS-TO-YOUR-OWN-FIREBASE-APP.firebaseio.com',
+      storageBucket: 'UPDATE-THIS-TO-YOUR-OWN-FIREBASE-APP.appspot.com',
+      messagingSenderId: 'UPDATE-THIS'
     },
 
     // if using ember-cli-content-security-policy
@@ -59,6 +63,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+
+    // We need this for activating Faker in production environment.
     ENV['ember-faker'] = {
       enabled: true
     };

@@ -1,6 +1,6 @@
-# Ember.js 2.10 Tutorial - Demo Application
+# Ember.js 2.12 Tutorial - Demo Application
 
-Updated: 29 Nov 2016
+Updated: 16 Mar 2017
 
 This is the original repository of the Library App.
  

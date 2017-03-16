@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
     let results = this.get('model');
     const query = this.get('filter');
 
-    if (!!query) {
+    if (query) {
       // One of the best regular expression website: http://www.regexr.com/
       // Split the query at spaces and join them to get like this: /(word1)+.*(word2)+.*(word3)+.*/ig
       const regexString = '(' + query.split(' ').join(')+.*(') + ')+.*';
@@ -26,5 +26,4 @@ export default Ember.Controller.extend({
 
     return results.sortBy('name');
   })
-
 });
