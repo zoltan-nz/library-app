@@ -19,8 +19,8 @@ export default Ember.Route.extend({
 
   actions: {
 
-    saveLibrary(newLibrary) {
-      newLibrary.save().then(() => this.transitionTo('libraries'));
+    saveLibrary(library) {
+      library.save().then(() => this.transitionTo('libraries'));
     },
 
     willTransition(transition) {
