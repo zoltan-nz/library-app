@@ -9,10 +9,22 @@
           {{input value=counter class='form-control' placeholder=placeholder}}
         </div>
 
-        <button class="btn btn-primary" {{action 'generateAction'}} disabled={{if isCounterValid false true}}>Generate {{sectionTitle}}</button>
-        {{#fader-label isShowing=createReady}}Created!{{/fader-label}}
+        <button class="btn btn-primary" {{action 'generateAction'}} disabled={{generateIsDisabled}}>
+          {{#if generateInProgress}}
+            <span class="glyphicon glyphicon-refresh spinning"></span> Generating...
+          {{else}}
+            Generate {{sectionTitle}}
+          {{/if}}
+        </button>
+        {{#fader-label isShowing=generateReady}}Created!{{/fader-label}}
 
-        <button class="btn btn-danger" {{action 'deleteAction'}}>Delete All {{sectionTitle}}</button>
+        <button class="btn btn-danger" {{action 'deleteAction'}} disabled={{deleteIsDisabled}}>
+          {{#if deleteInProgress}}
+            <span class="glyphicon glyphicon-refresh spinning"></span> Deleting...
+          {{else}}
+            Delete All {{sectionTitle}}
+          {{/if}}
+        </button>
         {{#fader-label isShowing=deleteReady}}Deleted!{{/fader-label}}
       </div>
 

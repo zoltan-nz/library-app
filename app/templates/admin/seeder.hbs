@@ -10,14 +10,18 @@
   sectionTitle='Libraries'
   generateAction='generateLibraries'
   deleteAction='deleteLibraries'
-  createReady=libDone
+  generateReady=libDone
   deleteReady=libDelDone
+  generateInProgress=generateLibrariesInProgress
+  deleteInProgress=deleteLibrariesInProgress
 }}
 
 {{seeder-block
   sectionTitle='Authors with Books'
   generateAction='generateBooksAndAuthors'
   deleteAction='deleteBooksAndAuthors'
-  createReady=authDone
+  generateReady=authDone
   deleteReady=authDelDone
+  generateInProgress=generateBooksInProgress
+  deleteInProgress=deleteBooksInProgress
 }}
