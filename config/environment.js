@@ -3,7 +3,7 @@
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'library-app',
-    environment: environment,
+    environment,
     rootURL: '/',
     locationType: 'auto',
 
@@ -13,8 +13,8 @@ module.exports = function(environment) {
     firebase: {
       apiKey: 'UPDATE-THIS-TO-YOUR-OWN-API-KEY',
       authDomain: 'UPDATE-THIS-TO-YOUR-OWN-FIREBASE-APP.firebaseapp.com',
-      projectId: 'UPDATE-THIS-TO-YOUR-OWN-PROJECT-ID',
       databaseURL: 'https://UPDATE-THIS-TO-YOUR-OWN-FIREBASE-APP.firebaseio.com',
+      projectId: 'UPDATE-THIS-TO-YOUR-OWN-PROJECT-ID',
       storageBucket: 'UPDATE-THIS-TO-YOUR-OWN-FIREBASE-APP.appspot.com',
       messagingSenderId: 'UPDATE-THIS'
     },
