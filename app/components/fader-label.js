@@ -1,6 +1,8 @@
-import Ember from 'ember';
+import { later, cancel } from '@ember/runloop';
+import { observer } from '@ember/object';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'span',
 
   classNames: ['label label-success label-fade'],
@@ -8,18 +10,18 @@ export default Ember.Component.extend({
 
   isShowing: false,
 
-  isShowingChanged: Ember.observer('isShowing', function() {
+  isShowingChanged: observer('isShowing', function() {
 
     // User can navigate away from this page in less than 3 seconds, so this component will be destroyed,
     // however our "setTimeout" task try to run.
     // We save this task in a local variable, so we can clean up during the destroy process.
     // Otherwise you will see a "calling set on destroyed object" error.
-    this._runLater = Ember.run.later(() => this.set('isShowing', false), 3000);
+    this._runLater = later(() => this.set('isShowing', false), 3000);
   }),
 
   resetRunLater() {
     this.set('isShowing', false);
-    Ember.run.cancel(this._runLater);
+    cancel(this._runLater);
   },
 
   willDestroy() {

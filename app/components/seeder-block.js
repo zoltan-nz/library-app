@@ -1,13 +1,14 @@
-import Ember from 'ember';
+import { lte, not, or } from '@ember/object/computed';
+import Component from '@ember/component';
 
 const MAX_VALUE = 100;
 
-export default Ember.Component.extend({
+export default Component.extend({
 
   counter: null,
 
-  isCounterValid: Ember.computed.lte('counter', MAX_VALUE),
-  isCounterNotValid: Ember.computed.not('isCounterValid'),
+  isCounterValid: lte('counter', MAX_VALUE),
+  isCounterNotValid: not('isCounterValid'),
   placeholder: `Max ${MAX_VALUE}`,
 
   generateReady: false,
@@ -16,8 +17,8 @@ export default Ember.Component.extend({
   generateInProgress: false,
   deleteInProgress: false,
 
-  generateIsDisabled: Ember.computed.or('isCounterNotValid', 'generateInProgress', 'deleteInProgress'),
-  deleteIsDisabled: Ember.computed.or('generateInProgress', 'deleteInProgress'),
+  generateIsDisabled: or('isCounterNotValid', 'generateInProgress', 'deleteInProgress'),
+  deleteIsDisabled: or('generateInProgress', 'deleteInProgress'),
 
   actions: {
 

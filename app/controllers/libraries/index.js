@@ -1,15 +1,17 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import { equal } from '@ember/object/computed';
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   queryParams: ['filter', 'limit', 'letter'],
   filter: '',
   letter: '',
   limit: 'all',
 
-  limitAll: Ember.computed.equal('limit', 'all'),
+  limitAll: equal('limit', 'all'),
 
-  filteredList: Ember.computed('model.@each.name', 'filter', function() {
+  filteredList: computed('model.@each.name', 'filter', function() {
 
     let results = this.get('model');
     const query = this.get('filter');

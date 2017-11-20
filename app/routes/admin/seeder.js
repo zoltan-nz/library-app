@@ -1,6 +1,7 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import Route from '@ember/routing/route';
 
-export default Ember.Route.extend({
+export default Route.extend({
 
   // You can use these lines to experiment with route hooks.
   // Uncomment these and comment out the real implementation below.
@@ -36,7 +37,7 @@ export default Ember.Route.extend({
   //}
 
   model() {
-    return Ember.RSVP.hash({
+    return hash({
       libraries: this.store.findAll('library'),
       books: this.store.findAll('book'),
       authors: this.store.findAll('author')

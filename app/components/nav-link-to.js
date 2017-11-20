@@ -1,19 +1,20 @@
-import Ember from 'ember';
+import { computed } from '@ember/object';
+import LinkComponent from '@ember/routing/link-component';
 
-export default Ember.LinkComponent.extend({
+export default LinkComponent.extend({
 
   tagName: 'li',
 
-    hrefForA: Ember.computed('models', 'qualifiedRouteName', function computeLinkToComponentHref() {
-        let qualifiedRouteName = this.get('qualifiedRouteName');
-        let models = this.get('models');
+  hrefForA: computed('models', 'qualifiedRouteName', function computeLinkToComponentHref() {
+    let qualifiedRouteName = this.get('qualifiedRouteName');
+    let models = this.get('models');
 
-        if (this.get('loading')) {
-            return this.get('loadingHref');
-        }
+    if (this.get('loading')) {
+      return this.get('loadingHref');
+    }
 
-        let routing = this.get('_routing');
-        let queryParams = this.get('queryParams.values');
-        return routing.generateURL(qualifiedRouteName, models, queryParams);
-    })
+    let routing = this.get('_routing');
+    let queryParams = this.get('queryParams.values');
+    return routing.generateURL(qualifiedRouteName, models, queryParams);
+  })
 });

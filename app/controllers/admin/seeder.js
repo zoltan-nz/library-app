@@ -1,7 +1,8 @@
-import Ember from "ember";
+import { all } from 'rsvp';
+import Controller from '@ember/controller';
 import Faker from "faker";
 
-export default Ember.Controller.extend({
+export default Controller.extend({
 
   actions: {
 
@@ -20,7 +21,7 @@ export default Ember.Controller.extend({
       }
 
       // Wait for all Promise to fulfill so we can show our label and turn off the spinner.
-      Ember.RSVP.all(savedLibraries)
+      all(savedLibraries)
         .then(() => {
           this.set('generateLibrariesInProgress', false);
           this.set('libDone', true)
@@ -59,7 +60,7 @@ export default Ember.Controller.extend({
       }
 
       // Let's wait until all async save resolved, show a label and turn off the spinner.
-      Ember.RSVP.all(booksWithAuthors)
+      all(booksWithAuthors)
 
         // Data down via seeder-block to fader-label that we ready to show the label
         // Change the progress flag also, so the spinner can be turned off.
@@ -122,7 +123,7 @@ export default Ember.Controller.extend({
     }
 
     // Return a Promise, so we can manage the whole process on time
-    return Ember.RSVP.all(books);
+    return all(books);
   },
 
   _selectRandomLibrary() {
@@ -145,6 +146,6 @@ export default Ember.Controller.extend({
     const recordsAreDestroying = records.map(item => item.destroyRecord());
 
     // Wrap all Promise in one common Promise, RSVP.all is our best friend in this process. ;)
-    return Ember.RSVP.all(recordsAreDestroying);
+    return all(recordsAreDestroying);
   }
 });
