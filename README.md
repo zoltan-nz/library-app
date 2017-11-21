@@ -1,4 +1,4 @@
-# Ember.js 2.14 Tutorial - Demo Application
+# Ember.js 2.17 Tutorial - Demo Application
 
 This is the original repository of the Library App.
  
@@ -20,9 +20,9 @@ $ git clone git@github.com:zoltan-nz/library-app.git
 ```
 $ cd library-app
 ```
-* Install node and bower packages
+* Install node packages
 ```
-$ npm install && bower install
+$ npm install
 ```
 * Setup in `config/environment.js` Firebase settings. ([Setup firebase in your Ember project](http://yoember.com/#setup-a-server-on-firebase))
 
@@ -35,4 +35,4 @@ $ ember server
 $ open http://localhost:4200
 ```
 
-[www.yoember.com](http://yoember.com)
+[www.yoember.com - The Ember.js Tutorial](http://yoember.com)
