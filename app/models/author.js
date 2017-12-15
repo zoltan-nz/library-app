@@ -12,7 +12,9 @@ export default DS.Model.extend({
   randomize() {
     this.set('name', Faker.name.findName());
 
-    // we return the record instance, we can chain an other function, for example .save(), check in Seeder Controller.
+    // With returning the author instance, the function can be chainable,
+    // for example `this.store.createRecord('author').randomize().save()`,
+    // check in Seeder Controller.
     return this;
   }
 });
