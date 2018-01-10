@@ -4,7 +4,7 @@ export default Component.extend({
 
   tagName: 'select',
   classNames: ['form-control'],
-  libraries: [],
+  libraries: null,
   book: null,
 
   change(event) {
