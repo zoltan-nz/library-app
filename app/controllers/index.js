@@ -13,7 +13,7 @@ export default Controller.extend({
   actions: {
 
     saveInvitation() {
-      const email = this.get('emailAddress');
+      const email = this.emailAddress;
 
       const newInvitation = this.store.createRecord('invitation', {
         email: email

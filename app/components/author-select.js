@@ -9,8 +9,8 @@ export default Component.extend({
 
   change(event) {
     const selectedAuthorId = event.target.value;
-    const selectedAuthor = this.get('authors').find((record) => record.id === selectedAuthorId);
+    const selectedAuthor = this.authors.find((record) => record.id === selectedAuthorId);
 
-    this.sendAction('action', selectedAuthor, this.get('book'));
+    this.sendAction('action', selectedAuthor, this.book);
   }
 });

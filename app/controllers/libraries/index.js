@@ -13,8 +13,8 @@ export default Controller.extend({
 
   filteredList: computed('model.@each.name', 'filter', function() {
 
-    let results = this.get('model');
-    const query = this.get('filter');
+    let results = this.model;
+    const query = this.filter;
 
     if (query) {
       // One of the best regular expression website: http://www.regexr.com/

@@ -23,10 +23,10 @@ export default Component.extend({
   actions: {
 
     generateAction() {
-      if (this.get('isCounterValid')) {
+      if (this.isCounterValid) {
 
         // Action up to Seeder Controller with the requested amount
-        this.sendAction('generateAction', this.get('counter'));
+        this.sendAction('generateAction', this.counter);
       }
     },
 

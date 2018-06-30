@@ -34,7 +34,7 @@ export default Controller.extend({
       this.set('deleteLibrariesInProgress', true);
 
       // Our local _destroyAll return a promise, we change the label when all records destroyed.
-      this._destroyAll(this.get('libraries'))
+      this._destroyAll(this.libraries)
 
         // Data down via seeder-block to fader-label that we ready to show the label.
         // Change the progress indicator also, so the spinner can be turned off.
@@ -75,8 +75,8 @@ export default Controller.extend({
       // Progress flag, data-down to seeder-block button to show spinner.
       this.set('deleteBooksInProgress', true);
 
-      const authors = this.get('authors');
-      const books = this.get('books');
+      const authors = this.authors;
+      const books = this.books;
 
       // Remove authors first and books later, finally show the label.
       this._destroyAll(authors)
@@ -131,7 +131,7 @@ export default Controller.extend({
     // Please note libraries are records from store, which means this is a DS.RecordArray object, it is extended from
     // Ember.ArrayProxy. If you need an element from this list, you cannot just use libraries[3], we have to use
     // libraries.objectAt(3)
-    const libraries = this.get('libraries');
+    const libraries = this.libraries;
     const size = libraries.get('length');
 
     // Get a random number between 0 and size-1
