@@ -3,7 +3,7 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
 
-  headerMessage: 'Coming Soon',
+  headerMessage: 'Demo Home Page',
   responseMessage: '',
   emailAddress: '',
 
