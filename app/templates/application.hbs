@@ -1,5 +1,52 @@
 <div class="container">
-  {{partial 'navbar'}}
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        {{#link-to 'index' class="navbar-brand"}}Library App{{/link-to}}
+      </div>
+
+      <div class="collapse navbar-collapse" id="main-navbar">
+        <ul class="nav navbar-nav">
+          {{#nav-link-to 'index'}}Home{{/nav-link-to}}
+          {{#nav-link-to 'libraries'}}Libraries{{/nav-link-to}}
+          {{#nav-link-to 'authors'}}Authors{{/nav-link-to}}
+          {{#nav-link-to 'books'}}Books{{/nav-link-to}}
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          {{#nav-link-to 'about'}}About{{/nav-link-to}}
+          {{#nav-link-to 'contact'}}Contact{{/nav-link-to}}
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span
+              class="caret"></span></a>
+            <ul class="dropdown-menu">
+              {{#nav-link-to 'admin.invitations'}}Invitations{{/nav-link-to}}
+              {{#nav-link-to 'admin.contacts'}}Contacts{{/nav-link-to}}
+              {{#nav-link-to 'admin.seeder'}}Seeder{{/nav-link-to}}
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
   {{outlet}}
-  {{partial 'footer'}}
+
+  <footer class="page-footer">
+    <p>Welcome in the Ember.js 3.4 Demo App. Please click through and check all menu point and features. You can build
+      this application if you follow our free <a href="http://yoember.com">Ember tutorial</a>.
+      Please don't use your real email address. This database is public, you can list the database in Admin section.
+      The source code on <a href="https://github.com/zoltan-nz/library-app">GitHub</a>.</p>
+    <p>If you have any question or suggestion, please contact me. Web: <a href="http://zoltan.nz">zoltan.nz</a>,
+      Twitter: <a href="http://www.twitter.com/zoltan_nz">@zoltan_nz</a></p>
+    <p>If you run this app from your own computer, don't forget to update Firebase parameters in <code>config/environment.js</code></p>
+  </footer>
+
 </div>
