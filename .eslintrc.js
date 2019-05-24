@@ -1,3 +1,7 @@
+const off = 0;
+const warn = 1;
+const error = 2;
+
 module.exports = {
   root: true,
   parserOptions: {
@@ -15,7 +19,11 @@ module.exports = {
     browser: true
   },
   rules: {
-    'ember/closure-actions': 1
+    'ember/closure-actions': warn,
+    'semi': [error, 'always'],
+    'indent': [error, 2, {
+      'SwitchCase': 1
+    }]
   },
   overrides: [
     // node files
