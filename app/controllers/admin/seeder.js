@@ -24,7 +24,7 @@ export default Controller.extend({
       all(savedLibraries)
         .then(() => {
           this.set('generateLibrariesInProgress', false);
-          this.set('libDone', true)
+          this.set('libDone', true);
         });
     },
 
@@ -119,7 +119,7 @@ export default Controller.extend({
 
           // guard library in case if we don't have any
           .then(() => library && library.save());
-      books.push(bookPromise)
+      books.push(bookPromise);
     }
 
     // Return a Promise, so we can manage the whole process on time
