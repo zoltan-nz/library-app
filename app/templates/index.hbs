@@ -1,23 +1,18 @@
 <div class="jumbotron text-center">
-    <h1>{{headerMessage}}</h1>
-
-    <br/><br/>
-
-  <p>This is an example form for invitation. Start building your own application today, follow our free <a href="https://yoember.com" target="_blank">Ember.js Tutorial</a>.</p>
+  <h1>{{headerMessage}}</h1>
+  <br><br>
+  <p>This is an example form for invitation. Start building your own application today, follow our free <a href="https://yoember.com" target="_blank" rel="noopener">Ember.js Tutorial</a>.</p>
   <p>Don't forget to check out other menu points as well. ;)</p>
-
-    <div class="form-horizontal form-group form-group-lg row">
-        <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2">
-          {{input type="email" value=emailAddress class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
-        </div>
-        <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3">
-            <button class="btn btn-primary btn-lg btn-block" {{action 'saveInvitation'}} disabled={{isDisabled}}>Request invitation</button>
-        </div>
+  <div class="form-horizontal form-group form-group-lg row">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-1 col-md-5 col-md-offset-2">
+      {{input type="email" value=emailAddress class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
     </div>
-
-    {{#if responseMessage}}
-        <div class="alert alert-success" role="alert">{{responseMessage}}</div>
-    {{/if}}
-
-    <br/><br/>
+    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-4 col-md-3">
+      <button class="btn btn-primary btn-lg btn-block" {{action "saveInvitation"}} disabled={{isDisabled}}>Request invitation</button>
+    </div>
+  </div>
+  {{#if responseMessage}}
+    <div class="alert alert-success" role="alert">{{responseMessage}}</div>
+  {{/if}}
+  <br><br>
 </div>
