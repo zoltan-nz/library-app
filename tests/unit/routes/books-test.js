@@ -1,4 +1,4 @@
-import { module, test, todo } from 'qunit';
+import { module, skip, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import EmberObject from '@ember/object';
 import sinon from 'sinon';
@@ -101,7 +101,7 @@ module('Unit | Route | books', hooks => {
       assert.ok(book.rollbackAttributes.calledOnce);
     });
 
-    todo('saveAuthor', function(assert) {
+    skip('saveAuthor', function(assert) {
       // TODO: check if firebase adapter has been fixed
       assert.ok(false);
     });
@@ -120,7 +120,7 @@ module('Unit | Route | books', hooks => {
       assert.ok(book.rollbackAttributes.calledOnce);
     });
 
-    todo('saveLibrary', function(assert) {
+    skip('saveLibrary', function(assert) {
       // TODO: check if firebase adapter has been fixed
       assert.ok(false);
     });
