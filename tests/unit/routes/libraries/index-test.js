@@ -58,5 +58,6 @@ module('Unit | Route | libraris/index', hooks => {
     this.route.send('deleteLibrary', library);
     assert.ok(confirm.calledOnceWith('Are you sure?'));
     assert.ok(library.destroyRecord.notCalled);
+    confirm.restore();
   });
 });
