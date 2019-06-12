@@ -7,7 +7,7 @@ const { spy, stub } = sinon;
 module('Unit | Route | libraris/index', hooks => {
   setupTest(hooks);
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(function() {
     this.findAll = stub().returns('libraries');
     this.query = stub().returns('libraries');
     this.route = this.owner.factoryFor('route:libraries/index').create({
@@ -43,7 +43,7 @@ module('Unit | Route | libraris/index', hooks => {
     assert.ok(this.query.calledOnceWith('library', queryParams));
   });
 
-  test('deleteLibrary action', function (assert) {
+  test('deleteLibrary action', function(assert) {
     const library = { destroyRecord: spy() };
     stub(window, 'confirm').returns(true);
 

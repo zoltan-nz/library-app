@@ -8,7 +8,7 @@ const { spy, stub } = sinon;
 module('Unit | Route | libraries/new', hooks => {
   setupTest(hooks);
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(function() {
     this.controller = EmberObject.create({
       model: {
         rollbackAttributes: spy()

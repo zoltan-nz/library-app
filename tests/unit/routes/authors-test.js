@@ -9,7 +9,7 @@ module('Unit | Route | authors', hooks => {
   setupTest(hooks);
 
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(function() {
     this.findAll = stub().returns('authors');
     this.route = this.owner.factoryFor('route:authors').create({
       store: { findAll: this.findAll }
@@ -22,13 +22,13 @@ module('Unit | Route | authors', hooks => {
     assert.ok(this.findAll.calledOnceWith('author'));
   });
 
-  test('editAuthor action', function (assert) {
+  test('editAuthor action', function(assert) {
     const author = EmberObject.create();
     this.route.send('editAuthor', author);
     assert.ok(author.get('isEditing'));
   });
 
-  test('cancelAuthorEdit action', function (assert) {
+  test('cancelAuthorEdit action', function(assert) {
     const rollbackAttributes = spy();
     const author = EmberObject.create({
       rollbackAttributes
@@ -38,7 +38,7 @@ module('Unit | Route | authors', hooks => {
     assert.ok(rollbackAttributes.calledOnce);
   });
 
-  test('saveAuthor action', function (assert) {
+  test('saveAuthor action', function(assert) {
     const save = spy();
     const author = EmberObject.create({
       isEditing: true,

@@ -46,7 +46,7 @@ module('Unit | Route | books', hooks => {
 
   module('actions', () => {
 
-    hooks.beforeEach(function () {
+    hooks.beforeEach(function() {
       const rollbackAttributes = spy();
       const save = spy();
       this.book = EmberObject.create({

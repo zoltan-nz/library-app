@@ -23,7 +23,12 @@ module.exports = {
     'semi': [error, 'always'],
     'indent': [error, 2, {
       'SwitchCase': 1
-    }]
+    }],
+    'space-before-function-paren': [error, {
+      anonymous: 'never',
+      named: 'never'
+    }],
+    'func-call-spacing': [ error, 'never'],
   },
   overrides: [
     // node files

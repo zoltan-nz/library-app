@@ -8,7 +8,7 @@ const { stub } = sinon;
 module('Unit | Route | admin/seeder', function(hooks) {
   setupTest(hooks);
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(function() {
     this.model = {
       authors: 'authors',
       books: 'books',
@@ -25,7 +25,7 @@ module('Unit | Route | admin/seeder', function(hooks) {
     });
   });
 
-  test('model hook', async function (assert) {
+  test('model hook', async function(assert) {
     const { model, route } = this;
     assert.expect(4);
     assert.deepEqual(await route.model(), model);
@@ -34,7 +34,7 @@ module('Unit | Route | admin/seeder', function(hooks) {
     assert.ok(route.store.findAll.calledWith('author'));
   });
 
-  test('setupController function', function (assert) {
+  test('setupController function', function(assert) {
     const controller = EmberObject.create();
     assert.expect(3);
     this.route.setupController(controller, this.model);
