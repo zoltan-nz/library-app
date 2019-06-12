@@ -8,7 +8,7 @@ const { spy, stub } = sinon;
 module('Unit | Route | contact', hooks => {
   setupTest(hooks);
 
-  hooks.beforeEach(function () {
+  hooks.beforeEach(function() {
     this.createRecord = stub().returns('contact');
     this.destroyRecord = spy();
     this.route = this.owner.factoryFor('route:contact').create({
