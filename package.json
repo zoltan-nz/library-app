@@ -14,7 +14,8 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "ember test"
+    "test": "ember test",
+    "test:coverage": "COVERAGE=true npm test"
   },
   "devDependencies": {
     "@ember/jquery": "^0.5.2",
@@ -25,6 +26,7 @@
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^6.16.0",
     "ember-cli-bootstrap-sassy": "^0.5.7",
+    "ember-cli-code-coverage": "^0.4.2",
     "ember-cli-dependency-checker": "^3.0.0",
     "ember-cli-eslint": "^4.2.3",
     "ember-cli-htmlbars": "^3.0.0",
