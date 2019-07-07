@@ -28,3 +28,4 @@ script:
 
 after_script:
   - npm run coveralls
+  - npm run codacy-coverage

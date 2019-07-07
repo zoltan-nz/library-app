@@ -11,6 +11,7 @@
   "private": false,
   "scripts": {
     "build": "ember build",
+    "codacy-coverage": "cat ./coverage/lcov.info | codacy-coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
@@ -22,6 +23,7 @@
     "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "^0.6.3",
     "broccoli-asset-rev": "^2.7.0",
+    "codacy-coverage": "^3.4.0",
     "coveralls": "^3.0.4",
     "ember-ajax": "^3.1.0",
     "ember-cli": "~3.4.4",
