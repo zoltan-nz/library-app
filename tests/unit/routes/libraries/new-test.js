@@ -30,27 +30,10 @@ module('Unit | Route | libraries/new', hooks => {
     assert.ok(this.route.store.createRecord.calledOnceWith('library'));
   });
 
-  test('setupController function', function(assert) {
-    const { controller } = this;
-    this.route.setupController(controller);
-    assert.expect(2);
-    assert.equal(controller.get('title'), 'Create a new library');
-    assert.equal(controller.get('buttonLabel'), 'Create');
-  });
-
   test('renderTemplate function', function(assert) {
     this.route.renderTemplate();
     assert.expect(1);
     assert.ok(this.route.render.calledOnceWith('libraries/form'));
-  });
-
-  test('saveLibrary action', function(assert) {
-    const save = stub().returns({ then: stub().yields() });
-    const newLibrary = { save };
-    this.route.send('saveLibrary', newLibrary);
-    assert.expect(2);
-    assert.ok(save.calledOnce);
-    assert.ok(this.route.transitionTo.calledOnceWith('libraries'));
   });
 
   test('willTransition action', function(assert) {
