@@ -18,7 +18,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each model as |book|}}
+    {{#each books as |book|}}
       <tr>
         <td>
           {{#if book.isAuthorEditing}}
@@ -27,8 +27,8 @@
                 book=book
                 authors=authors
                 default=book.author
-                action="saveAuthor"}}
-
+                onChange=(action "saveAuthor")
+            }}
             <button class="btn btn-danger" {{action "cancelAuthorEdit" book}}>Cancel</button>
           {{else}}
             <span role="button" {{action "editAuthor" book}}>{{book.author.name}}</span>
@@ -56,7 +56,8 @@
                 book=book
                 libraries=libraries
                 default=book.library
-                action="saveLibrary"}}
+                onChange=(action "saveLibrary")
+            }}
             <button class="btn btn-danger" {{action "cancelLibraryEdit" book}}>Cancel</button>
           {{else}}
             <span role="button" {{action "editLibrary" book}}>{{book.library.name}}</span>

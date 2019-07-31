@@ -7,10 +7,12 @@ export default Component.extend({
   authors: null,
   book: null,
 
+  //pass an action to override
+  onChange() {},
+
   change(event) {
     const selectedAuthorId = event.target.value;
     const selectedAuthor = this.authors.find((record) => record.id === selectedAuthorId);
-
-    this.sendAction('action', selectedAuthor, this.book);
+    this.onChange(selectedAuthor, this.book);
   }
 });
