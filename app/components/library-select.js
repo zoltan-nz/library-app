@@ -7,10 +7,12 @@ export default Component.extend({
   libraries: null,
   book: null,
 
+  //pass an action to override
+  onChange() {},
+
   change(event) {
     const selectedLibraryId = event.target.value;
     const selectedLibrary = this.libraries.find((record) => record.id === selectedLibraryId);
-
-    this.sendAction('action', selectedLibrary, this.book);
+    this.onChange(selectedLibrary, this.book);
   }
 });
