@@ -20,19 +20,19 @@ export default Component.extend({
   generateIsDisabled: or('isCounterNotValid', 'generateInProgress', 'deleteInProgress'),
   deleteIsDisabled: or('generateInProgress', 'deleteInProgress'),
 
+  // pass actions to override
+  handleGenerate() {},
+  handleDelete() {},
+
   actions: {
-
-    generateAction() {
+    generate() {
       if (this.isCounterValid) {
-
-        // Action up to Seeder Controller with the requested amount
-        this.sendAction('generateAction', this.counter);
+        this.handleGenerate(this.counter);
       }
     },
 
-    deleteAction() {
-      this.sendAction('deleteAction');
+    delete() {
+      this.handleDelete();
     }
-
   }
 });
