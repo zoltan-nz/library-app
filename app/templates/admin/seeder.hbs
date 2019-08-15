@@ -8,8 +8,8 @@
 
 {{seeder-block
   sectionTitle="Libraries"
-  generateAction="generateLibraries"
-  deleteAction="deleteLibraries"
+  handleGenerate=(action "generateLibraries")
+  handleDelete=(action "deleteLibraries")
   generateReady=libDone
   deleteReady=libDelDone
   generateInProgress=generateLibrariesInProgress
@@ -18,8 +18,8 @@
 
 {{seeder-block
   sectionTitle="Authors with Books"
-  generateAction="generateBooksAndAuthors"
-  deleteAction="deleteBooksAndAuthors"
+  handleGenerate=(action "generateBooksAndAuthors")
+  handleDelete=(action "deleteBooksAndAuthors")
   generateReady=authDone
   deleteReady=authDelDone
   generateInProgress=generateBooksInProgress
