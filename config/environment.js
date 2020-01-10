@@ -9,7 +9,7 @@ module.exports = function(environment) {
 
     // !!! UPDATE THESE KEYS !!!
     // Visit https://console.firebase.google.com/
-    // Click Project Overview -> Add app -> Select Web -> Add a nickname -> Register app -> Copy paste values below.
+    // Click on your app -> Project Overview -> Add app -> Select Web -> Add a nickname -> Register app -> Copy paste values below.
     firebase: {
       apiKey: "UPDATE-THIS",
       authDomain: "UPDATE-THIS",
