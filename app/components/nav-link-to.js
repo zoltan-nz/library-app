@@ -6,7 +6,7 @@ export default LinkComponent.extend({
   tagName: 'li',
 
   hrefForA: computed('models', 'qualifiedRouteName', function computeLinkToComponentHref() {
-    let qualifiedRouteName = this.qualifiedRouteName;
+    let route = this.route;
     let models = this.models;
 
     if (this.loading) {
@@ -15,6 +15,6 @@ export default LinkComponent.extend({
 
     let routing = this._routing;
     let queryParams = this.get('queryParams.values');
-    return routing.generateURL(qualifiedRouteName, models, queryParams);
+    return routing.generateURL(route, models, queryParams);
   })
 });
