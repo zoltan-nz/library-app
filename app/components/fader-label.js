@@ -1,4 +1,5 @@
 import { later, cancel } from '@ember/runloop';
+// eslint-disable-next-line ember/no-observers
 import { observer } from '@ember/object';
 import Component from '@ember/component';
 
@@ -10,6 +11,7 @@ export default Component.extend({
 
   isShowing: false,
 
+  // eslint-disable-next-line ember/no-observers
   isShowingChanged: observer('isShowing', function() {
 
     // User can navigate away from this page in less than 3 seconds, so this component will be destroyed,
