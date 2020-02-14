@@ -13,12 +13,12 @@
     {{else}}
       <div class="form-group has-feedback {{if model.isValidEmail "has-success"}}">
         <label>Your email address*:</label>
-        {{input type="email" class="form-control" placeholder="Your email address" value=model.email autofocus="autofocus"}}
+        <Input @type="email" class="form-control" placeholder="Your email address" @value={{model.email}} @autofocus="autofocus" />
         {{#if model.isValidEmail}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
       </div>
       <div class="form-group has-feedback {{if model.isMessageEnoughLong "has-success"}}">
         <label>Your message*:</label>
-        {{textarea class="form-control" placeholder="Your message. (At least 5 characters.)" rows="5" value=model.message}}
+        <Textarea class="form-control" placeholder="Your message. (At least 5 characters.)" @rows="5" @value={{model.message}} />
         {{#if model.isMessageEnoughLong}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
       </div>
       <button class="btn btn-success" {{action "sendMessage" model}} disabled={{model.isNotValid}}>Send</button>

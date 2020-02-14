@@ -23,12 +23,7 @@
         <td>
           {{#if book.isAuthorEditing}}
 
-            {{author-select
-                book=book
-                authors=authors
-                default=book.author
-                onChange=(action "saveAuthor")
-            }}
+            <AuthorSelect @book={{book}} @authors={{authors}} @default={{book.author}} @onChange={{action "saveAuthor"}} />
             <button class="btn btn-danger" {{action "cancelAuthorEdit" book}}>Cancel</button>
           {{else}}
             <span role="button" {{action "editAuthor" book}}>{{book.author.name}}</span>
@@ -38,7 +33,7 @@
           {{#if book.isEditing}}
             <form {{action "saveBook" book on="submit"}} class="form-inline">
               <div class="input-group">
-                {{input value=book.title class="form-control"}}
+                <Input @value={{book.title}} class="form-control" />
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-success" disabled={{book.isNotValid}}>Save</button>
                   <button class="btn btn-danger" {{action "cancelBookEdit" book}}>Cancel</button>
@@ -52,12 +47,7 @@
         <td>{{book.releaseYear}}</td>
         <td>
           {{#if book.isLibraryEditing}}
-            {{library-select
-                book=book
-                libraries=libraries
-                default=book.library
-                onChange=(action "saveLibrary")
-            }}
+            <LibrarySelect @book={{book}} @libraries={{libraries}} @default={{book.library}} @onChange={{action "saveLibrary"}} />
             <button class="btn btn-danger" {{action "cancelLibraryEdit" book}}>Cancel</button>
           {{else}}
             <span role="button" {{action "editLibrary" book}}>{{book.library.name}}</span>

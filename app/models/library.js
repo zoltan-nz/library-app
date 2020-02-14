@@ -1,14 +1,14 @@
+import Model, { attr, hasMany } from '@ember-data/model';
 import { notEmpty } from '@ember/object/computed';
-import DS from 'ember-data';
 import Faker from 'faker';
 
-export default DS.Model.extend({
+export default Model.extend({
 
-  name: DS.attr('string'),
-  address: DS.attr('string'),
-  phone: DS.attr('string'),
+  name: attr('string'),
+  address: attr('string'),
+  phone: attr('string'),
 
-  books: DS.hasMany('book', { inverse: 'library', async: true }),
+  books: hasMany('book', { inverse: 'library', async: true }),
 
   isValid: notEmpty('name'),
 

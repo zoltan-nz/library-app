@@ -2,20 +2,20 @@
 
 <div class="row">
   <div class="col-md-1">
-    {{#link-to (query-params limit="all" letter="") class="btn btn-default btn-lg btn-block"}}All{{/link-to}}
+    <LinkTo @query={{hash limit="all" letter=""}} class="btn btn-default btn-lg btn-block">All</LinkTo>
   </div>
   <div class="col-md-1">
-    {{#link-to (query-params limit="abc") class="btn btn-default btn-lg btn-block"}}Abc{{/link-to}}
+    <LinkTo @query={{hash limit="abc"}} class="btn btn-default btn-lg btn-block">Abc</LinkTo>
   </div>
 
   <div class="col-md-10">
     {{#if limitAll}}
       <div class="form-group">
-        {{input value=filter class="form-control input-lg" placeholder="Filter by library name"}}
+        <Input @value={{filter}} class="form-control input-lg" placeholder="Filter by library name" />
       </div>
     {{else}}
       <div class="form-group">
-        {{abc-buttons}}
+        <AbcButtons />
       </div>
     {{/if}}
   </div>
@@ -24,14 +24,14 @@
 <div class="row">
   {{#each filteredList as |library|}}
     <div class="col-md-4">
-      {{#library-item item=library badge=library.books.length}}
-        {{#link-to "libraries.edit" library.id class="btn btn-success btn-xs"}}Edit{{/link-to}}
+      <LibraryItem @item={{library}} @badge={{library.books.length}}>
+        <LinkTo @route="libraries.edit" @model={{library.id}} class="btn btn-success btn-xs">Edit</LinkTo>
         <button class="btn btn-danger btn-xs" {{action "deleteLibrary" library}}>Delete</button>
-      {{/library-item}}
+      </LibraryItem>
     </div>
   {{else}}
     {{#if model.isUpdating}}
-      {{spinner-cube}}
+      <SpinnerCube />
     {{else}}
       <div class="col-md-12 text-center">
         <div class="alert alert-info">

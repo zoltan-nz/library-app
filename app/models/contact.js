@@ -1,10 +1,10 @@
+import Model, { attr } from '@ember-data/model';
 import { match, gte, and, not } from '@ember/object/computed';
-import DS from 'ember-data';
 
-export default DS.Model.extend({
+export default Model.extend({
 
-  email: DS.attr('string'),
-  message: DS.attr('string'),
+  email: attr('string'),
+  message: attr('string'),
 
   isValidEmail: match('email', /^.+@.+\..+$/),
   isMessageEnoughLong: gte('message.length', 5),

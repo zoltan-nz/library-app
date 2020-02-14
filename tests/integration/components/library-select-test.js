@@ -22,10 +22,7 @@ module('Integration | Component | library-select', function(hooks) {
     const component = this.element.querySelector('select');
 
     assert.expect(3);
-    assert.ok(
-      component.classList.contains('form-control'),
-      'component renders with assigned CSS class'
-    );
+    assert.dom(component).hasClass('form-control', 'component renders with assigned CSS class');
     assert.equal(
       component.options[component.selectedIndex].text,
       'Jerde - Bogisich Library',

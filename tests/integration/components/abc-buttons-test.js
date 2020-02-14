@@ -15,8 +15,8 @@ module('Integration | Component | abc-buttons', function(hooks) {
     const children = [...component.children];
 
     assert.expect(28);
-    assert.ok(component.classList.contains('btn-group'));
+    assert.dom(component).hasClass('btn-group');
     assert.equal(component.childElementCount, 26);
-    children.forEach((child, i) => assert.equal(child.textContent, letters[i]));
+    children.forEach((child, i) => assert.dom(child).hasText(letters[i]));
   });
 });

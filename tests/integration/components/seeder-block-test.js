@@ -29,11 +29,11 @@ module('Integration | Component | seeder-block', function(hooks) {
 
     assert.expect(7);
     assert.equal(sectionTitle, 'Libraries');
-    assert.notOk(formGroup.classList.contains('has-error'));
+    assert.dom(formGroup).hasNoClass('has-error');
     assert.equal(input.placeholder, 'Max 100');
-    assert.equal(generateBtn.textContent.trim(), 'Generate Libraries');
+    assert.dom(generateBtn).hasText('Generate Libraries');
     assert.notOk(generateBtn.disabled);
-    assert.equal(deleteBtn.textContent.trim(), 'Delete All Libraries');
+    assert.dom(deleteBtn).hasText('Delete All Libraries');
     assert.notOk(deleteBtn.disabled);
   });
 
@@ -50,7 +50,7 @@ module('Integration | Component | seeder-block', function(hooks) {
     ] = component.querySelectorAll('button');
 
     await fillIn(input, 101);
-    assert.ok(formGroup.classList.contains('has-error'));
+    assert.dom(formGroup).hasClass('has-error');
     assert.ok(generateBtn.disabled);
     assert.notOk(deleteBtn.disabled);
   });
@@ -74,8 +74,8 @@ module('Integration | Component | seeder-block', function(hooks) {
 
     assert.expect(3);
     assert.equal(sectionTitle, 'Authors with Books');
-    assert.equal(generateBtn.textContent.trim(), 'Generating...');
-    assert.equal(deleteBtn.textContent.trim(), 'Deleting...');
+    assert.dom(generateBtn).hasText('Generating...');
+    assert.dom(deleteBtn).hasText('Deleting...');
   });
 
   test('it renders generated and deleted labels', async function(assert) {
@@ -94,7 +94,7 @@ module('Integration | Component | seeder-block', function(hooks) {
     ] = component.querySelectorAll('span');
 
     assert.expect(2);
-    assert.equal(createdLabel.textContent.trim(), 'Created!');
-    assert.equal(deletedLabel.textContent.trim(), 'Deleted!');
+    assert.dom(createdLabel).hasText('Created!');
+    assert.dom(deletedLabel).hasText('Deleted!');
   });
 });

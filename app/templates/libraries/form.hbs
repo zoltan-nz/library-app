@@ -1,11 +1,11 @@
 <h2>{{title}}</h2>
 <div class="row">
   <div class="col-md-6">
-    {{library-item-form item=model buttonLabel=buttonLabel handleClick=(action "saveLibrary")}}
+    <LibraryItemForm @item={{model}} @buttonLabel={{buttonLabel}} @handleClick={{action "saveLibrary"}} />
   </div>
   <div class="col-md-4">
-    {{#library-item item=model badge=model.books.length}}
+    <LibraryItem @item={{model}} @badge={{model.books.length}}>
       <br>
-    {{/library-item}}
+    </LibraryItem>
   </div>
 </div>
