@@ -1,7 +1,7 @@
 {
   "name": "library-app",
-  "version": "3.4.0",
-  "description": "Demo application for learning Ember.js v3",
+  "version": "3.16.3",
+  "description": "Demo application for learning Ember.js v3 (Octane)",
   "repository": {
     "type": "git",
     "url": "https://github.com/zoltan-nz/library-app"

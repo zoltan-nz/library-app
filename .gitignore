@@ -22,7 +22,7 @@
 .npmrc
 .firebase-debug.log
 .firebaserc
-
+.firebase
 
 # ember-try
 /.node_modules.ember-try/
