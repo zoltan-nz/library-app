@@ -24,7 +24,7 @@
     "@ember/optional-features": "^1.3.0",
     "@glimmer/component": "^1.0.0",
     "@glimmer/tracking": "^1.0.0",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "codacy-coverage": "^3.4.0",
     "coveralls": "^3.0.9",
@@ -36,12 +36,12 @@
     "ember-cli-code-coverage": "^0.4.2",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-eslint": "^5.1.0",
-    "ember-cli-htmlbars": "^4.2.2",
+    "ember-cli-htmlbars": "^4.2.3",
     "ember-cli-inject-live-reload": "^2.0.2",
     "ember-cli-sass": "^10.0.1",
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.1",
-    "ember-cli-template-lint": "^2.0.1",
+    "ember-cli-template-lint": "^2.0.2",
     "ember-cli-uglify": "^3.0.0",
     "ember-cli-update": "^0.52.1",
     "ember-data": "~3.16.0",
@@ -52,7 +52,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^7.0.0",
-    "ember-sinon": "^4.1.1",
+    "ember-sinon": "^5.0.0",
     "ember-source": "~3.16.3",
     "ember-welcome-page": "^4.0.0",
     "emberfire": "^3.0.0-rc.6",
@@ -61,7 +61,7 @@
     "firebase": "^7.9.1",
     "loader.js": "^4.7.0",
     "qunit-dom": "^1.0.0",
-    "sass": "^1.25.0"
+    "sass": "^1.26.1"
   },
   "engines": {
     "node": "10.* || >= 12"
