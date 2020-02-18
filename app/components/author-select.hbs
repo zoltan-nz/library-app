@@ -1,5 +1,7 @@
-{{#each authors as |author|}}
-  <option value={{author.id}} selected={{is-equal author.id default.id}}>
-    {{author.name}}
-  </option>
-{{/each}}
+<select {{on "change" (fn this.change)}} class="form-control">
+  {{#each authors as |author|}}
+    <option value={{author.id}} selected={{is-equal author.id default.id}}>
+      {{author.name}}
+    </option>
+  {{/each}}
+</select>
