@@ -1,3 +1,5 @@
-{{#each atoz as |letter|}}
-  <LinkTo @query={{hash limit="abc" letter=letter}} class="btn btn-lg btn-narrow btn-default">{{letter}}</LinkTo>
-{{/each}}
+<div class="btn-group">
+  {{#each atoz as |letter|}}
+    <LinkTo @query={{hash limit="abc" letter=letter}} class="btn btn-lg btn-narrow btn-default">{{letter}}</LinkTo>
+  {{/each}}
+</div>
