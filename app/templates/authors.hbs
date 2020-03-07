@@ -19,7 +19,7 @@
                 <Input @value={{author.name}} class="form-control" />
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-success" disabled={{author.isNotValid}}>Save</button>
-                  <button class="btn btn-danger" {{action "cancelAuthorEdit" author}}>Cancel</button>
+                  <button type="button" class="btn btn-danger" {{action "cancelAuthorEdit" author}}>Cancel</button>
                 </div>
               </div>
             </form>

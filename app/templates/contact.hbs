@@ -20,7 +20,7 @@
         <label>Your message*:</label>
         <Textarea class="form-control" placeholder="Your message. (At least 5 characters.)" @rows="5" @value={{this.model.message}} />        {{#if this.model.isMessageEnoughLong}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
       </div>
-      <button class="btn btn-success" {{action "sendMessage" this.model}} disabled={{this.model.isNotValid}}>Send</button>
+      <button type="submit" class="btn btn-success" {{action "sendMessage" this.model}} disabled={{this.model.isNotValid}}>Send</button>
     {{/if}}
   </div>
 </div>
