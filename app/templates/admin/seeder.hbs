@@ -1,11 +1,11 @@
 <h1>Seeder, our Data Center</h1>
 
 <div class="row">
-  <div class="col-md-4"><NumberBox @title="Libraries" @number={{libraries.length}} /></div>
-  <div class="col-md-4"><NumberBox @title="Authors" @number={{authors.length}} /></div>
-  <div class="col-md-4"><NumberBox @title="Books" @number={{books.length}} /></div>
+  <div class="col-md-4"><NumberBox @title="Libraries" @number={{this.libraries.length}} /></div>
+  <div class="col-md-4"><NumberBox @title="Authors" @number={{this.authors.length}} /></div>
+  <div class="col-md-4"><NumberBox @title="Books" @number={{this.books.length}} /></div>
 </div>
 
-<SeederBlock @sectionTitle="Libraries" @handleGenerate={{action "generateLibraries"}} @handleDelete={{action "deleteLibraries"}} @generateReady={{libDone}} @deleteReady={{libDelDone}} @generateInProgress={{generateLibrariesInProgress}} @deleteInProgress={{deleteLibrariesInProgress}} />
+<SeederBlock @sectionTitle="Libraries" @handleGenerate={{action "generateLibraries"}} @handleDelete={{action "deleteLibraries"}} @generateReady={{this.libDone}} @deleteReady={{this.libDelDone}} @generateInProgress={{this.generateLibrariesInProgress}} @deleteInProgress={{this.deleteLibrariesInProgress}} />
 
-<SeederBlock @sectionTitle="Authors with Books" @handleGenerate={{action "generateBooksAndAuthors"}} @handleDelete={{action "deleteBooksAndAuthors"}} @generateReady={{authDone}} @deleteReady={{authDelDone}} @generateInProgress={{generateBooksInProgress}} @deleteInProgress={{deleteBooksInProgress}} />
+<SeederBlock @sectionTitle="Authors with Books" @handleGenerate={{action "generateBooksAndAuthors"}} @handleDelete={{action "deleteBooksAndAuthors"}} @generateReady={{this.authDone}} @deleteReady={{this.authDelDone}} @generateInProgress={{this.generateBooksInProgress}} @deleteInProgress={{this.deleteBooksInProgress}} />

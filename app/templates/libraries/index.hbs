@@ -9,9 +9,9 @@
   </div>
 
   <div class="col-md-10">
-    {{#if limitAll}}
+    {{#if this.limitAll}}
       <div class="form-group">
-        <Input @value={{filter}} class="form-control input-lg" placeholder="Filter by library name" />
+        <Input @value={{this.filter}} class="form-control input-lg" placeholder="Filter by library name" />
       </div>
     {{else}}
       <div class="form-group">
@@ -22,7 +22,7 @@
 </div>
 
 <div class="row">
-  {{#each filteredList as |library|}}
+  {{#each this.filteredList as |library|}}
     <div class="col-md-4">
       <LibraryItem @item={{library}} @badge={{library.books.length}}>
         <LinkTo @route="libraries.edit" @model={{library.id}} class="btn btn-success btn-xs">Edit</LinkTo>
@@ -30,7 +30,7 @@
       </LibraryItem>
     </div>
   {{else}}
-    {{#if model.isUpdating}}
+    {{#if this.model.isUpdating}}
       <SpinnerCube />
     {{else}}
       <div class="col-md-12 text-center">
