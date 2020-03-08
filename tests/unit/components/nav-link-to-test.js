@@ -1,6 +1,5 @@
-import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
-import EmberObject from '@ember/object';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 
 const { spy } = sinon;
@@ -10,17 +9,14 @@ module('Unit | Component | nav-link-to', function(hooks) {
 
   hooks.beforeEach(function() {
     const component = {
-      qualifiedRouteName: 'index',
-      models: [],
+      route: 'index',
+      _models: [],
       loading: true,
       loadingHref: '#',
       _routing: {
         generateURL: spy()
       },
-      queryParams: EmberObject.create({
-        values: 'test'
-      })
-
+      _query: 'query'
     };
     this.component = this
       .owner
@@ -36,19 +32,19 @@ module('Unit | Component | nav-link-to', function(hooks) {
   test('hrefForA computed property', function(assert) {
     const { component } = this;
     assert.expect(3);
-    assert.equal(component.get('hrefForA'), '#');
+    assert.equal(component.hrefForA, '#');
     assert.notOk(component._routing.generateURL.called);
     component._routing.generateURL.resetHistory();
 
     component.setProperties({
       loading: false,
-      qualifiedRouteName: 'libraries'
+      route: 'libraries'
     });
-    component.get('hrefForA');
+    component.hrefForA;
     assert.ok(component._routing.generateURL.calledOnceWith(
       'libraries',
       [],
-      'test'
+      'query'
     ));
   });
 });
