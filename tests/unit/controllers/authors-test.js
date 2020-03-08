@@ -1,23 +1,22 @@
-import {module, test} from 'qunit';
-import {setupTest} from 'ember-qunit';
 import EmberObject from '@ember/object';
+import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 
 const {spy} = sinon;
 
 module('Unit | Controller | authors', function(hooks) {
+  let controller;
   setupTest(hooks);
 
-  // Replace this with your real tests.
-  test('it exists', function(assert) {
-    let controller = this.owner.lookup('controller:authors');
-    assert.ok(controller);
+  hooks.beforeEach(function() {
+    controller = this.owner.lookup('controller:authors');
   });
 
   test('editAuthor action', function(assert) {
     const author = EmberObject.create();
-    this.route.send('editAuthor', author);
-    assert.ok(author.get('isEditing'));
+    controller.send('editAuthor', author);
+    assert.ok(author.isEditing);
   });
 
   test('cancelAuthorEdit action', function(assert) {
@@ -25,8 +24,8 @@ module('Unit | Controller | authors', function(hooks) {
     const author = EmberObject.create({
       rollbackAttributes
     });
-    this.route.send('cancelAuthorEdit', author);
-    assert.notOk(author.get('isEditing'));
+    controller.send('cancelAuthorEdit', author);
+    assert.notOk(author.isEditing);
     assert.ok(rollbackAttributes.calledOnce);
   });
 
@@ -37,15 +36,15 @@ module('Unit | Controller | authors', function(hooks) {
       isNotValid: true,
       save
     });
-    this.route.send('saveAuthor', author);
+    controller.send('saveAuthor', author);
     assert.expect(4);
-    assert.ok(author.get('isEditing'));
+    assert.ok(author.isEditing);
     assert.ok(save.notCalled);
     save.resetHistory();
 
     author.set('isNotValid', false);
-    this.route.send('saveAuthor', author);
-    assert.notOk(author.get('isEditing'));
+    controller.send('saveAuthor', author);
+    assert.notOk(author.isEditing);
     assert.ok(save.calledOnce);
   });
 });
