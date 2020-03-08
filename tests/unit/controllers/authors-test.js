@@ -3,7 +3,7 @@ import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 
-const {spy} = sinon;
+const { spy } = sinon;
 
 module('Unit | Controller | authors', function(hooks) {
   let controller;
@@ -15,7 +15,7 @@ module('Unit | Controller | authors', function(hooks) {
 
   test('editAuthor action', function(assert) {
     const author = EmberObject.create();
-    controller.send('editAuthor', author);
+    controller.editAuthor(author);
     assert.ok(author.isEditing);
   });
 
@@ -24,7 +24,7 @@ module('Unit | Controller | authors', function(hooks) {
     const author = EmberObject.create({
       rollbackAttributes
     });
-    controller.send('cancelAuthorEdit', author);
+    controller.cancelAuthorEdit(author);
     assert.notOk(author.isEditing);
     assert.ok(rollbackAttributes.calledOnce);
   });
@@ -36,14 +36,14 @@ module('Unit | Controller | authors', function(hooks) {
       isNotValid: true,
       save
     });
-    controller.send('saveAuthor', author);
+    controller.saveAuthor(author);
     assert.expect(4);
     assert.ok(author.isEditing);
     assert.ok(save.notCalled);
     save.resetHistory();
 
     author.set('isNotValid', false);
-    controller.send('saveAuthor', author);
+    controller.saveAuthor(author);
     assert.notOk(author.isEditing);
     assert.ok(save.calledOnce);
   });
