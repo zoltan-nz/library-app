@@ -26,7 +26,7 @@
     <div class="col-md-4">
       <LibraryItem @item={{library}} @badge={{library.books.length}}>
         <LinkTo @route="libraries.edit" @model={{library.id}} class="btn btn-success btn-xs">Edit</LinkTo>
-        <button type="button" class="btn btn-danger btn-xs" {{action "deleteLibrary" library}}>Delete</button>
+        <button type="button" class="btn btn-danger btn-xs" {{on 'click' (fn this.deleteLibrary library)}}>Delete</button>
       </LibraryItem>
     </div>
   {{else}}

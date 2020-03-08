@@ -1,17 +1,18 @@
-import { computed } from '@ember/object';
-import { equal } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { equal } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
+export default class LibrariesIndexController extends Controller {
 
-  queryParams: ['filter', 'limit', 'letter'],
-  filter: '',
-  letter: '',
-  limit: 'all',
+  @tracked queryParams = ['filter', 'limit', 'letter'];
+  @tracked filter = '';
+  @tracked letter = '';
+  @tracked limit = 'all';
 
-  limitAll: equal('limit', 'all'),
+  @equal('limit', 'all') limitAll;
 
-  filteredList: computed('model.@each.name', 'filter', function() {
+  get filteredList() {
 
     let results = this.model;
     const query = this.filter;
@@ -23,9 +24,18 @@ export default Controller.extend({
       // i: case insensitive, g: global
       const regex = new RegExp(regexString, 'ig');
 
-      results = results.filter((item) => item.get('name').match(regex));
+      results = results.filter((item) => item.name.match(regex));
     }
 
     return results.sortBy('name');
-  })
-});
+  }
+
+  @action
+  deleteLibrary(library) {
+    const confirmation = confirm('Are you sure?');
+
+    if (confirmation) {
+      library.destroyRecord();
+    }
+  }
+}
