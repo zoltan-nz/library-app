@@ -6,6 +6,6 @@
   <div class="col-md-4"><NumberBox @title="Books" @number={{this.books.length}} /></div>
 </div>
 
-<SeederBlock @sectionTitle="Libraries" @handleGenerate={{action "generateLibraries"}} @handleDelete={{action "deleteLibraries"}} @generateReady={{this.libDone}} @deleteReady={{this.libDelDone}} @generateInProgress={{this.generateLibrariesInProgress}} @deleteInProgress={{this.deleteLibrariesInProgress}} />
+<SeederBlock @sectionTitle="Libraries" @handleGenerate={{this.generateLibraries}} @handleDelete={{this.deleteLibraries}} @generateReady={{this.libDone}} @deleteReady={{this.libDelDone}} @generateInProgress={{this.generateLibrariesInProgress}} @deleteInProgress={{this.deleteLibrariesInProgress}} />
 
-<SeederBlock @sectionTitle="Authors with Books" @handleGenerate={{action "generateBooksAndAuthors"}} @handleDelete={{action "deleteBooksAndAuthors"}} @generateReady={{this.authDone}} @deleteReady={{this.authDelDone}} @generateInProgress={{this.generateBooksInProgress}} @deleteInProgress={{this.deleteBooksInProgress}} />
+<SeederBlock @sectionTitle="Authors with Books" @handleGenerate={{this.generateBooksAndAuthors}} @handleDelete={{this.deleteBooksAndAuthors}} @generateReady={{this.authDone}} @deleteReady={{this.authDelDone}} @generateInProgress={{this.generateBooksInProgress}} @deleteInProgress={{this.deleteBooksInProgress}} />

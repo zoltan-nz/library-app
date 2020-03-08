@@ -1,95 +1,98 @@
-import { all } from 'rsvp';
+import {all} from 'rsvp';
 import Controller from '@ember/controller';
 import Faker from "faker";
+import {action} from '@ember/object';
 
-export default Controller.extend({
+export default class SeederController extends Controller {
 
-  actions: {
+  @action
+  generateLibraries(volume) {
 
-    generateLibraries(volume) {
+    // Progress flag, data-down to seeder-block where our lovely button will show a spinner...
+    this.set('generateLibrariesInProgress', true);
 
-      // Progress flag, data-down to seeder-block where our lovely button will show a spinner...
-      this.set('generateLibrariesInProgress', true);
+    const counter = parseInt(volume);
+    let savedLibraries = [];
 
-      const counter = parseInt(volume);
-      let savedLibraries = [];
+    for (let i = 0; i < counter; i++) {
 
-      for (let i = 0; i < counter; i++) {
-
-        // Collect all Promise in an array
-        savedLibraries.push(this._saveRandomLibrary());
-      }
-
-      // Wait for all Promise to fulfill so we can show our label and turn off the spinner.
-      all(savedLibraries)
-        .then(() => {
-          this.set('generateLibrariesInProgress', false);
-          this.set('libDone', true);
-        });
-    },
-
-    deleteLibraries() {
-
-      // Progress flag, data-down to seeder-block button spinner.
-      this.set('deleteLibrariesInProgress', true);
-
-      // Our local _destroyAll return a promise, we change the label when all records destroyed.
-      this._destroyAll(this.libraries)
-
-        // Data down via seeder-block to fader-label that we ready to show the label.
-        // Change the progress indicator also, so the spinner can be turned off.
-        .then(() => {
-          this.set('libDelDone', true);
-          this.set('deleteLibrariesInProgress', false);
-        });
-    },
-
-    generateBooksAndAuthors(volume) {
-
-      // Progress flag, data-down to seeder-block button spinner.
-      this.set('generateBooksInProgress', true);
-
-      const counter = parseInt(volume);
-      let booksWithAuthors = [];
-
-      for (let i = 0; i < counter; i++) {
-
-        // Collect Promises in an array.
-        const books = this._saveRandomAuthor().then(newAuthor => this._generateSomeBooks(newAuthor));
-        booksWithAuthors.push(books);
-      }
-
-      // Let's wait until all async save resolved, show a label and turn off the spinner.
-      all(booksWithAuthors)
-
-        // Data down via seeder-block to fader-label that we ready to show the label
-        // Change the progress flag also, so the spinner can be turned off.
-        .then(() => {
-          this.set('authDone', true);
-          this.set('generateBooksInProgress', false);
-        });
-    },
-
-    deleteBooksAndAuthors() {
-
-      // Progress flag, data-down to seeder-block button to show spinner.
-      this.set('deleteBooksInProgress', true);
-
-      const authors = this.authors;
-      const books = this.books;
-
-      // Remove authors first and books later, finally show the label.
-      this._destroyAll(authors)
-        .then(() => this._destroyAll(books))
-
-        // Data down via seeder-block to fader-label that we ready to show the label
-        // Delete is finished, we can turn off the spinner in seeder-block button.
-        .then(() => {
-          this.set('authDelDone', true);
-          this.set('deleteBooksInProgress', false);
-        });
+      // Collect all Promise in an array
+      savedLibraries.push(this._saveRandomLibrary());
     }
-  },
+
+    // Wait for all Promise to fulfill so we can show our label and turn off the spinner.
+    all(savedLibraries)
+      .then(() => {
+        this.set('generateLibrariesInProgress', false);
+        this.set('libDone', true);
+      });
+  }
+
+  @action
+  deleteLibraries() {
+
+    // Progress flag, data-down to seeder-block button spinner.
+    this.set('deleteLibrariesInProgress', true);
+
+    // Our local _destroyAll return a promise, we change the label when all records destroyed.
+    this._destroyAll(this.libraries)
+
+      // Data down via seeder-block to fader-label that we ready to show the label.
+      // Change the progress indicator also, so the spinner can be turned off.
+      .then(() => {
+        this.set('libDelDone', true);
+        this.set('deleteLibrariesInProgress', false);
+      });
+  }
+
+  @action
+  generateBooksAndAuthors(volume) {
+
+    // Progress flag, data-down to seeder-block button spinner.
+    this.set('generateBooksInProgress', true);
+
+    const counter = parseInt(volume);
+    let booksWithAuthors = [];
+
+    for (let i = 0; i < counter; i++) {
+
+      // Collect Promises in an array.
+      const books = this._saveRandomAuthor().then(newAuthor => this._generateSomeBooks(newAuthor));
+      booksWithAuthors.push(books);
+    }
+
+    // Let's wait until all async save resolved, show a label and turn off the spinner.
+    all(booksWithAuthors)
+
+      // Data down via seeder-block to fader-label that we ready to show the label
+      // Change the progress flag also, so the spinner can be turned off.
+      .then(() => {
+        this.set('authDone', true);
+        this.set('generateBooksInProgress', false);
+      });
+  }
+
+  @action
+  deleteBooksAndAuthors() {
+
+    // Progress flag, data-down to seeder-block button to show spinner.
+    this.set('deleteBooksInProgress', true);
+
+    const authors = this.authors;
+    const books = this.books;
+
+    // Remove authors first and books later, finally show the label.
+    this._destroyAll(authors)
+      .then(() => this._destroyAll(books))
+
+      // Data down via seeder-block to fader-label that we ready to show the label
+      // Delete is finished, we can turn off the spinner in seeder-block button.
+      .then(() => {
+        this.set('authDelDone', true);
+        this.set('deleteBooksInProgress', false);
+      });
+  }
+
 
   // Private methods
 
@@ -97,11 +100,11 @@ export default Controller.extend({
   // the new record. After we save it, which is a promise, so this returns a promise.
   _saveRandomLibrary() {
     return this.store.createRecord('library').randomize().save();
-  },
+  }
 
   _saveRandomAuthor() {
     return this.store.createRecord('author').randomize().save();
-  },
+  }
 
   _generateSomeBooks(author) {
     const bookCounter = Faker.random.number(10);
@@ -124,7 +127,7 @@ export default Controller.extend({
 
     // Return a Promise, so we can manage the whole process on time
     return all(books);
-  },
+  }
 
   _selectRandomLibrary() {
 
@@ -137,7 +140,7 @@ export default Controller.extend({
     // Get a random number between 0 and size-1
     const randomItem = Faker.random.number(size - 1);
     return libraries.objectAt(randomItem);
-  },
+  }
 
   _destroyAll(records) {
 
@@ -148,4 +151,4 @@ export default Controller.extend({
     // Wrap all Promise in one common Promise, RSVP.all is our best friend in this process. ;)
     return all(recordsAreDestroying);
   }
-});
+}
