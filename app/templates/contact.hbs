@@ -13,14 +13,26 @@
     {{else}}
       <div class="form-group has-feedback {{if this.model.isValidEmail "has-success"}}">
         <label>Your email address*:</label>
-        <Input @type="email" class="form-control" placeholder="Your email address" @value={{this.model.email}} @autofocus="autofocus" />
-        {{#if this.model.isValidEmail}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
+        <Input @type="email" class="form-control" placeholder="Your email address" @value={{this.model.email}}
+               @autofocus="autofocus"/>
+        {{#if this.model.isValidEmail}}
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        {{/if}}
       </div>
       <div class="form-group has-feedback {{if this.model.isMessageEnoughLong "has-success"}}">
         <label>Your message*:</label>
-        <Textarea class="form-control" placeholder="Your message. (At least 5 characters.)" @rows="5" @value={{this.model.message}} />        {{#if this.model.isMessageEnoughLong}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
+        <Textarea class="form-control" placeholder="Your message. (At least 5 characters.)" @rows="5"
+                  @value={{this.model.message}} />
+
+        {{#if this.model.isMessageEnoughLong}}
+          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        {{/if}}
+
       </div>
-      <button type="submit" class="btn btn-success" {{action "sendMessage" this.model}} disabled={{this.model.isNotValid}}>Send</button>
+      <button type="submit" class="btn btn-success" {{on 'click' (fn this.sendMessage this.model)}}
+              disabled={{this.model.isNotValid}}>
+        Send
+      </button>
     {{/if}}
   </div>
 </div>

@@ -28,15 +28,6 @@ module('Unit | Route | contact', hooks => {
     assert.ok(this.createRecord.calledOnceWith('contact'));
   });
 
-  test('sendMessage action', function(assert) {
-    const save = stub().returns({ then: stub().yields() });
-    const newContactMessage = { save };
-    this.route.send('sendMessage', newContactMessage);
-    assert.expect(2);
-    assert.ok(save.calledOnce);
-    assert.ok(this.route.controller.get('responseMessage'));
-  });
-
   test('willTransition action', function(assert) {
     const { destroyRecord, route } = this;
     route.send('willTransition');
