@@ -8,10 +8,12 @@ module('Unit | Controller | contact', function(hooks) {
   setupTest(hooks);
 
   test('sendMessage action', function(assert) {
-    let controller = this.owner.lookup('controller:contact');
+    const controller = this.owner.lookup('controller:contact');
     const save = stub().returns({ then: stub().yields() });
     const newContactMessage = { save };
-    controller.send('sendMessage', newContactMessage);
+
+    controller.sendMessage(newContactMessage);
+
     assert.expect(2);
     assert.ok(save.calledOnce);
     assert.ok(controller.responseMessage);
