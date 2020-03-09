@@ -1,59 +1,62 @@
 <h1>Books</h1>
 <table class="table table-bordered table-striped">
   <thead>
-    <tr>
-      <th class="vtop wider">
-        Author
-        <br><small class="small not-bold">(Click on the name for editing)</small>
-      </th>
-      <th>
-        Title
-        <br><small class="small not-bold">(Click on the title for editing)</small>
-      </th>
-      <th class="vtop">Release Year</th>
-      <th class="vtop">
-        Library
-        <br><small class="small not-bold">(Click on the name for editing)</small>
-      </th>
-    </tr>
+  <tr>
+    <th class="vtop wider">
+      Author
+      <br><small class="small not-bold">(Click on the name for editing)</small>
+    </th>
+    <th>
+      Title
+      <br><small class="small not-bold">(Click on the title for editing)</small>
+    </th>
+    <th class="vtop">Release Year</th>
+    <th class="vtop">
+      Library
+      <br><small class="small not-bold">(Click on the name for editing)</small>
+    </th>
+  </tr>
   </thead>
   <tbody>
-    {{#each this.books as |book|}}
-      <tr>
-        <td>
-          {{#if book.isAuthorEditing}}
-
-            <AuthorSelect @book={{book}} @authors={{this.authors}} @default={{book.author}} @onChange={{action "saveAuthor"}} />
-            <button type="button" class="btn btn-danger" {{action "cancelAuthorEdit" book}}>Cancel</button>
-          {{else}}
-            <span role="button" {{action "editAuthor" book}}>{{book.author.name}}</span>
-          {{/if}}
-        </td>
-        <td>
-          {{#if book.isEditing}}
-            <form {{action "saveBook" book on="submit"}} class="form-inline">
-              <div class="input-group">
-                <Input @value={{book.title}} class="form-control" />
-                <div class="input-group-btn">
-                  <button type="submit" class="btn btn-success" disabled={{book.isNotValid}}>Save</button>
-                  <button type="button" class="btn btn-danger" {{action "cancelBookEdit" book}}>Cancel</button>
-                </div>
+  {{#each this.books as |book|}}
+    <tr>
+      <td>
+        {{#if book.isAuthorEditing}}
+          <AuthorSelect @book={{book}} @authors={{this.authors}} @default={{book.author}}
+                        @onChange={{this.saveAuthor}} />
+          <button type="button" class="btn btn-danger" {{on 'click' (fn this.cancelAuthorEdit book)}}>Cancel</button>
+        {{else}}
+          <span role="button" {{on 'click' (fn this.editAuthor book)}}>{{book.author.name}}</span>
+        {{/if}}
+      </td>
+      <td>
+        {{#if book.isEditing}}
+          <form {{on 'submit' (fn this.saveBook book)}} class="form-inline">
+            <div class="input-group">
+              <Input @value={{book.title}} class="form-control"/>
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-success" disabled={{book.isNotValid}}>Save</button>
+                <button type="button" class="btn btn-danger" {{on 'click' (fn this.cancelBookEdit book)}}>
+                  Cancel
+                </button>
               </div>
-            </form>
-          {{else}}
-            <span role="button" {{action "editBook" book}}>{{book.title}}</span>
-          {{/if}}
-        </td>
-        <td>{{book.releaseYear}}</td>
-        <td>
-          {{#if book.isLibraryEditing}}
-            <LibrarySelect @book={{book}} @libraries={{this.libraries}} @default={{book.library}} @onChange={{action "saveLibrary"}} />
-            <button type="button" class="btn btn-danger" {{action "cancelLibraryEdit" book}}>Cancel</button>
-          {{else}}
-            <span role="button" {{action "editLibrary" book}}>{{book.library.name}}</span>
-          {{/if}}
-        </td>
-      </tr>
-    {{/each}}
+            </div>
+          </form>
+        {{else}}
+          <span role="button" {{on 'click' (fn this.editBook book)}}>{{book.title}}</span>
+        {{/if}}
+      </td>
+      <td>{{book.releaseYear}}</td>
+      <td>
+        {{#if book.isLibraryEditing}}
+          <LibrarySelect @book={{book}} @libraries={{this.libraries}} @default={{book.library}}
+                         @onChange={{this.saveLibrary}} />
+          <button type="button" class="btn btn-danger" {{on 'click' (fn this.cancelLibraryEdit book)}}>Cancel</button>
+        {{else}}
+          <span role="button" {{on 'click' (fn this.editLibrary book)}}>{{book.library.name}}</span>
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
   </tbody>
 </table>
