@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class LibrariesIndexRoute extends Route {
 
-  queryParams: {
+  queryParams = {
     limit: { refreshModel: true },
     letter: { refreshModel: true }
-  },
+  }
 
   model(params) {
 
@@ -18,17 +18,5 @@ export default Route.extend({
       startAt: params.letter,
       endAt: params.letter+"\uf8ff"
     });
-  },
-
-  actions: {
-
-    deleteLibrary(library) {
-      let confirmation = confirm('Are you sure?');
-
-      if (confirmation) {
-        library.destroyRecord();
-      }
-    }
   }
-
-});
+}
