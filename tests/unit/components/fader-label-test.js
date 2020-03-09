@@ -52,7 +52,7 @@ module('Unit | Component | fader-label', function(hooks) {
     later(() => {
       assert.equal(component.get('isShowing'), false);
       done();
-    }, 3000);
+    }, 3100);
   });
 
   test('resetRunLater function', function(assert) {
