@@ -19,12 +19,12 @@
           <span class="glyphicon glyphicon-ok form-control-feedback"></span>
         {{/if}}
       </div>
-      <div class="form-group has-feedback {{if this.model.isMessageEnoughLong "has-success"}}">
+      <div class="form-group has-feedback {{if this.model.isMessageLongEnough "has-success"}}">
         <label>Your message*:</label>
         <Textarea class="form-control" placeholder="Your message. (At least 5 characters.)" @rows="5"
                   @value={{this.model.message}} />
 
-        {{#if this.model.isMessageEnoughLong}}
+        {{#if this.model.isMessageLongEnough}}
           <span class="glyphicon glyphicon-ok form-control-feedback"></span>
         {{/if}}
 
