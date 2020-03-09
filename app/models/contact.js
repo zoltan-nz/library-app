@@ -7,8 +7,8 @@ export default Model.extend({
   message: attr('string'),
 
   isValidEmail: match('email', /^.+@.+\..+$/),
-  isMessageEnoughLong: gte('message.length', 5),
+  isMessageLongEnough: gte('message.length', 5),
 
-  isValid: and('isValidEmail', 'isMessageEnoughLong'),
+  isValid: and('isValidEmail', 'isMessageLongEnough'),
   isNotValid: not('isValid')
 });
