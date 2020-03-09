@@ -1,30 +1,24 @@
-import { match, not } from '@ember/object/computed';
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { match, not } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
+export default class HomeController extends Controller {
 
-  headerMessage: 'Demo Home Page',
-  responseMessage: '',
-  emailAddress: '',
+  headerMessage = 'Demo Home Page';
+  @tracked responseMessage = '';
+  @tracked emailAddress = '';
 
-  isValid: match('emailAddress', /^.+@.+\..+$/),
-  isDisabled: not('isValid'),
+  @match('emailAddress', /^.+@.+\..+$/) isValid;
+  @not('isValid') isDisabled;
 
-  actions: {
+  @action
+  saveInvitation() {
+    const newInvitation = this.store.createRecord('invitation', { email: this.emailAddress });
 
-    saveInvitation() {
-      const email = this.emailAddress;
-
-      const newInvitation = this.store.createRecord('invitation', {
-        email: email
-      });
-
-      newInvitation.save().then((response) => {
-        this.set('responseMessage', `Thank you! We saved your email address with the following id: ${response.get('id')}`);
-        this.set('emailAddress', '');
-      });
-
-    }
+    newInvitation.save().then(response => {
+      this.responseMessage = `Thank you! We saved your email address with the following id: ${ response.id }`;
+      this.emailAddress = '';
+    });
   }
-
-});
+}
