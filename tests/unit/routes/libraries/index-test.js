@@ -2,9 +2,9 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
 
-const { spy, stub } = sinon;
+const { stub } = sinon;
 
-module('Unit | Route | libraris/index', hooks => {
+module('Unit | Route | libraries/index', hooks => {
   setupTest(hooks);
 
   hooks.beforeEach(function() {
@@ -41,23 +41,5 @@ module('Unit | Route | libraris/index', hooks => {
 
     assert.equal(this.route.model({}), 'libraries');
     assert.ok(this.query.calledOnceWith('library', queryParams));
-  });
-
-  test('deleteLibrary action', function(assert) {
-    const library = { destroyRecord: spy() };
-    stub(window, 'confirm').returns(true);
-
-    this.route.send('deleteLibrary', library);
-    assert.expect(4);
-    assert.ok(confirm.calledOnceWith('Are you sure?'));
-    assert.ok(library.destroyRecord.calledOnce);
-    library.destroyRecord.resetHistory();
-    confirm.resetHistory();
-
-    confirm.returns(false);
-    this.route.send('deleteLibrary', library);
-    assert.ok(confirm.calledOnceWith('Are you sure?'));
-    assert.ok(library.destroyRecord.notCalled);
-    confirm.restore();
   });
 });
