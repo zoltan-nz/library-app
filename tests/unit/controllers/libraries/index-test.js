@@ -1,6 +1,9 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import EmberObject from '@ember/object';
+import sinon from 'sinon';
+
+const { spy, stub } = sinon;
 
 module('Unit | Controller | libraries/index', function(hooks) {
   setupTest(hooks);
@@ -38,5 +41,24 @@ module('Unit | Controller | libraries/index', function(hooks) {
       [controller.model.objectAt(0)],
       'filter by `berg`'
     );
+  });
+
+  test('deleteLibrary action', function(assert) {
+    const { controller } = this;
+    const library = { destroyRecord: spy() };
+    stub(window, 'confirm').returns(true);
+
+    controller.deleteLibrary(library);
+    assert.expect(4);
+    assert.ok(confirm.calledOnceWith('Are you sure?'));
+    assert.ok(library.destroyRecord.calledOnce);
+    library.destroyRecord.resetHistory();
+    confirm.resetHistory();
+
+    confirm.returns(false);
+    controller.deleteLibrary(library);
+    assert.ok(confirm.calledOnceWith('Are you sure?'));
+    assert.ok(library.destroyRecord.notCalled);
+    confirm.restore();
   });
 });

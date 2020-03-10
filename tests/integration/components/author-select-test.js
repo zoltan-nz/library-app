@@ -10,20 +10,47 @@ module('Integration | Component | author-select', function(hooks) {
 
   test('it renders', async function(assert) {
 
+    assert.expect(5);
+
+    const saveAuthor = (authorRecord, bookRecord) => {
+      assert.deepEqual(
+        authorRecord,
+        authors[1],
+        'action called with proper author'
+      );
+      assert.deepEqual(
+        bookRecord,
+        book,
+        'action called with proper book'
+      );
+    }
+
     this.setProperties({
       authors,
-      book
+      book,
+      saveAuthor
     });
 
-    await render(hbs`{{author-select authors=authors default=book.author}}`);
+    await render(
+      hbs`
+        <AuthorSelect
+          @authors={{authors}}
+          @book={{book}}
+          @default={{book.author}}
+          @onChange={{action saveAuthor}}
+        />
+      `
+    );
 
     const component = this.element.querySelector('select');
 
-    assert.expect(3);
-    assert.dom(component).hasClass('form-control', 'component renders with assigned CSS class');
+    assert.dom(component).hasClass(
+      'form-control',
+      'component renders with assigned CSS class'
+    );
     assert.equal(
       component.options[component.selectedIndex].text,
-      'Rodrick Connelly',
+      'Tanya Gutmann',
       'component renders with default author selected'
     );
 
