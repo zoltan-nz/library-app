@@ -81,7 +81,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-p lint:js:check format:check test"
+      "pre-push": "run-p lint:js:check format:check test"
     }
   }
 }
