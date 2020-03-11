@@ -18,6 +18,7 @@
 /npm-debug.log*
 /testem.log
 /yarn-error.log
+/.env
 
 .npmrc
 .firebase-debug.log
