@@ -13,11 +13,15 @@
     "build": "ember build --environment=production",
     "codacy-coverage": "cat ./coverage/lcov.info | codacy-coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "lint:hbs": "ember-template-lint .",
-    "lint:js": "eslint .",
+    "lint:hbs": "ember-template-lint . --fix",
+    "lint:js": "eslint . --fix",
+    "lint:js:check": "eslint .",
     "start": "ember serve",
     "test": "ember test",
-    "test:coverage": "COVERAGE=true npm test"
+    "test:coverage": "COVERAGE=true run-s -l test",
+    "format": "prettier --list-different --write **/*.{js,ts,html,json,css,scss,md}",
+    "format:check": "prettier --check **/*.{js,ts,html,json,css,scss,md}",
+    "ci": "run-s -l lint:js:check format:check test"
   },
   "devDependencies": {
     "@ember/jquery": "^1.1.0",
@@ -57,10 +61,14 @@
     "ember-source": "~3.17.0",
     "ember-welcome-page": "^4.0.0",
     "emberfire": "^3.0.0-rc.6",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-ember": "^7.10.1",
     "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "firebase": "^7.10.0",
     "loader.js": "^4.7.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
     "qunit-dom": "^1.1.0",
     "sass": "^1.26.2"
   },

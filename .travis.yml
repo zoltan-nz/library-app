@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - "12"
 
-dist: trusty
+dist: bionic
 
 addons:
   chrome: stable
@@ -22,10 +22,9 @@ branches:
     - master
 
 script:
-  - npm run lint:hbs
-  - npm run lint:js
-  - npm run test:coverage
+  - yarn ci
 
-after_script:
-  - npm run coveralls
-  - npm run codacy-coverage
+# @TODO Turn back after coveralls and codacy implementation are fixed
+#after_script:
+#  - yarn coveralls
+#  - yarn codacy-coverage
