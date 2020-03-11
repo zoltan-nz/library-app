@@ -33,9 +33,10 @@ $ cd library-app
 ```
 $ npm install
 ```
-* Copy `.env-sample` file and save as `.env`. Update the `API_KEY` and `PROJECT_ID`.
 
-- Launch the application with Ember server.
+- Copy `.env-sample` file and save as `.env`. Update the `API_KEY` and `PROJECT_ID`.
+
+* Launch the application with Ember server.
 
 ```
 $ ember server

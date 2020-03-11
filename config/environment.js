@@ -14,7 +14,7 @@ module.exports = function(environment) {
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,
       databaseURL: process.env.DATABASE_URL,
-      projectId: process.env.PROJECT_ID
+      projectId: process.env.PROJECT_ID,
     },
 
     // if using ember-cli-content-security-policy
