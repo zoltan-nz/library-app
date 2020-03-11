@@ -1,13 +1,11 @@
-import {all} from 'rsvp';
+import { all } from 'rsvp';
 import Controller from '@ember/controller';
-import Faker from "faker";
-import {action} from '@ember/object';
+import Faker from 'faker';
+import { action } from '@ember/object';
 
 export default class SeederController extends Controller {
-
   @action
   generateLibraries(volume) {
-
     // Progress flag, data-down to seeder-block where our lovely button will show a spinner...
     this.set('generateLibrariesInProgress', true);
 
@@ -15,22 +13,19 @@ export default class SeederController extends Controller {
     let savedLibraries = [];
 
     for (let i = 0; i < counter; i++) {
-
       // Collect all Promise in an array
       savedLibraries.push(this._saveRandomLibrary());
     }
 
     // Wait for all Promise to fulfill so we can show our label and turn off the spinner.
-    all(savedLibraries)
-      .then(() => {
-        this.set('generateLibrariesInProgress', false);
-        this.set('libDone', true);
-      });
+    all(savedLibraries).then(() => {
+      this.set('generateLibrariesInProgress', false);
+      this.set('libDone', true);
+    });
   }
 
   @action
   deleteLibraries() {
-
     // Progress flag, data-down to seeder-block button spinner.
     this.set('deleteLibrariesInProgress', true);
 
@@ -47,7 +42,6 @@ export default class SeederController extends Controller {
 
   @action
   generateBooksAndAuthors(volume) {
-
     // Progress flag, data-down to seeder-block button spinner.
     this.set('generateBooksInProgress', true);
 
@@ -55,7 +49,6 @@ export default class SeederController extends Controller {
     let booksWithAuthors = [];
 
     for (let i = 0; i < counter; i++) {
-
       // Collect Promises in an array.
       const books = this._saveRandomAuthor().then(newAuthor => this._generateSomeBooks(newAuthor));
       booksWithAuthors.push(books);
@@ -63,7 +56,6 @@ export default class SeederController extends Controller {
 
     // Let's wait until all async save resolved, show a label and turn off the spinner.
     all(booksWithAuthors)
-
       // Data down via seeder-block to fader-label that we ready to show the label
       // Change the progress flag also, so the spinner can be turned off.
       .then(() => {
@@ -74,7 +66,6 @@ export default class SeederController extends Controller {
 
   @action
   deleteBooksAndAuthors() {
-
     // Progress flag, data-down to seeder-block button to show spinner.
     this.set('deleteBooksInProgress', true);
 
@@ -93,17 +84,22 @@ export default class SeederController extends Controller {
       });
   }
 
-
   // Private methods
 
   // Create a new library record and uses the randomizator, which is in our model and generates some fake data in
   // the new record. After we save it, which is a promise, so this returns a promise.
   _saveRandomLibrary() {
-    return this.store.createRecord('library').randomize().save();
+    return this.store
+      .createRecord('library')
+      .randomize()
+      .save();
   }
 
   _saveRandomAuthor() {
-    return this.store.createRecord('author').randomize().save();
+    return this.store
+      .createRecord('author')
+      .randomize()
+      .save();
   }
 
   _generateSomeBooks(author) {
@@ -114,14 +110,14 @@ export default class SeederController extends Controller {
       const library = this._selectRandomLibrary();
 
       // Creating and saving book, saving the related records also are take while, they are all a Promise.
-      const bookPromise =
-        this.store.createRecord('book')
-          .randomize(author, library)
-          .save()
-          .then(() => author.save())
+      const bookPromise = this.store
+        .createRecord('book')
+        .randomize(author, library)
+        .save()
+        .then(() => author.save())
 
-          // guard library in case if we don't have any
-          .then(() => library && library.save());
+        // guard library in case if we don't have any
+        .then(() => library && library.save());
       books.push(bookPromise);
     }
 
@@ -130,7 +126,6 @@ export default class SeederController extends Controller {
   }
 
   _selectRandomLibrary() {
-
     // Please note libraries are records from store, which means this is a DS.RecordArray object, it is extended from
     // Ember.ArrayProxy. If you need an element from this list, you cannot just use libraries[3], we have to use
     // libraries.objectAt(3)
@@ -143,7 +138,6 @@ export default class SeederController extends Controller {
   }
 
   _destroyAll(records) {
-
     // destroyRecord() is a Promise and will be fulfilled when the backend database is confirmed the delete
     // lets collect these Promises in an array
     const recordsAreDestroying = records.map(item => item.destroyRecord());

@@ -24,5 +24,5 @@ export default [
   'W',
   'X',
   'Y',
-  'Z'
+  'Z',
 ];

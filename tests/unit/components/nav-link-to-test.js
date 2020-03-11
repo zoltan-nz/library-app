@@ -14,14 +14,11 @@ module('Unit | Component | nav-link-to', function(hooks) {
       loading: true,
       loadingHref: '#',
       _routing: {
-        generateURL: spy()
+        generateURL: spy(),
       },
-      _query: 'query'
+      _query: 'query',
     };
-    this.component = this
-      .owner
-      .factoryFor('component:nav-link-to')
-      .create(component);
+    this.component = this.owner.factoryFor('component:nav-link-to').create(component);
   });
 
   test('tagName property', function(assert) {
@@ -38,13 +35,9 @@ module('Unit | Component | nav-link-to', function(hooks) {
 
     component.setProperties({
       loading: false,
-      route: 'libraries'
+      route: 'libraries',
     });
     component.hrefForA;
-    assert.ok(component._routing.generateURL.calledOnceWith(
-      'libraries',
-      [],
-      'query'
-    ));
+    assert.ok(component._routing.generateURL.calledOnceWith('libraries', [], 'query'));
   });
 });

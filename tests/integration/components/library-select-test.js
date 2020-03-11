@@ -9,15 +9,12 @@ module('Integration | Component | library-select', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-
     this.setProperties({
       libraries,
-      book
+      book,
     });
 
-    await render(
-      hbs`{{library-select libraries=libraries default=book.library}}`
-    );
+    await render(hbs`{{library-select libraries=libraries default=book.library}}`);
 
     const component = this.element.querySelector('select');
 
@@ -26,7 +23,7 @@ module('Integration | Component | library-select', function(hooks) {
     assert.equal(
       component.options[component.selectedIndex].text,
       'Jerde - Bogisich Library',
-      'component renders with default library selected'
+      'component renders with default library selected',
     );
 
     await fillIn('.form-control', '2');
@@ -34,7 +31,7 @@ module('Integration | Component | library-select', function(hooks) {
     assert.equal(
       component.options[component.selectedIndex].text,
       'Gerlach and Sons Library',
-      'component renders changed selection'
+      'component renders changed selection',
     );
   });
 });

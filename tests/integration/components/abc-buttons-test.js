@@ -8,7 +8,6 @@ module('Integration | Component | abc-buttons', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-
     await render(hbs`{{abc-buttons}}`);
 
     const component = this.element.querySelector('div');

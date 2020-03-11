@@ -3,7 +3,6 @@ import { empty } from '@ember/object/computed';
 import Faker from 'faker';
 
 export default Model.extend({
-
   name: attr('string'),
   books: hasMany('book', { inverse: 'author', async: true }),
 
@@ -16,5 +15,5 @@ export default Model.extend({
     // for example `this.store.createRecord('author').randomize().save()`,
     // check in Seeder Controller.
     return this;
-  }
+  },
 });

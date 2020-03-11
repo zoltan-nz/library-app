@@ -11,16 +11,16 @@ module('Unit | Route | libraries/new', hooks => {
   hooks.beforeEach(function() {
     this.controller = EmberObject.create({
       model: {
-        rollbackAttributes: spy()
-      }
+        rollbackAttributes: spy(),
+      },
     });
     this.route = this.owner.factoryFor('route:libraries/new').create({
       controller: this.controller,
       render: spy(),
       store: {
-        createRecord: stub().returns('library')
+        createRecord: stub().returns('library'),
       },
-      transitionTo: spy()
+      transitionTo: spy(),
     });
   });
 

@@ -9,26 +9,17 @@ module('Integration | Component | author-select', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-
     assert.expect(5);
 
     const saveAuthor = (authorRecord, bookRecord) => {
-      assert.deepEqual(
-        authorRecord,
-        authors[1],
-        'action called with proper author'
-      );
-      assert.deepEqual(
-        bookRecord,
-        book,
-        'action called with proper book'
-      );
-    }
+      assert.deepEqual(authorRecord, authors[1], 'action called with proper author');
+      assert.deepEqual(bookRecord, book, 'action called with proper book');
+    };
 
     this.setProperties({
       authors,
       book,
-      saveAuthor
+      saveAuthor,
     });
 
     await render(
@@ -39,19 +30,16 @@ module('Integration | Component | author-select', function(hooks) {
           @default={{book.author}}
           @onChange={{action saveAuthor}}
         />
-      `
+      `,
     );
 
     const component = this.element.querySelector('select');
 
-    assert.dom(component).hasClass(
-      'form-control',
-      'component renders with assigned CSS class'
-    );
+    assert.dom(component).hasClass('form-control', 'component renders with assigned CSS class');
     assert.equal(
       component.options[component.selectedIndex].text,
       'Tanya Gutmann',
-      'component renders with default author selected'
+      'component renders with default author selected',
     );
 
     await fillIn('.form-control', '2');
@@ -59,7 +47,7 @@ module('Integration | Component | author-select', function(hooks) {
     assert.equal(
       component.options[component.selectedIndex].text,
       'Ruthe Fisher',
-      'component renders changed selection'
+      'component renders changed selection',
     );
   });
 });

@@ -14,14 +14,14 @@ module.exports = function(environment) {
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,
       databaseURL: process.env.DATABASE_URL,
-      projectId: process.env.PROJECT_ID
+      projectId: process.env.PROJECT_ID,
     },
 
     // if using ember-cli-content-security-policy
     contentSecurityPolicy: {
       'script-src': "'self' 'unsafe-eval' apis.google.com",
       'frame-src': "'self' https://*.firebaseapp.com",
-      'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com"
+      'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com",
     },
 
     EmberENV: {
@@ -31,14 +31,14 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
   };
 
   if (environment === 'development') {
@@ -62,10 +62,9 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
     // We need this for activating Faker in production environment.
     ENV['ember-faker'] = {
-      enabled: true
+      enabled: true,
     };
   }
 

@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-
   buttonLabel: 'Save',
 
   // pass an action to override
@@ -10,6 +9,6 @@ export default Component.extend({
   actions: {
     buttonClicked(param) {
       this.handleClick(param);
-    }
-  }
+    },
+  },
 });

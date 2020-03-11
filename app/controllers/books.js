@@ -42,8 +42,8 @@ export default class BooksController extends Controller {
   @action
   saveAuthor(author, book) {
     // Firebase adapter is buggy, we have to manually remove the previous relation
-    book.author.then((previousAuthor) => {
-      previousAuthor.books.then((previousAuthorBooks) => {
+    book.author.then(previousAuthor => {
+      previousAuthor.books.then(previousAuthorBooks => {
         previousAuthorBooks.removeObject(book);
         previousAuthor.save();
       });
@@ -71,8 +71,8 @@ export default class BooksController extends Controller {
     // Firebase adapter is buggy, we have to manually remove the previous relation.
     // You don't need this callback mess when your adapter properly manages relations.
     // If Firebase fix this bug, we can remove this part.
-    book.library.then((previousLibrary) => {
-      previousLibrary.books.then((previousLibraryBooks) => {
+    book.library.then(previousLibrary => {
+      previousLibrary.books.then(previousLibraryBooks => {
         previousLibraryBooks.removeObject(book);
         previousLibrary.save();
       });

@@ -13,7 +13,6 @@ export default Component.extend({
 
   // eslint-disable-next-line ember/no-observers
   isShowingChanged: observer('isShowing', function() {
-
     // User can navigate away from this page in less than 3 seconds, so this component will be destroyed,
     // however our "setTimeout" task try to run.
     // We save this task in a local variable, so we can clean up during the destroy process.
@@ -29,5 +28,5 @@ export default Component.extend({
   willDestroy() {
     this.resetRunLater();
     this._super(...arguments);
-  }
+  },
 });

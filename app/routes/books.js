@@ -6,7 +6,7 @@ export default class BooksRoute extends Route {
     return hash({
       books: this.store.findAll('book'),
       authors: this.store.findAll('author'),
-      libraries: this.store.findAll('library')
+      libraries: this.store.findAll('library'),
     });
   }
 }

@@ -12,16 +12,19 @@ module('Unit | Route | admin/seeder', function(hooks) {
     this.model = {
       authors: 'authors',
       books: 'books',
-      libraries: 'libraries'
+      libraries: 'libraries',
     };
     const findAll = stub()
-      .onFirstCall().returns('libraries')
-      .onSecondCall().returns('books')
-      .onThirdCall().returns('authors');
+      .onFirstCall()
+      .returns('libraries')
+      .onSecondCall()
+      .returns('books')
+      .onThirdCall()
+      .returns('authors');
     this.route = this.owner.factoryFor('route:admin/seeder').create({
       store: {
-        findAll
-      }
+        findAll,
+      },
     });
   });
 

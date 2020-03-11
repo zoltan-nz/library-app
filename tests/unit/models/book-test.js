@@ -7,13 +7,8 @@ module('Unit | Model | book', function(hooks) {
   setupTest(hooks);
 
   test('it exists', function(assert) {
-    const model = run(
-      () => this.owner.lookup('service:store').createRecord('book')
-    );
+    const model = run(() => this.owner.lookup('service:store').createRecord('book'));
     assert.expect(1);
-    assert.equal(
-      model.randomize().constructor.modelName,
-      'book'
-    );
+    assert.equal(model.randomize().constructor.modelName, 'book');
   });
 });

@@ -21,18 +21,14 @@ module('Unit | Component | library-select', function(hooks) {
   test('change handler function', function(assert) {
     const { component } = this;
     const event = {
-      target: { value: '2' }
+      target: { value: '2' },
     };
     component.setProperties({
       libraries,
       book,
-      onChange: spy()
+      onChange: spy(),
     });
-    const {
-      libraries: libraryRecord,
-      book: bookRecord,
-      onChange
-    } = component;
+    const { libraries: libraryRecord, book: bookRecord, onChange } = component;
     component.change(event);
     assert.expect(1);
     assert.ok(onChange.calledOnceWith(libraryRecord[1], bookRecord));

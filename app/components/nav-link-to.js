@@ -2,7 +2,6 @@ import { computed } from '@ember/object';
 import LinkComponent from '@ember/routing/link-component';
 
 export default LinkComponent.extend({
-
   tagName: 'li',
 
   hrefForA: computed(
@@ -21,6 +20,6 @@ export default LinkComponent.extend({
       const { _route: route, _models: models, _query: query, _routing: routing } = this;
 
       return routing.generateURL(route, models, query);
-    }
-  )
+    },
+  ),
 });

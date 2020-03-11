@@ -13,8 +13,8 @@ module('Unit | Route | libraries/index', hooks => {
     this.route = this.owner.factoryFor('route:libraries/index').create({
       store: {
         findAll: this.findAll,
-        query: this.query
-      }
+        query: this.query,
+      },
     });
   });
 
@@ -26,13 +26,13 @@ module('Unit | Route | libraries/index', hooks => {
 
   test('model hook', function(assert) {
     const params = {
-      limit: 'all'
+      limit: 'all',
     };
 
     const queryParams = {
       orderBy: 'name',
       startAt: params.letter,
-      endAt: params.letter+"\uf8ff"
+      endAt: params.letter + '\uf8ff',
     };
 
     assert.expect(4);

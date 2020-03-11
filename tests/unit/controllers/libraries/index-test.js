@@ -29,18 +29,10 @@ module('Unit | Controller | libraries/index', function(hooks) {
     ];
 
     assert.expect(2);
-    assert.deepEqual(
-      controller.get('filteredList'),
-      controller.model,
-      'no filter'
-    );
+    assert.deepEqual(controller.get('filteredList'), controller.model, 'no filter');
 
     controller.set('filter', 'berg');
-    assert.deepEqual(
-      controller.get('filteredList'),
-      [controller.model.objectAt(0)],
-      'filter by `berg`'
-    );
+    assert.deepEqual(controller.get('filteredList'), [controller.model.objectAt(0)], 'filter by `berg`');
   });
 
   test('deleteLibrary action', function(assert) {

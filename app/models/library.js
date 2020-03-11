@@ -3,7 +3,6 @@ import { notEmpty } from '@ember/object/computed';
 import Faker from 'faker';
 
 export default Model.extend({
-
   name: attr('string'),
   address: attr('string'),
   phone: attr('string'),
@@ -23,5 +22,5 @@ export default Model.extend({
 
   _fullAddress() {
     return `${Faker.address.streetAddress()}, ${Faker.address.city()}`;
-  }
+  },
 });

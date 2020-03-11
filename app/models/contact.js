@@ -2,7 +2,6 @@ import Model, { attr } from '@ember-data/model';
 import { match, gte, and, not } from '@ember/object/computed';
 
 export default Model.extend({
-
   email: attr('string'),
   message: attr('string'),
 
@@ -10,5 +9,5 @@ export default Model.extend({
   isMessageLongEnough: gte('message.length', 5),
 
   isValid: and('isValidEmail', 'isMessageLongEnough'),
-  isNotValid: not('isValid')
+  isNotValid: not('isValid'),
 });

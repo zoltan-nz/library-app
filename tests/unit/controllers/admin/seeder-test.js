@@ -16,7 +16,7 @@ module('Unit | Controller | admin/seeder', function(hooks) {
       _generateSomeBooks: stub().resolves('books'),
       authors: 'authors',
       books: 'books',
-      libraries: 'libraries'
+      libraries: 'libraries',
     };
     this.controller = this.owner.factoryFor('controller:admin/seeder').create(controller);
   });
@@ -88,7 +88,7 @@ module('Unit | Controller | admin/seeder', function(hooks) {
       const randomize = stub().returns({ save });
       const createRecord = stub().returns({ randomize });
       const controller = {
-        store: { createRecord }
+        store: { createRecord },
       };
       this.controller = this.owner.factoryFor('controller:admin/seeder').create(controller);
     });
@@ -121,7 +121,7 @@ module('Unit | Controller | admin/seeder', function(hooks) {
       const createRecord = stub().returns({ randomize });
       controller.setProperties({
         _selectRandomLibrary: stub().returns(library),
-        store: { createRecord }
+        store: { createRecord },
       });
       controller._generateSomeBooks(author);
       assert.expect(5);
@@ -138,9 +138,7 @@ module('Unit | Controller | admin/seeder', function(hooks) {
 
     test('_selectRandomLibrary function', function(assert) {
       const { controller } = this;
-      controller.set('libraries', EmberObject.create(
-        { length: 2, objectAt: spy() }
-      ));
+      controller.set('libraries', EmberObject.create({ length: 2, objectAt: spy() }));
       controller._selectRandomLibrary();
       assert.expect(1);
       assert.ok(controller.libraries.objectAt.calledOnce);
