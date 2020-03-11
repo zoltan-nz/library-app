@@ -7,7 +7,6 @@ module('Integration | Component | seeder-block', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders valid input', async function(assert) {
-
     await render(hbs`
       {{seeder-block
         sectionTitle="Libraries"
@@ -18,10 +17,7 @@ module('Integration | Component | seeder-block', function(hooks) {
     const sectionTitle = component.querySelector('h3').textContent;
     const formGroup = component.querySelector('.form-group');
     const input = component.querySelector('.form-control');
-    const [
-      generateBtn,
-      deleteBtn
-    ] = component.querySelectorAll('button');
+    const [generateBtn, deleteBtn] = component.querySelectorAll('button');
 
     await fillIn(input, 1);
     click(generateBtn);
@@ -38,16 +34,12 @@ module('Integration | Component | seeder-block', function(hooks) {
   });
 
   test('it renders invalid input', async function(assert) {
-
     await render(hbs`{{seeder-block}}`);
 
     const component = this.element.querySelector('div');
     const formGroup = component.querySelector('.form-group');
     const input = component.querySelector('.form-control');
-    const [
-      generateBtn,
-      deleteBtn
-    ] = component.querySelectorAll('button');
+    const [generateBtn, deleteBtn] = component.querySelectorAll('button');
 
     await fillIn(input, 101);
     assert.dom(formGroup).hasClass('has-error');
@@ -56,7 +48,6 @@ module('Integration | Component | seeder-block', function(hooks) {
   });
 
   test('it renders generate and delete in progress buttons', async function(assert) {
-
     await render(hbs`
       {{seeder-block
         sectionTitle="Authors with Books"
@@ -67,10 +58,7 @@ module('Integration | Component | seeder-block', function(hooks) {
 
     const component = this.element.querySelector('div');
     const sectionTitle = component.querySelector('h3').textContent;
-    const [
-      generateBtn,
-      deleteBtn
-    ] = component.querySelectorAll('button');
+    const [generateBtn, deleteBtn] = component.querySelectorAll('button');
 
     assert.expect(3);
     assert.equal(sectionTitle, 'Authors with Books');
@@ -79,7 +67,6 @@ module('Integration | Component | seeder-block', function(hooks) {
   });
 
   test('it renders generated and deleted labels', async function(assert) {
-
     await render(hbs`
       {{seeder-block
         generateReady=true
@@ -88,10 +75,7 @@ module('Integration | Component | seeder-block', function(hooks) {
     `);
 
     const component = this.element.querySelector('div');
-    const [
-      createdLabel,
-      deletedLabel
-    ] = component.querySelectorAll('span');
+    const [createdLabel, deletedLabel] = component.querySelectorAll('span');
 
     assert.expect(2);
     assert.dom(createdLabel).hasText('Created!');

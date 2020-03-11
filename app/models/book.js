@@ -2,7 +2,6 @@ import Model, { attr, belongsTo } from '@ember-data/model';
 import Faker from 'faker';
 
 export default Model.extend({
-
   title: attr('string'),
   releaseYear: attr('date'),
 
@@ -28,5 +27,5 @@ export default Model.extend({
 
   _getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
-  }
+  },
 });

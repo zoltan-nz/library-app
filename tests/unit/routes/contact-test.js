@@ -15,10 +15,10 @@ module('Unit | Route | contact', hooks => {
       controller: EmberObject.create({
         model: EmberObject.create({
           isNew: true,
-          destroyRecord: this.destroyRecord
-        })
+          destroyRecord: this.destroyRecord,
+        }),
       }),
-      store: { createRecord: this.createRecord }
+      store: { createRecord: this.createRecord },
     });
   });
 

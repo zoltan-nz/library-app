@@ -14,27 +14,35 @@ Live demo: [library-app.firebaseapp.com](https://library-app.firebaseapp.com/)
 
 I assume, you have Node.js on your computer. [Node.js installation](http://yoember.com/nodejs/the-best-way-to-install-node-js/)
 
-* Please create an app on [Firebase](http://www.firebase.com) first. You can register there with one click and create a new app. You have to setup this app name in `config/environment.js`. (This will be your own cloud based database.)
+- Please create an app on [Firebase](http://www.firebase.com) first. You can register there with one click and create a new app. You have to setup this app name in `config/environment.js`. (This will be your own cloud based database.)
 
-* Clone this repository in your project folder
+- Clone this repository in your project folder
+
 ```
 $ git clone git@github.com:zoltan-nz/library-app.git
 ```
-* Change to the application directory
+
+- Change to the application directory
+
 ```
 $ cd library-app
 ```
-* Install node packages
+
+- Install node packages
+
 ```
 $ npm install
 ```
 * Copy `.env-sample` file and save as `.env`. Update the `API_KEY` and `PROJECT_ID`.
 
-* Launch the application with Ember server.
+- Launch the application with Ember server.
+
 ```
 $ ember server
 ```
-* Open the application in your browser
+
+- Open the application in your browser
+
 ```
 $ open http://localhost:4200
 ```

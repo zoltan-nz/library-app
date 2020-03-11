@@ -4,7 +4,6 @@ import Component from '@ember/component';
 const MAX_VALUE = 100;
 
 export default Component.extend({
-
   counter: null,
 
   isCounterValid: lte('counter', MAX_VALUE),
@@ -33,6 +32,6 @@ export default Component.extend({
 
     delete() {
       this.handleDelete();
-    }
-  }
+    },
+  },
 });

@@ -14,34 +14,22 @@ module('Unit | Component | fader-label', function(hooks) {
 
   test('tagName property', function(assert) {
     assert.expect(1);
-    assert.equal(
-      this.component.get('tagName'),
-      'span'
-    );
+    assert.equal(this.component.get('tagName'), 'span');
   });
 
   test('classNames property', function(assert) {
     assert.expect(1);
-    assert.deepEqual(
-      this.component.get('classNames'),
-      ['label label-success label-fade']
-    );
+    assert.deepEqual(this.component.get('classNames'), ['label label-success label-fade']);
   });
 
   test('classNameBindings property', function(assert) {
     assert.expect(1);
-    assert.deepEqual(
-      this.component.get('classNameBindings'),
-      ['isShowing:label-show']
-    );
+    assert.deepEqual(this.component.get('classNameBindings'), ['isShowing:label-show']);
   });
 
   test('isShowing property', function(assert) {
     assert.expect(1);
-    assert.equal(
-      this.component.get('isShowing'),
-      false
-    );
+    assert.equal(this.component.get('isShowing'), false);
   });
 
   test('isShowingChanged observer', function(assert) {

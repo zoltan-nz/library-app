@@ -12,7 +12,7 @@ module('Unit | Controller | books', function(hooks) {
     const save = spy();
     this.book = EmberObject.create({
       rollbackAttributes,
-      save
+      save,
     });
     this.controller = this.owner.lookup('controller:books');
   });
@@ -22,7 +22,7 @@ module('Unit | Controller | books', function(hooks) {
     controller.set('model', {
       authors: 'authors',
       books: 'books',
-      libraries: 'libraries'
+      libraries: 'libraries',
     });
     assert.expect(3);
     assert.equal(controller.get('authors'), 'authors');
@@ -55,7 +55,7 @@ module('Unit | Controller | books', function(hooks) {
 
     book.setProperties({
       isEditing: true,
-      isNotValid: true
+      isNotValid: true,
     });
     controller.send('saveBook', book);
     assert.ok(book.get('isEditing'));

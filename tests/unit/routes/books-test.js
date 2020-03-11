@@ -11,16 +11,19 @@ module('Unit | Route | books', hooks => {
     const model = {
       books: 'books',
       authors: 'authors',
-      libraries: 'libraries'
+      libraries: 'libraries',
     };
     const findAll = stub()
-      .onFirstCall().returns('books')
-      .onSecondCall().returns('authors')
-      .onThirdCall().returns('libraries');
+      .onFirstCall()
+      .returns('books')
+      .onSecondCall()
+      .returns('authors')
+      .onThirdCall()
+      .returns('libraries');
     const route = this.owner.factoryFor('route:books').create({
       store: {
-        findAll
-      }
+        findAll,
+      },
     });
     assert.expect(4);
     assert.deepEqual(await route.model(), model);
@@ -28,5 +31,4 @@ module('Unit | Route | books', hooks => {
     assert.ok(findAll.calledWith('author'));
     assert.ok(findAll.calledWith('library'));
   });
-
 });

@@ -22,7 +22,7 @@ module('Unit | Controller | authors', function(hooks) {
   test('cancelAuthorEdit action', function(assert) {
     const rollbackAttributes = spy();
     const author = EmberObject.create({
-      rollbackAttributes
+      rollbackAttributes,
     });
     controller.cancelAuthorEdit(author);
     assert.notOk(author.isEditing);
@@ -34,7 +34,7 @@ module('Unit | Controller | authors', function(hooks) {
     const author = EmberObject.create({
       isEditing: true,
       isNotValid: true,
-      save
+      save,
     });
     controller.saveAuthor(author);
     assert.expect(4);

@@ -4,7 +4,6 @@ import { equal } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
 export default class LibrariesIndexController extends Controller {
-
   @tracked queryParams = ['filter', 'limit', 'letter'];
   @tracked filter = '';
   @tracked letter = '';
@@ -13,7 +12,6 @@ export default class LibrariesIndexController extends Controller {
   @equal('limit', 'all') limitAll;
 
   get filteredList() {
-
     let results = this.model;
     const query = this.filter;
 
@@ -24,7 +22,7 @@ export default class LibrariesIndexController extends Controller {
       // i: case insensitive, g: global
       const regex = new RegExp(regexString, 'ig');
 
-      results = results.filter((item) => item.name.match(regex));
+      results = results.filter(item => item.name.match(regex));
     }
 
     return results.sortBy('name');

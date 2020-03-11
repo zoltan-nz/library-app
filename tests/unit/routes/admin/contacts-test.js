@@ -10,8 +10,8 @@ module('Unit | Route | admin/contacts', hooks => {
   test('model hook', function(assert) {
     const route = this.owner.factoryFor('route:admin/contacts').create({
       store: {
-        findAll: stub().returns('contacts')
-      }
+        findAll: stub().returns('contacts'),
+      },
     });
     assert.expect(2);
     assert.equal(route.model(), 'contacts');

@@ -12,6 +12,6 @@ module.exports = function(/* env */) {
     ],
     fastbootAllowedKeys: [],
     failOnMissingKey: false,
-    path: path.join(path.dirname(__dirname), '.env')
-  }
+    path: path.join(path.dirname(__dirname), '.env'),
+  };
 };

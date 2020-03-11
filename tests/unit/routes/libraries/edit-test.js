@@ -12,22 +12,22 @@ module('Unit | Route | libraries/edit', hooks => {
     this.controller = EmberObject.create({
       model: EmberObject.create({
         hasDirtyAttributes: true,
-        rollbackAttributes: spy()
-      })
+        rollbackAttributes: spy(),
+      }),
     });
     this.route = this.owner.factoryFor('route:libraries/edit').create({
       controller: this.controller,
       render: spy(),
       store: {
-        findRecord: stub().returns('library')
+        findRecord: stub().returns('library'),
       },
-      transitionTo: spy()
+      transitionTo: spy(),
     });
   });
 
   test('model hook', function(assert) {
     const params = {
-      library_id: 42
+      library_id: 42,
     };
     assert.expect(2);
     assert.equal(this.route.model(params), 'library');
@@ -43,12 +43,12 @@ module('Unit | Route | libraries/edit', hooks => {
   test('willTransition action', function(assert) {
     const { controller, route } = this;
     const transition = {
-      abort: spy()
+      abort: spy(),
     };
     stub(window, 'confirm').returns(true);
     route.send('willTransition', transition);
     assert.expect(8);
-    assert.ok(confirm.calledOnceWith('Your changes haven\'t saved yet. Would you like to leave this form?'));
+    assert.ok(confirm.calledOnceWith("Your changes haven't saved yet. Would you like to leave this form?"));
     assert.ok(controller.get('model').rollbackAttributes.calledOnce);
     assert.ok(transition.abort.notCalled);
     controller.get('model').rollbackAttributes.resetHistory();
@@ -67,6 +67,5 @@ module('Unit | Route | libraries/edit', hooks => {
     assert.ok(transition.abort.notCalled);
     assert.ok(controller.get('model').rollbackAttributes.notCalled);
     confirm.restore();
-
   });
 });
