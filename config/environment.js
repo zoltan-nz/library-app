@@ -7,10 +7,13 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'auto',
 
+    // !!! UPDATE KEYS IN .env FILE!!! Copy .env-sample and save as .env, update values based on your config in Firebase.
+    // Visit https://console.firebase.google.com/
+    // Click on your app -> Project Overview -> Add app -> Select Web -> Add a nickname -> Register app -> Copy relevant values in your custom .env file.
     firebase: {
       apiKey: process.env.API_KEY,
-      authDomain: `${process.env.PROJECT_ID}.firebaseapp.com`,
-      databaseURL: `https://${process.env.PROJECT_ID}.firebaseio.com`,
+      authDomain: process.env.AUTH_DOMAIN,
+      databaseURL: process.env.DATABASE_URL,
       projectId: process.env.PROJECT_ID
     },
 

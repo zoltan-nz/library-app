@@ -6,6 +6,8 @@ module.exports = function(/* env */) {
   return {
     clientAllowedKeys: [
       'API_KEY',
+      'AUTH_DOMAIN',
+      'DATABASE_URL',
       'PROJECT_ID'
     ],
     fastbootAllowedKeys: [],
