@@ -1,6 +1,6 @@
 {
   "name": "library-app",
-  "version": "3.16.3",
+  "version": "3.17.0",
   "description": "Demo application for learning Ember.js v3 (Octane)",
   "repository": {
     "type": "git",
@@ -45,7 +45,7 @@
     "ember-cli-template-lint": "^2.0.2",
     "ember-cli-uglify": "^3.0.0",
     "ember-cli-update": "^0.52.1",
-    "ember-data": "~3.16.2",
+    "ember-data": "~3.17.0",
     "ember-export-application-global": "^2.0.1",
     "ember-faker": "^1.5.0",
     "ember-fetch": "^7.0.1",
