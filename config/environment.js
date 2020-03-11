@@ -7,17 +7,11 @@ module.exports = function(environment) {
     rootURL: '/',
     locationType: 'auto',
 
-    // !!! UPDATE THESE KEYS !!!
-    // Visit https://console.firebase.google.com/
-    // Click on your app -> Project Overview -> Add app -> Select Web -> Add a nickname -> Register app -> Copy paste values below.
     firebase: {
-      apiKey: "UPDATE-THIS",
-      authDomain: "UPDATE-THIS",
-      databaseURL: "UPDATE-THIS",
-      projectId: "UPDATE-THIS",
-      storageBucket: "UPDATE-THIS",
-      messagingSenderId: "UPDATE-THIS",
-      appId: "UPDATE-THIS"
+      apiKey: process.env.API_KEY,
+      authDomain: `${process.env.PROJECT_ID}.firebaseapp.com`,
+      databaseURL: `https://${process.env.PROJECT_ID}.firebaseio.com`,
+      projectId: process.env.PROJECT_ID
     },
 
     // if using ember-cli-content-security-policy
