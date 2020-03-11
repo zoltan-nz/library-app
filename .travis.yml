@@ -1,16 +1,12 @@
 ---
 language: node_js
-node_js:
-  - "12"
+node_js: "12"
+cache: yarn
 
 dist: bionic
 
 addons:
   chrome: stable
-
-cache:
-  directories:
-    - $HOME/.npm
 
 env:
   global:
