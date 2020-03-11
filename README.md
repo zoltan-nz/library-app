@@ -28,7 +28,7 @@ $ cd library-app
 ```
 $ npm install
 ```
-* Setup in `config/environment.js` Firebase settings. ([Setup firebase in your Ember project](http://yoember.com/#setup-a-server-on-firebase))
+* Copy `.env-sample` file and save as `.env`. Update the `API_KEY` and `PROJECT_ID`.
 
 * Launch the application with Ember server.
 ```

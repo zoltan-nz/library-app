@@ -19,6 +19,7 @@
 /testem.log
 /yarn-error.log
 /.env
+!.env-sample
 
 .npmrc
 .firebase-debug.log
