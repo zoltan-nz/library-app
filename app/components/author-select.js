@@ -1,8 +1,9 @@
+import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 
 export default class AuthorSelectComponent extends Component {
+  @tracked default = this.args.default;
   @tracked authors = this.args.authors;
   @tracked book = this.args.book;
 

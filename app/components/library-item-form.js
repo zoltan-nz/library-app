@@ -1,14 +1,12 @@
 import Component from '@ember/component';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  buttonLabel: 'Save',
-
+export default class LibraryItemFormComponent extends Component {
   // pass an action to override
-  handleClick() {},
+  handleClick() {}
 
-  actions: {
-    buttonClicked(param) {
-      this.handleClick(param);
-    },
-  },
-});
+  @action
+  buttonClicked(param) {
+    this.handleClick(param);
+  }
+}
