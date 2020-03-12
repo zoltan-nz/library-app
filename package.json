@@ -19,8 +19,9 @@
     "test:coverage": "COVERAGE=true run-s -l test",
     "format": "prettier --list-different --write **/*.{js,ts,html,json,css,scss,md}",
     "format:check": "prettier --check **/*.{js,ts,html,json,css,scss,md}",
-    "ci:report": "cat ./coverage/lcov.info | codacy-coverage && cat ./coverage/lcov.info | coveralls",
-    "ci": "run-s -l lint:js:check format:check test:coverage ci:report"
+    "ci:report:codacy": "cat ./coverage/lcov.info | codacy-coverage",
+    "ci:report:coveralls": "cat ./coverage/lcov.info | coveralls",
+    "ci": "run-s -l lint:js:check format:check test:coverage"
   },
   "devDependencies": {
     "@ember/jquery": "^1.1.0",
