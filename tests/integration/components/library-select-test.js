@@ -9,16 +9,32 @@ module('Integration | Component | library-select', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
+    assert.expect(5);
+
+    const saveLibrary = (libraryRecord, bookRecord) => {
+      assert.deepEqual(libraryRecord, libraries[1], 'action called with proper library');
+      assert.deepEqual(bookRecord, book, 'action called with proper book');
+    };
+
     this.setProperties({
-      libraries,
       book,
+      libraries,
+      saveLibrary,
     });
 
-    await render(hbs`{{library-select libraries=libraries default=book.library}}`);
+    await render(
+      hbs`
+        <LibrarySelect
+          @libraries={{libraries}}
+          @book={{book}}
+          @default={{book.library}}
+          @onChange={{action saveLibrary}}
+        />
+      `,
+    );
 
     const component = this.element.querySelector('select');
 
-    assert.expect(3);
     assert.dom(component).hasClass('form-control', 'component renders with assigned CSS class');
     assert.equal(
       component.options[component.selectedIndex].text,
