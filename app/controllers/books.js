@@ -1,85 +1,62 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
 export default class BooksController extends Controller {
-  @alias('model.authors') authors;
-  @alias('model.books') books;
-  @alias('model.libraries') libraries;
+  @tracked authors = this.model.authors;
+  @tracked books = this.model.books;
+  @tracked libraries = this.model.libraries;
 
   @action
   editBook(book) {
-    book.set('isEditing', true);
+    book.isEditing = true;
   }
 
   @action
   cancelBookEdit(book) {
-    book.set('isEditing', false);
+    book.isEditing = false;
     book.rollbackAttributes();
   }
 
   @action
   saveBook(book) {
-    if (book.isNotValid) {
-      return;
-    }
-
-    book.set('isEditing', false);
+    book.isEditing = false;
     book.save();
   }
 
   @action
   editAuthor(book) {
-    book.set('isAuthorEditing', true);
+    book.isAuthorEditing = true;
   }
 
   @action
   cancelAuthorEdit(book) {
-    book.set('isAuthorEditing', false);
+    book.isAuthorEditing = false;
     book.rollbackAttributes();
   }
 
   @action
   saveAuthor(author, book) {
-    // Firebase adapter is buggy, we have to manually remove the previous relation
-    book.author.then(previousAuthor => {
-      previousAuthor.books.then(previousAuthorBooks => {
-        previousAuthorBooks.removeObject(book);
-        previousAuthor.save();
-      });
-    });
-
-    // Setup the new relation
-    book.set('author', author);
-    book.save().then(() => author.save());
-    book.set('isAuthorEditing', false);
+    book.author = author;
+    book.save();
+    book.isAuthorEditing = false;
   }
 
   @action
   editLibrary(book) {
-    book.set('isLibraryEditing', true);
+    book.isLibraryEditing = true;
   }
 
   @action
   cancelLibraryEdit(book) {
-    book.set('isLibraryEditing', false);
+    book.isLibraryEditing = false;
     book.rollbackAttributes();
   }
 
   @action
   saveLibrary(library, book) {
-    // Firebase adapter is buggy, we have to manually remove the previous relation.
-    // You don't need this callback mess when your adapter properly manages relations.
-    // If Firebase fix this bug, we can remove this part.
-    book.library.then(previousLibrary => {
-      previousLibrary.books.then(previousLibraryBooks => {
-        previousLibraryBooks.removeObject(book);
-        previousLibrary.save();
-      });
-    });
-
-    book.set('library', library);
-    book.save().then(() => library.save());
-    book.set('isLibraryEditing', false);
+    book.library = library;
+    book.save();
+    book.isLibraryEditing = false;
   }
 }

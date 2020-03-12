@@ -11,11 +11,6 @@ module('Unit | Component | library-item-form', function(hooks) {
     this.component = this.owner.lookup('component:library-item-form');
   });
 
-  test('label', function(assert) {
-    assert.expect(1);
-    assert.equal(this.component.get('buttonLabel'), 'Save');
-  });
-
   test('default action exists', function(assert) {
     assert.expect(1);
     assert.equal(this.component.handleClick(), undefined);

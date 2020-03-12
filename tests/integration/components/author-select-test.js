@@ -38,7 +38,7 @@ module('Integration | Component | author-select', function(hooks) {
     assert.dom(component).hasClass('form-control', 'component renders with assigned CSS class');
     assert.equal(
       component.options[component.selectedIndex].text,
-      'Tanya Gutmann',
+      book.author.name,
       'component renders with default author selected',
     );
 

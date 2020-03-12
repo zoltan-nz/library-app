@@ -1,15 +1,32 @@
-import { all } from 'rsvp';
 import Controller from '@ember/controller';
-import Faker from 'faker';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import Faker from 'faker';
+import { all } from 'rsvp';
 
 export default class SeederController extends Controller {
+  @tracked authors = this.model.authors;
+  @tracked libraries = this.model.libraries;
+  @tracked books = this.model.books;
+
+  @tracked generateLibrariesInProgress;
+  @tracked libDone;
+
+  @tracked deleteLibrariesInProgress;
+  @tracked libDelDone;
+
+  @tracked generateBooksInProgress;
+  @tracked authDone;
+
+  @tracked deleteBooksInProgress;
+  @tracked authDelDone;
+
   @action
   generateLibraries(volume) {
     // Progress flag, data-down to seeder-block where our lovely button will show a spinner...
-    this.set('generateLibrariesInProgress', true);
+    this.generateLibrariesInProgress = true;
 
-    const counter = parseInt(volume);
+    const counter = parseInt(volume, 10);
     let savedLibraries = [];
 
     for (let i = 0; i < counter; i++) {
@@ -19,15 +36,15 @@ export default class SeederController extends Controller {
 
     // Wait for all Promise to fulfill so we can show our label and turn off the spinner.
     all(savedLibraries).then(() => {
-      this.set('generateLibrariesInProgress', false);
-      this.set('libDone', true);
+      this.generateLibrariesInProgress = false;
+      this.libDone = true;
     });
   }
 
   @action
   deleteLibraries() {
     // Progress flag, data-down to seeder-block button spinner.
-    this.set('deleteLibrariesInProgress', true);
+    this.deleteLibrariesInProgress = true;
 
     // Our local _destroyAll return a promise, we change the label when all records destroyed.
     this._destroyAll(this.libraries)
@@ -35,17 +52,17 @@ export default class SeederController extends Controller {
       // Data down via seeder-block to fader-label that we ready to show the label.
       // Change the progress indicator also, so the spinner can be turned off.
       .then(() => {
-        this.set('libDelDone', true);
-        this.set('deleteLibrariesInProgress', false);
+        this.libDelDone = true;
+        this.deleteLibrariesInProgress = false;
       });
   }
 
   @action
   generateBooksAndAuthors(volume) {
     // Progress flag, data-down to seeder-block button spinner.
-    this.set('generateBooksInProgress', true);
+    this.generateBooksInProgress = true;
 
-    const counter = parseInt(volume);
+    const counter = parseInt(volume, 10);
     let booksWithAuthors = [];
 
     for (let i = 0; i < counter; i++) {
@@ -59,15 +76,15 @@ export default class SeederController extends Controller {
       // Data down via seeder-block to fader-label that we ready to show the label
       // Change the progress flag also, so the spinner can be turned off.
       .then(() => {
-        this.set('authDone', true);
-        this.set('generateBooksInProgress', false);
+        this.authDone = true;
+        this.generateBooksInProgress = false;
       });
   }
 
   @action
   deleteBooksAndAuthors() {
     // Progress flag, data-down to seeder-block button to show spinner.
-    this.set('deleteBooksInProgress', true);
+    this.deleteBooksInProgress = true;
 
     const authors = this.authors;
     const books = this.books;
@@ -79,8 +96,8 @@ export default class SeederController extends Controller {
       // Data down via seeder-block to fader-label that we ready to show the label
       // Delete is finished, we can turn off the spinner in seeder-block button.
       .then(() => {
-        this.set('authDelDone', true);
-        this.set('deleteBooksInProgress', false);
+        this.authDelDone = true;
+        this.deleteBooksInProgress = false;
       });
   }
 
@@ -130,7 +147,7 @@ export default class SeederController extends Controller {
     // Ember.ArrayProxy. If you need an element from this list, you cannot just use libraries[3], we have to use
     // libraries.objectAt(3)
     const libraries = this.libraries;
-    const size = libraries.get('length');
+    const size = libraries.length;
 
     // Get a random number between 0 and size-1
     const randomItem = Faker.random.number(size - 1);

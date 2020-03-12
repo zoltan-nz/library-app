@@ -1,37 +1,34 @@
-import { lte, not, or } from '@ember/object/computed';
 import Component from '@ember/component';
+import { action } from '@ember/object';
+import { lte, not, or } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
 const MAX_VALUE = 100;
 
-export default Component.extend({
-  counter: null,
+export default class SeederBlockComponent extends Component {
+  @tracked counter = null;
 
-  isCounterValid: lte('counter', MAX_VALUE),
-  isCounterNotValid: not('isCounterValid'),
-  placeholder: `Max ${MAX_VALUE}`,
+  @lte('counter', MAX_VALUE) isCounterValid;
+  @not('isCounterValid') isCounterNotValid;
 
-  generateReady: false,
-  deleteReady: false,
+  placeholder = `Max ${MAX_VALUE}`;
 
-  generateInProgress: false,
-  deleteInProgress: false,
-
-  generateIsDisabled: or('isCounterNotValid', 'generateInProgress', 'deleteInProgress'),
-  deleteIsDisabled: or('generateInProgress', 'deleteInProgress'),
+  @or('isCounterNotValid', 'generateInProgress', 'deleteInProgress') generateIsDisabled;
+  @or('generateInProgress', 'deleteInProgress') deleteIsDisabled;
 
   // pass actions to override
-  handleGenerate() {},
-  handleDelete() {},
+  handleGenerate() {}
+  handleDelete() {}
 
-  actions: {
-    generate() {
-      if (this.isCounterValid) {
-        this.handleGenerate(this.counter);
-      }
-    },
+  @action
+  generate() {
+    if (this.isCounterValid) {
+      this.handleGenerate(this.counter);
+    }
+  }
 
-    delete() {
-      this.handleDelete();
-    },
-  },
-});
+  @action
+  delete() {
+    this.handleDelete();
+  }
+}

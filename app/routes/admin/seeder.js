@@ -42,12 +42,4 @@ export default Route.extend({
       authors: this.store.findAll('author'),
     });
   },
-
-  setupController(controller, model) {
-    controller.set('libraries', model.libraries);
-    controller.set('books', model.books);
-    controller.set('authors', model.authors);
-
-    this._super(controller, model);
-  },
 });
