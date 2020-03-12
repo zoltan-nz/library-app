@@ -11,8 +11,6 @@
   "private": false,
   "scripts": {
     "build": "ember build --environment=production",
-    "codacy-coverage": "cat ./coverage/lcov.info | codacy-coverage",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint:hbs": "ember-template-lint . --fix",
     "lint:js": "eslint . --fix",
     "lint:js:check": "eslint .",
@@ -21,7 +19,9 @@
     "test:coverage": "COVERAGE=true run-s -l test",
     "format": "prettier --list-different --write **/*.{js,ts,html,json,css,scss,md}",
     "format:check": "prettier --check **/*.{js,ts,html,json,css,scss,md}",
-    "ci": "run-s -l lint:js:check format:check test"
+    "ci:report:codacy": "cat ./coverage/lcov.info | codacy-coverage",
+    "ci:report:coveralls": "cat ./coverage/lcov.info | coveralls",
+    "ci": "run-s -l lint:js:check format:check test:coverage"
   },
   "devDependencies": {
     "@ember/jquery": "^1.1.0",
@@ -37,7 +37,7 @@
     "ember-cli-app-version": "^3.2.0",
     "ember-cli-babel": "^7.18.0",
     "ember-cli-bootstrap-sassy": "^0.5.8",
-    "ember-cli-code-coverage": "^0.4.2",
+    "ember-cli-code-coverage": "^1.0.0-beta.9",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-dotenv": "^3.0.1",
     "ember-cli-eslint": "^5.1.0",

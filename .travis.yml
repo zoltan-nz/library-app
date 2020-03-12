@@ -20,7 +20,6 @@ branches:
 script:
   - yarn ci
 
-# @TODO Turn back after coveralls and codacy implementation are fixed
-#after_script:
-#  - yarn coveralls
-#  - yarn codacy-coverage
+after_script:
+  - yarn ci:report:codacy
+  - yarn ci:report:coveralls
