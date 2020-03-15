@@ -1,119 +1,113 @@
-import { module, test } from 'qunit';
-import { setupTest } from 'ember-qunit';
 import { next } from '@ember/runloop';
-import EmberObject from '@ember/object';
+import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 
 const { spy, stub } = sinon;
 
 module('Unit | Controller | admin/seeder', function(hooks) {
   setupTest(hooks);
-  hooks.beforeEach(function() {
-    const controller = {
-      _destroyAll: stub().resolves(),
-      _saveRandomLibrary: stub().resolves(),
-      _saveRandomAuthor: stub().resolves('newAuthor'),
-      _generateSomeBooks: stub().resolves('books'),
-      authors: 'authors',
-      books: 'books',
-      libraries: 'libraries',
-    };
-    this.controller = this.owner.factoryFor('controller:admin/seeder').create(controller);
-  });
+  test('generateLibraries action', async function(assert) {
+    assert.expect(4);
 
-  test('generateLibraries action', function(assert) {
-    const done = assert.async();
-    const { controller } = this;
+    const controller = this.owner.lookup('controller:admin/seeder');
+    controller._saveRandomLibrary = stub().resolves();
+
     controller.send('generateLibraries', 10);
-    assert.expect(4);
-    assert.equal(controller.get('generateLibrariesInProgress'), true);
-    assert.equal(controller._saveRandomLibrary.callCount, 10);
 
-    next(() => {
-      assert.equal(controller.get('generateLibrariesInProgress'), false);
-      assert.equal(controller.get('libDone'), true);
-      done();
-    });
+    await assert.equal(controller.generateLibrariesInProgress, true);
+    await assert.equal(controller._saveRandomLibrary.callCount, 10);
+    await assert.equal(controller.generateLibrariesInProgress, false);
+    await assert.equal(controller.libDone, true);
   });
 
-  test('deleteLibraries action', function(assert) {
-    const done = assert.async();
-    const { controller } = this;
+  test('deleteLibraries action', async function(assert) {
+    assert.expect(4);
+
+    const controller = this.owner.lookup('controller:admin/seeder');
+    controller._destroyAll = stub().resolves();
+    controller.model = { libraries: 'libraryRecords' };
+
     controller.send('deleteLibraries');
-    assert.expect(4);
-    assert.equal(controller.get('deleteLibrariesInProgress'), true);
-    assert.ok(controller._destroyAll.calledOnceWith('libraries'));
 
-    next(() => {
-      assert.equal(controller.get('libDelDone'), true);
-      assert.equal(controller.get('deleteLibrariesInProgress'), false);
-      done();
-    });
+    await assert.equal(controller.deleteLibrariesInProgress, true);
+    await assert.ok(controller._destroyAll.calledOnceWith('libraryRecords'));
+    await assert.equal(controller.libDelDone, true);
+    await assert.equal(controller.deleteLibrariesInProgress, false);
   });
 
-  test('generateBooksAndAuthors action', function(assert) {
-    const done = assert.async();
-    const { controller } = this;
-    controller.send('generateBooksAndAuthors', 10);
+  test('generateBooksAndAuthors action', async function(assert) {
     assert.expect(5);
-    assert.equal(controller.get('generateBooksInProgress'), true);
-    assert.equal(controller._saveRandomAuthor.callCount, 10);
 
-    next(() => {
-      assert.ok(controller._generateSomeBooks.calledWith('newAuthor'));
-      assert.equal(controller.get('authDone'), true);
-      assert.equal(controller.get('generateBooksInProgress'), false);
-      done();
+    const controller = this.owner.lookup('controller:admin/seeder');
+    controller._saveRandomAuthor = stub().resolves('newAuthor');
+    controller._generateSomeBooks = stub().resolves();
+
+    controller.send('generateBooksAndAuthors', 10);
+
+    await assert.equal(controller.generateBooksInProgress, true);
+    await assert.equal(controller._saveRandomAuthor.callCount, 10);
+    await assert.ok(controller._generateSomeBooks.calledWith('newAuthor'));
+
+    next(async () => {
+      await assert.equal(controller.authDone, true);
+      await assert.equal(controller.generateBooksInProgress, false);
     });
   });
 
-  test('deleteBooksAndAuthors action', function(assert) {
-    const done = assert.async();
-    const { controller } = this;
+  test('deleteBooksAndAuthors action', async function(assert) {
+    assert.expect(5);
+
+    const controller = this.owner.lookup('controller:admin/seeder');
+    controller._destroyAll = stub().resolves();
+    controller.authors = 'authorRecords';
+    controller.books = 'bookRecords';
+
     controller.send('deleteBooksAndAuthors');
-    assert.expect(4);
-    assert.equal(controller.get('deleteBooksInProgress'), true);
 
-    next(() => {
-      assert.deepEqual(controller._destroyAll.args, [['authors'], ['books']]);
-      assert.equal(controller.get('authDelDone'), true);
-      assert.equal(controller.get('deleteBooksInProgress'), false);
-      done();
+    await assert.equal(controller.deleteBooksInProgress, true);
+
+    next(async () => {
+      await assert.ok(controller._destroyAll.calledWith('authorRecords'));
+      await assert.ok(controller._destroyAll.calledWith('bookRecords'));
+      await assert.equal(controller.authDelDone, true);
+      await assert.equal(controller.deleteBooksInProgress, false);
     });
   });
 
-  module('private methods', function(hooks) {
-    hooks.beforeEach(function() {
-      const save = spy();
-      const randomize = stub().returns({ save });
-      const createRecord = stub().returns({ randomize });
-      const controller = {
-        store: { createRecord },
-      };
-      this.controller = this.owner.factoryFor('controller:admin/seeder').create(controller);
-    });
-
+  module('private methods', function() {
     test('_saveRandomLibrary function', function(assert) {
-      const { controller } = this;
-      controller._saveRandomLibrary();
       assert.expect(3);
+
+      const controller = this.owner.lookup('controller:admin/seeder');
+      controller.store.createRecord = stub().returns({ randomize: stub().returns({ save: spy() }) });
+
+      controller._saveRandomLibrary();
+
       assert.ok(controller.store.createRecord.calledWith('library'));
       assert.ok(controller.store.createRecord().randomize.calledOnce);
       assert.ok(controller.store.createRecord().randomize().save.calledOnce);
     });
 
     test('_saveRandomAuthor function', function(assert) {
-      const { controller } = this;
-      controller._saveRandomAuthor();
       assert.expect(3);
+
+      const controller = this.owner.lookup('controller:admin/seeder');
+      controller.store.createRecord = stub().returns({ randomize: stub().returns({ save: spy() }) });
+
+      controller._saveRandomAuthor();
+
       assert.ok(controller.store.createRecord.calledWith('author'));
       assert.ok(controller.store.createRecord().randomize.calledOnce);
       assert.ok(controller.store.createRecord().randomize().save.calledOnce);
     });
 
-    test('_generateSomeBooks function', function(assert) {
-      const done = assert.async();
-      const { controller } = this;
+    test('_generateSomeBooks function', async function(assert) {
+      assert.expect(5);
+
+      const controller = this.owner.lookup('controller:admin/seeder');
+      controller.store.createRecord = stub().returns({ randomize: stub().returns({ save: spy() }) });
+
       const author = { save: spy() };
       const library = { save: spy() };
       const save = stub().resolves();
@@ -123,33 +117,36 @@ module('Unit | Controller | admin/seeder', function(hooks) {
         _selectRandomLibrary: stub().returns(library),
         store: { createRecord },
       });
-      controller._generateSomeBooks(author);
-      assert.expect(5);
 
-      next(() => {
-        assert.ok(createRecord.calledWith('book'));
-        assert.ok(randomize.calledWith(author, library));
-        assert.ok(save.called);
-        assert.ok(author.save.called);
-        assert.ok(library.save.called);
-        done();
-      });
+      controller._generateSomeBooks(author);
+
+      await assert.ok(createRecord.calledWith('book'));
+      await assert.ok(randomize.calledWith(author, library));
+      await assert.ok(save.called);
+      await assert.ok(author.save.called);
+      await assert.ok(library.save.called);
     });
 
     test('_selectRandomLibrary function', function(assert) {
-      const { controller } = this;
-      controller.set('libraries', EmberObject.create({ length: 2, objectAt: spy() }));
-      controller._selectRandomLibrary();
       assert.expect(1);
+
+      const controller = this.owner.lookup('controller:admin/seeder');
+      controller.libraries = { length: 2, objectAt: spy() };
+
+      controller._selectRandomLibrary();
+
       assert.ok(controller.libraries.objectAt.calledOnce);
     });
 
     test('_destroyAll function', function(assert) {
-      const { controller } = this;
+      assert.expect(1);
+
+      const controller = this.owner.lookup('controller:admin/seeder');
       const destroyRecord = spy();
       const records = [{ destroyRecord }, { destroyRecord }];
+
       controller._destroyAll(records);
-      assert.expect(1);
+
       assert.ok(destroyRecord.calledTwice);
     });
   });
