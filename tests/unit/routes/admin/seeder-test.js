@@ -1,6 +1,5 @@
-import { module, test } from 'qunit';
-import EmberObject from '@ember/object';
 import { setupTest } from 'ember-qunit';
+import { module, test } from 'qunit';
 import sinon from 'sinon';
 
 const { stub } = sinon;
@@ -35,14 +34,5 @@ module('Unit | Route | admin/seeder', function(hooks) {
     assert.ok(route.store.findAll.calledWith('library'));
     assert.ok(route.store.findAll.calledWith('book'));
     assert.ok(route.store.findAll.calledWith('author'));
-  });
-
-  test('setupController function', function(assert) {
-    const controller = EmberObject.create();
-    assert.expect(3);
-    this.route.setupController(controller, this.model);
-    assert.equal(controller.get('libraries'), 'libraries');
-    assert.equal(controller.get('books'), 'books');
-    assert.equal(controller.get('authors'), 'authors');
   });
 });
