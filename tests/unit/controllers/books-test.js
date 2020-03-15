@@ -48,18 +48,9 @@ module('Unit | Controller | books', function(hooks) {
   test('saveBook', function(assert) {
     const { book, controller } = this;
     controller.send('saveBook', book);
-    assert.expect(4);
-    assert.equal(book.get('isEditing'), false);
+    assert.expect(2);
+    assert.equal(book.isEditing, false);
     assert.ok(book.save.calledOnce);
-    book.save.resetHistory();
-
-    book.setProperties({
-      isEditing: true,
-      isNotValid: true,
-    });
-    controller.send('saveBook', book);
-    assert.ok(book.get('isEditing'));
-    assert.notOk(book.save.calledOnce);
   });
 
   test('editAuthor', function(assert) {
