@@ -1,6 +1,6 @@
-import { module, skip, test } from 'qunit';
-import { setupTest } from 'ember-qunit';
 import EmberObject from '@ember/object';
+import { setupTest } from 'ember-qunit';
+import { module, skip, test } from 'qunit';
 import sinon from 'sinon';
 
 const { spy } = sinon;
@@ -46,20 +46,18 @@ module('Unit | Controller | books', function(hooks) {
   });
 
   test('saveBook', function(assert) {
-    const { book, controller } = this;
-    controller.send('saveBook', book);
-    assert.expect(4);
-    assert.equal(book.get('isEditing'), false);
-    assert.ok(book.save.calledOnce);
-    book.save.resetHistory();
+    assert.expect(3);
 
-    book.setProperties({
-      isEditing: true,
-      isNotValid: true,
-    });
+    const { book, controller } = this;
+
+    book.isValid = true;
     controller.send('saveBook', book);
-    assert.ok(book.get('isEditing'));
-    assert.notOk(book.save.calledOnce);
+    assert.equal(book.isEditing, false);
+    assert.ok(book.save.calledOnce);
+
+    (book.isEditing = true), (book.isValid = false);
+    controller.send('saveBook', book);
+    assert.ok(book.isEditing);
   });
 
   test('editAuthor', function(assert) {

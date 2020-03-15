@@ -14,7 +14,13 @@ export default class Book extends Model {
   @tracked isAuthorEditing = false;
   @tracked isLibraryEditing = false;
 
-  @tracked isNotValid;
+  get isValid() {
+    return this.title.length;
+  }
+
+  get isNotValid() {
+    return !this.isValid;
+  }
 
   randomize(author, library) {
     this.set('title', this._bookTitle());
