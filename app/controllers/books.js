@@ -20,8 +20,10 @@ export default class BooksController extends Controller {
 
   @action
   saveBook(book) {
-    book.isEditing = false;
-    book.save();
+    if (book.isValid) {
+      book.isEditing = false;
+      book.save();
+    }
   }
 
   @action
