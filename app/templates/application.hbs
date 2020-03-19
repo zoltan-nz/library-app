@@ -3,8 +3,8 @@
           @type="inverse"
           @backgroundColor="inverse"
           @collapsed={{false}}
-          @onCollapse={{action (mut collapsed) true}}
-          @onExpand={{action (mut collapsed) false}}
+          @onCollapse={{fn (mut this.collapsed) true}}
+          @onExpand={{fn (mut this.collapsed) false}}
           as |navbar|>
     <div class="navbar-header">
       <navbar.toogle />
