@@ -1,5 +1,5 @@
 import Model, { attr } from '@ember-data/model';
 
-export default Model.extend({
-  email: attr('string'),
-});
+export default class InvitationModel extends Model {
+  @attr('string') email;
+}
