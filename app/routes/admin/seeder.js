@@ -1,7 +1,7 @@
-import { hash } from 'rsvp';
 import Route from '@ember/routing/route';
+import { hash } from 'rsvp';
 
-export default Route.extend({
+export default class SeederRoute extends Route {
   // You can use these lines to experiment with route hooks.
   // Uncomment these and comment out the real implementation below.
   // Open inspection console in your browser and check how Ember call
@@ -41,5 +41,5 @@ export default Route.extend({
       books: this.store.findAll('book'),
       authors: this.store.findAll('author'),
     });
-  },
-});
+  }
+}

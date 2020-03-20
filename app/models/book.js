@@ -2,7 +2,7 @@ import { tracked } from '@glimmer/tracking';
 import Model, { attr, belongsTo } from '@ember-data/model';
 import Faker from 'faker';
 
-export default class Book extends Model {
+export default class BookModel extends Model {
   @attr('string') title;
   @attr('date') releaseYear;
 
@@ -23,10 +23,10 @@ export default class Book extends Model {
   }
 
   randomize(author, library) {
-    this.set('title', this._bookTitle());
-    this.set('author', author);
-    this.set('releaseYear', this._randomYear());
-    this.set('library', library);
+    this.title = this._bookTitle();
+    this.author = author;
+    this.releaseYear = this._randomYear();
+    this.library = library;
 
     return this;
   }

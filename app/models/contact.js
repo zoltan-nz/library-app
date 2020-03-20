@@ -1,13 +1,13 @@
 import Model, { attr } from '@ember-data/model';
-import { match, gte, and, not } from '@ember/object/computed';
+import { and, gte, match, not } from '@ember/object/computed';
 
-export default Model.extend({
-  email: attr('string'),
-  message: attr('string'),
+export default class ContactModel extends Model {
+  @attr('string') email;
+  @attr('string') message;
 
-  isValidEmail: match('email', /^.+@.+\..+$/),
-  isMessageLongEnough: gte('message.length', 5),
+  @match('email', /^.+@.+\..+$/) isValidEmail;
+  @gte('message.length', 5) isMessageLongEnough;
 
-  isValid: and('isValidEmail', 'isMessageLongEnough'),
-  isNotValid: not('isValid'),
-});
+  @and('isValidEmail', 'isMessageLongEnough') isValid;
+  @not('isValid') isNotValid;
+}
