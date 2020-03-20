@@ -3,6 +3,8 @@ import { later, cancel } from '@ember/runloop';
 import { observer } from '@ember/object';
 import Component from '@ember/component';
 
+export const FADER_LABEL_LATENCY = 3000;
+
 export default Component.extend({
   tagName: 'span',
 
@@ -10,6 +12,7 @@ export default Component.extend({
   classNameBindings: ['isShowing:label-show'],
 
   isShowing: false,
+  faderLabelLatency: FADER_LABEL_LATENCY,
 
   // eslint-disable-next-line ember/no-observers
   isShowingChanged: observer('isShowing', function() {
@@ -17,7 +20,7 @@ export default Component.extend({
     // however our "setTimeout" task try to run.
     // We save this task in a local variable, so we can clean up during the destroy process.
     // Otherwise you will see a "calling set on destroyed object" error.
-    this._runLater = later(() => this.set('isShowing', false), 3000);
+    this._runLater = later(() => this.set('isShowing', false), this.faderLabelLatency);
   }),
 
   resetRunLater() {

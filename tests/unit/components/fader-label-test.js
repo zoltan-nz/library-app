@@ -10,6 +10,7 @@ module('Unit | Component | fader-label', function(hooks) {
 
   hooks.beforeEach(function() {
     this.component = this.owner.lookup('component:fader-label');
+    this.component.faderLabelLatency = 1;
   });
 
   test('tagName property', function(assert) {
@@ -40,7 +41,7 @@ module('Unit | Component | fader-label', function(hooks) {
     later(() => {
       assert.equal(component.get('isShowing'), false);
       done();
-    }, 3100);
+    }, 5);
   });
 
   test('resetRunLater function', function(assert) {
