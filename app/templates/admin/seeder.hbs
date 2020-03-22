@@ -6,6 +6,22 @@
   <div class="col-md-4"><NumberBox @title="Books" @number={{this.books.length}} /></div>
 </div>
 
-<SeederBlock @sectionTitle="Libraries" @handleGenerate={{fn this.generateLibraries}} @handleDelete={{fn this.deleteLibraries}} @generateReady={{this.libDone}} @deleteReady={{this.libDelDone}} @generateInProgress={{this.generateLibrariesInProgress}} @deleteInProgress={{this.deleteLibrariesInProgress}} />
+<SeederBlock
+        @sectionTitle="Libraries"
+        @handleGenerate={{fn this.generateLibraries}}
+        @handleDelete={{fn this.deleteLibraries}}
+        @showGenerateReady={{fn this.showLibrariesGenerated}}
+        @showDeleteReady={{fn this.showLibrariesDeleted}}
+        @generateInProgress={{this.generateLibrariesInProgress}}
+        @deleteInProgress={{this.deleteLibrariesInProgress}}
+/>
 
-<SeederBlock @sectionTitle="Authors with Books" @handleGenerate={{this.generateBooksAndAuthors}} @handleDelete={{this.deleteBooksAndAuthors}} @generateReady={{this.authDone}} @deleteReady={{this.authDelDone}} @generateInProgress={{this.generateBooksInProgress}} @deleteInProgress={{this.deleteBooksInProgress}} />
+<SeederBlock
+        @sectionTitle="Authors with Books"
+        @handleGenerate={{this.generateBooksAndAuthors}}
+        @handleDelete={{this.deleteBooksAndAuthors}}
+        @showGenerateReady={{fn this.showAuthorsGenerated}}
+        @showDeleteReady={{fn this.showAuthorsDeleted}}
+        @generateInProgress={{this.generateBooksInProgress}}
+        @deleteInProgress={{this.deleteBooksInProgress}}
+/>

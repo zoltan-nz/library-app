@@ -20,6 +20,9 @@ export default class SeederBlockComponent extends Component {
   handleGenerate() {}
   handleDelete() {}
 
+  @tracked showGenerateReady = this.args.showGenerateReady;
+  @tracked showDeleteReady = this.args.showDeleteReady;
+
   @action
   generate() {
     if (this.isCounterValid) {

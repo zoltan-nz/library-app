@@ -12,7 +12,7 @@
         Generate {{@sectionTitle}}
       {{/if}}
     </button>
-    <FaderLabel @isShowing={{@generateReady}}>Created!</FaderLabel>
+    <FaderLabel @showLabel={{fn this.showGenerateReady}}>Created!</FaderLabel>
     <button class="btn btn-danger" {{on 'click' this.delete}} disabled={{this.deleteIsDisabled}} type="button">
       {{#if @deleteInProgress}}
         <span class="glyphicon glyphicon-refresh spinning"></span> Deleting...
@@ -20,6 +20,6 @@
         Delete All {{@sectionTitle}}
       {{/if}}
     </button>
-    <FaderLabel @isShowing={{@deleteReady}}>Deleted!</FaderLabel>
+    <FaderLabel @showLabel={{fn this.sho  wDeleteReady}}>Deleted!</FaderLabel>
   </div>
 </div>
