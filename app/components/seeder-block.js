@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { action } from '@ember/object';
-import { and, lte, not, or } from '@ember/object/computed';
+import { lte, not, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
