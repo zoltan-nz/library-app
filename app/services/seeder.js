@@ -3,7 +3,7 @@ import { cancel, later } from '@ember/runloop';
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Faker from 'faker';
-import _ from 'lodash';
+import { range } from 'lodash';
 
 const DONE_MESSAGE_VISIBILITY_TIME_MS = 3000;
 
@@ -33,7 +33,7 @@ export default class SeederService extends Service {
     this.seedingLibrariesInProgress = true;
 
     const counter = parseInt(volume, 10);
-    const listOfNewRandomLibraryPromises = _.range(counter).map(() => this._createAndSaveRandomLibrary());
+    const listOfNewRandomLibraryPromises = range(counter).map(() => this._createAndSaveRandomLibrary());
 
     await Promise.all(listOfNewRandomLibraryPromises);
 
@@ -62,7 +62,7 @@ export default class SeederService extends Service {
     this.seedingAuthorsInProgress = true;
 
     const counter = parseInt(volume, 10);
-    const listOfNewRandomAuthorPromises = _.range(counter).map(() => this._createAndSaveRandomAuthor());
+    const listOfNewRandomAuthorPromises = range(counter).map(() => this._createAndSaveRandomAuthor());
     const newAuthors = await Promise.all(listOfNewRandomAuthorPromises);
 
     const listOfNewBookPromises = newAuthors.map(author =>
@@ -114,7 +114,7 @@ export default class SeederService extends Service {
   async _createAndSaveRandomBooksForAuthorInLibraries(author, libraries) {
     const bookCounter = Faker.random.number(10);
 
-    const newBookPromises = _.range(bookCounter).map(async () => {
+    const newBookPromises = range(bookCounter).map(async () => {
       const selectedLibrary = this._selectRandomLibrary(libraries);
 
       await this._createAndSaveRandomBook(author, selectedLibrary);
