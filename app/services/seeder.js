@@ -1,12 +1,14 @@
-import Service from '@ember/service';
+import { action } from '@ember/object';
+import { cancel, later } from '@ember/runloop';
+import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Faker from 'faker';
-import { all } from 'rsvp';
-import { action } from '@ember/object';
 import _ from 'lodash';
-import { later } from '@ember/runloop';
+
+const DONE_MESSAGE_VISIBILITY_TIME_MS = 3000;
 
 export default class SeederService extends Service {
+  @service() store;
 
   @tracked doneMessage;
 
@@ -15,10 +17,15 @@ export default class SeederService extends Service {
   @tracked seedingAuthorsInProgress;
   @tracked deletingAuthorsInProgress;
 
+  visibilityTimer = DONE_MESSAGE_VISIBILITY_TIME_MS;
+
   @action
   showDone(message) {
     this.doneMessage = message;
-    later(() => (this.doneMessage = ''), 3000);
+
+    // Cancel a previously triggered event, so the latest message will stay visible for the given time.
+    cancel(this._runLater);
+    this._runLater = later(() => (this.doneMessage = ''), this.visibilityTimer);
   }
 
   @action
@@ -28,16 +35,17 @@ export default class SeederService extends Service {
     const counter = parseInt(volume, 10);
     const listOfNewRandomLibraryPromises = _.range(counter).map(() => this._createAndSaveRandomLibrary());
 
-    await all(listOfNewRandomLibraryPromises);
+    await Promise.all(listOfNewRandomLibraryPromises);
 
     this.seedingLibrariesInProgress = false;
     this.showDone('Libraries are generated.');
   }
 
   @action
-  async deleteLibraries(libraryRecords) {
+  async deleteLibraries() {
     this.deletingLibrariesInProgress = true;
 
+    const libraryRecords = await this.store.findAll('library');
     await this._destroyAll(libraryRecords);
 
     this.deletingLibrariesInProgress = false;
@@ -45,26 +53,34 @@ export default class SeederService extends Service {
   }
 
   @action
-  async seedRandomAuthorsWithBooks(volume, libraryRecords) {
+  async seedRandomAuthorsWithBooks(volume) {
+    let libraryRecords = await this.store.findAll('library');
+
+    // Generate at least one Library if there isn't any.
+    if (!libraryRecords.length) libraryRecords = [await this._createAndSaveRandomLibrary()];
+
     this.seedingAuthorsInProgress = true;
 
     const counter = parseInt(volume, 10);
     const listOfNewRandomAuthorPromises = _.range(counter).map(() => this._createAndSaveRandomAuthor());
-    const newAuthors = await all(listOfNewRandomAuthorPromises);
+    const newAuthors = await Promise.all(listOfNewRandomAuthorPromises);
 
-    const listOfNewBookPromises = newAuthors.map(author => this._createAndSaveRandomBooksForAuthorInLibraries(author, libraryRecords));
-    await all(listOfNewBookPromises);
+    const listOfNewBookPromises = newAuthors.map(author =>
+      this._createAndSaveRandomBooksForAuthorInLibraries(author, libraryRecords),
+    );
+    await Promise.all(listOfNewBookPromises);
 
     this.seedingAuthorsInProgress = false;
     this.showDone('Authors with books are generated.');
   }
 
   @action
-  async deleteAuthorsAndTheirBooks(authorRecords) {
+  async deleteAuthorsAndTheirBooks() {
     this.deletingAuthorsInProgress = true;
 
+    const authorRecords = await this.store.findAll('author');
     const destroyBookPromises = authorRecords.map(author => this._destroyAll(author.books));
-    await all(destroyBookPromises);
+    await Promise.all(destroyBookPromises);
 
     await this._destroyAll(authorRecords);
 
@@ -104,9 +120,9 @@ export default class SeederService extends Service {
       await this._createAndSaveRandomBook(author, selectedLibrary);
       await author.save();
       await selectedLibrary.save();
-    })
+    });
 
-    return all(newBookPromises);
+    return Promise.all(newBookPromises);
   }
 
   _selectRandomLibrary(libraries) {
@@ -125,7 +141,7 @@ export default class SeederService extends Service {
     // lets collect these Promises in an array
     const recordsAreDestroying = records.map(item => item.destroyRecord());
 
-    // Wrap all Promise in one common Promise, RSVP.all is our best friend in this process. ;)
-    return all(recordsAreDestroying);
+    // Wrap all Promise in one common Promise
+    return Promise.all(recordsAreDestroying);
   }
 }

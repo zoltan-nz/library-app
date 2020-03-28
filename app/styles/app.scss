@@ -13,11 +13,11 @@ html {
   min-height: 150px;
 }
 
-.label-fade {
-  margin: 10px;
+.alert-fade {
+  height: 50px;
   opacity: 0;
   @include transition(all 0.5s);
-  &.label-show {
+  &.alert-show {
     opacity: 1;
   }
 }
