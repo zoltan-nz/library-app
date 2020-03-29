@@ -1,16 +1,31 @@
-import { module, test } from 'qunit';
+import { click, fillIn, render } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, fillIn, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import { module, test } from 'qunit';
+import sinon from 'sinon';
 
 module('Integration | Component | seeder-block', function(hooks) {
   setupRenderingTest(hooks);
+  let spy;
+
+  hooks.beforeEach(function() {
+    spy = sinon.spy();
+  });
+
+  test('it renders', async function(assert) {
+    await render(hbs`<SeederBlock @sectionTitle="Dummy"/>`);
+    assert.equal(this.element.querySelector('h3').textContent, 'Dummy');
+  });
 
   test('it renders valid input', async function(assert) {
+    this.set('dummyAction', spy);
+
     await render(hbs`
-      {{seeder-block
-        sectionTitle="Libraries"
-      }}
+      <SeederBlock
+        @sectionTitle="Libraries"
+        @seederFn={{this.dummyAction}}
+        @destroyerFn={{this.dummyAction}}
+      />
     `);
 
     const component = this.element.querySelector('div');
@@ -34,7 +49,15 @@ module('Integration | Component | seeder-block', function(hooks) {
   });
 
   test('it renders invalid input', async function(assert) {
-    await render(hbs`{{seeder-block}}`);
+    this.set('dummyAction', spy);
+
+    await render(hbs`
+      <SeederBlock
+        @sectionTitle="Libraries"
+        @seederFn={{this.dummyAction}}
+        @destroyerFn={{this.dummyAction}}
+      />
+    `);
 
     const component = this.element.querySelector('div');
     const formGroup = component.querySelector('.form-group');
@@ -48,37 +71,29 @@ module('Integration | Component | seeder-block', function(hooks) {
   });
 
   test('it renders generate and delete in progress buttons', async function(assert) {
+    assert.expect(6);
+    this.set('inProgress', false);
+
     await render(hbs`
-      {{seeder-block
-        sectionTitle="Authors with Books"
-        generateInProgress=true
-        deleteInProgress=true
-      }}
+      <SeederBlock
+        @sectionTitle="Authors with Books"
+        @seedingInProgress={{this.inProgress}}
+        @deletingInProgress={{this.inProgress}}
+      />
     `);
 
     const component = this.element.querySelector('div');
     const sectionTitle = component.querySelector('h3').textContent;
     const [generateBtn, deleteBtn] = component.querySelectorAll('button');
 
-    assert.expect(3);
+    assert.equal(sectionTitle, 'Authors with Books');
+    assert.dom(generateBtn).hasText('Generate Authors with Books');
+    assert.dom(deleteBtn).hasText('Delete All Authors with Books');
+
+    this.set('inProgress', true);
+
     assert.equal(sectionTitle, 'Authors with Books');
     assert.dom(generateBtn).hasText('Generating...');
     assert.dom(deleteBtn).hasText('Deleting...');
-  });
-
-  test('it renders generated and deleted labels', async function(assert) {
-    await render(hbs`
-      {{seeder-block
-        generateReady=true
-        deleteReady=true
-      }}
-    `);
-
-    const component = this.element.querySelector('div');
-    const [createdLabel, deletedLabel] = component.querySelectorAll('span');
-
-    assert.expect(2);
-    assert.dom(createdLabel).hasText('Created!');
-    assert.dom(deletedLabel).hasText('Deleted!');
   });
 });
