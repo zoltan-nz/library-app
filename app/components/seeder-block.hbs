@@ -6,20 +6,18 @@
       <Input @value={{this.counter}} class="form-control" placeholder={{this.placeholder}} />
     </div>
     <button class="btn btn-primary" {{on 'click' this.generate}} disabled={{this.generateIsDisabled}} type="button">
-      {{#if @generateInProgress}}
+      {{#if @seedingInProgress}}
         <span class="glyphicon glyphicon-refresh spinning"></span> Generating...
       {{else}}
         Generate {{@sectionTitle}}
       {{/if}}
     </button>
-    <FaderLabel @isShowing={{@generateReady}}>Created!</FaderLabel>
-    <button class="btn btn-danger" {{on 'click' this.delete}} disabled={{this.deleteIsDisabled}} type="button">
-      {{#if @deleteInProgress}}
+    <button class="btn btn-danger pull-right" {{on 'click' this.delete}} disabled={{this.deleteIsDisabled}} type="button">
+      {{#if @deletingInProgress}}
         <span class="glyphicon glyphicon-refresh spinning"></span> Deleting...
       {{else}}
         Delete All {{@sectionTitle}}
       {{/if}}
     </button>
-    <FaderLabel @isShowing={{@deleteReady}}>Deleted!</FaderLabel>
   </div>
 </div>

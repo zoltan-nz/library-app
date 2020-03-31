@@ -6,6 +6,22 @@
   <div class="col-md-4"><NumberBox @title="Books" @number={{this.books.length}} /></div>
 </div>
 
-<SeederBlock @sectionTitle="Libraries" @handleGenerate={{fn this.generateLibraries}} @handleDelete={{fn this.deleteLibraries}} @generateReady={{this.libDone}} @deleteReady={{this.libDelDone}} @generateInProgress={{this.generateLibrariesInProgress}} @deleteInProgress={{this.deleteLibrariesInProgress}} />
+<div class="alert alert-info alert-fade {{if this.seederService.doneMessage 'alert-show'}}">
+  {{ this.seederService.doneMessage }}
+</div>
 
-<SeederBlock @sectionTitle="Authors with Books" @handleGenerate={{this.generateBooksAndAuthors}} @handleDelete={{this.deleteBooksAndAuthors}} @generateReady={{this.authDone}} @deleteReady={{this.authDelDone}} @generateInProgress={{this.generateBooksInProgress}} @deleteInProgress={{this.deleteBooksInProgress}} />
+<SeederBlock
+        @sectionTitle="Libraries"
+        @seederFn={{this.seederService.seedRandomLibraries}}
+        @destroyerFn={{this.seederService.deleteLibraries}}
+        @seedingInProgress={{this.seederService.seedingLibrariesInProgress}}
+        @deletingInProgress={{this.seederService.deletingLibrariesInProgress}}
+/>
+
+<SeederBlock
+        @sectionTitle="Authors with Books"
+        @seederFn={{this.seederService.seedRandomAuthorsWithBooks}}
+        @destroyerFn={{this.seederService.deleteAuthorsAndTheirBooks}}
+        @seedingInProgress={{this.seederService.seedingAuthorsInProgress}}
+        @deletingInProgress={{this.seederService.deletingAuthorsInProgress}}
+/>
