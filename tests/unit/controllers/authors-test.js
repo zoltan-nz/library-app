@@ -5,21 +5,21 @@ import sinon from 'sinon';
 
 const { spy } = sinon;
 
-module('Unit | Controller | authors', function(hooks) {
+module('Unit | Controller | authors', function (hooks) {
   let controller;
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     controller = this.owner.lookup('controller:authors');
   });
 
-  test('editAuthor action', function(assert) {
+  test('editAuthor action', function (assert) {
     const author = EmberObject.create();
     controller.editAuthor(author);
     assert.ok(author.isEditing);
   });
 
-  test('cancelAuthorEdit action', function(assert) {
+  test('cancelAuthorEdit action', function (assert) {
     const rollbackAttributes = spy();
     const author = EmberObject.create({
       rollbackAttributes,
@@ -29,7 +29,7 @@ module('Unit | Controller | authors', function(hooks) {
     assert.ok(rollbackAttributes.calledOnce);
   });
 
-  test('saveAuthor action', function(assert) {
+  test('saveAuthor action', function (assert) {
     const save = spy();
     const author = EmberObject.create({
       isEditing: true,

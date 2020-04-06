@@ -4,10 +4,10 @@ import sinon from 'sinon';
 
 const { stub } = sinon;
 
-module('Unit | Route | books', hooks => {
+module('Unit | Route | books', (hooks) => {
   setupTest(hooks);
 
-  test('model hook', async function(assert) {
+  test('model hook', async function (assert) {
     const model = {
       books: 'books',
       authors: 'authors',

@@ -22,7 +22,7 @@ export default class LibrariesIndexController extends Controller {
       // i: case insensitive, g: global
       const regex = new RegExp(regexString, 'ig');
 
-      results = results.filter(item => item.name.match(regex));
+      results = results.filter((item) => item.name.match(regex));
     }
 
     return results.sortBy('name');

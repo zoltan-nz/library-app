@@ -4,10 +4,10 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import letters from '../../fixtures/alphabet';
 
-module('Integration | Component | abc-buttons', function(hooks) {
+module('Integration | Component | abc-buttons', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     await render(hbs`{{abc-buttons}}`);
 
     const component = this.element.querySelector('div');

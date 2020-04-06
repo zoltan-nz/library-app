@@ -5,10 +5,10 @@ import hbs from 'htmlbars-inline-precompile';
 import authors from '../../fixtures/authors';
 import book from '../../fixtures/book';
 
-module('Integration | Component | author-select', function(hooks) {
+module('Integration | Component | author-select', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(5);
 
     const saveAuthor = (authorRecord, bookRecord) => {
@@ -30,7 +30,7 @@ module('Integration | Component | author-select', function(hooks) {
           @default={{book.author}}
           @onChange={{action saveAuthor}}
         />
-      `,
+      `
     );
 
     const component = this.element.querySelector('select');
@@ -39,7 +39,7 @@ module('Integration | Component | author-select', function(hooks) {
     assert.equal(
       component.options[component.selectedIndex].text,
       book.author.name,
-      'component renders with default author selected',
+      'component renders with default author selected'
     );
 
     await fillIn('.form-control', '2');
@@ -47,7 +47,7 @@ module('Integration | Component | author-select', function(hooks) {
     assert.equal(
       component.options[component.selectedIndex].text,
       'Ruthe Fisher',
-      'component renders changed selection',
+      'component renders changed selection'
     );
   });
 });

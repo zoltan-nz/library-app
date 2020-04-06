@@ -4,10 +4,10 @@ import sinon from 'sinon';
 
 const { stub } = sinon;
 
-module('Unit | Route | admin/seeder', function(hooks) {
+module('Unit | Route | admin/seeder', function (hooks) {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.model = {
       authors: 'authors',
       books: 'books',
@@ -27,7 +27,7 @@ module('Unit | Route | admin/seeder', function(hooks) {
     });
   });
 
-  test('model hook', async function(assert) {
+  test('model hook', async function (assert) {
     const { model, route } = this;
     assert.expect(4);
     assert.deepEqual(await route.model(), model);

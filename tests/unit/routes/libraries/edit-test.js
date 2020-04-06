@@ -5,10 +5,10 @@ import sinon from 'sinon';
 
 const { spy, stub } = sinon;
 
-module('Unit | Route | libraries/edit', hooks => {
+module('Unit | Route | libraries/edit', (hooks) => {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.controller = EmberObject.create({
       model: EmberObject.create({
         hasDirtyAttributes: true,
@@ -25,7 +25,7 @@ module('Unit | Route | libraries/edit', hooks => {
     });
   });
 
-  test('model hook', function(assert) {
+  test('model hook', function (assert) {
     const params = {
       library_id: 42,
     };
@@ -34,13 +34,13 @@ module('Unit | Route | libraries/edit', hooks => {
     assert.ok(this.route.store.findRecord.calledOnceWith('library', 42));
   });
 
-  test('renderTemplate function', function(assert) {
+  test('renderTemplate function', function (assert) {
     this.route.renderTemplate();
     assert.expect(1);
     assert.ok(this.route.render.calledOnceWith('libraries/form'));
   });
 
-  test('willTransition action', function(assert) {
+  test('willTransition action', function (assert) {
     const { controller, route } = this;
     const transition = {
       abort: spy(),

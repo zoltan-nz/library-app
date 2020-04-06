@@ -5,10 +5,10 @@ import sinon from 'sinon';
 
 const { spy, stub } = sinon;
 
-module('Unit | Route | libraries/new', hooks => {
+module('Unit | Route | libraries/new', (hooks) => {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.controller = EmberObject.create({
       model: {
         rollbackAttributes: spy(),
@@ -24,19 +24,19 @@ module('Unit | Route | libraries/new', hooks => {
     });
   });
 
-  test('model hook', function(assert) {
+  test('model hook', function (assert) {
     assert.expect(2);
     assert.equal(this.route.model(), 'library');
     assert.ok(this.route.store.createRecord.calledOnceWith('library'));
   });
 
-  test('renderTemplate function', function(assert) {
+  test('renderTemplate function', function (assert) {
     this.route.renderTemplate();
     assert.expect(1);
     assert.ok(this.route.render.calledOnceWith('libraries/form'));
   });
 
-  test('willTransition action', function(assert) {
+  test('willTransition action', function (assert) {
     this.route.send('willTransition');
     assert.expect(1);
     assert.ok(this.controller.get('model').rollbackAttributes.calledOnce);

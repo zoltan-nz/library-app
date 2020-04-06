@@ -4,10 +4,10 @@ import sinon from 'sinon';
 
 const { stub } = sinon;
 
-module('Unit | Controller | contact', function(hooks) {
+module('Unit | Controller | contact', function (hooks) {
   setupTest(hooks);
 
-  test('sendMessage action', function(assert) {
+  test('sendMessage action', function (assert) {
     const controller = this.owner.lookup('controller:contact');
     const save = stub().returns({ then: stub().yields() });
     const newContactMessage = { save };

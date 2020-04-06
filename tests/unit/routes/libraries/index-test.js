@@ -4,10 +4,10 @@ import sinon from 'sinon';
 
 const { stub } = sinon;
 
-module('Unit | Route | libraries/index', hooks => {
+module('Unit | Route | libraries/index', (hooks) => {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.findAll = stub().returns('libraries');
     this.query = stub().returns('libraries');
     this.route = this.owner.factoryFor('route:libraries/index').create({
@@ -18,13 +18,13 @@ module('Unit | Route | libraries/index', hooks => {
     });
   });
 
-  test('queryParams property', function(assert) {
+  test('queryParams property', function (assert) {
     assert.expect(2);
     assert.equal(this.route.queryParams.limit.refreshModel, true);
     assert.equal(this.route.queryParams.letter.refreshModel, true);
   });
 
-  test('model hook', function(assert) {
+  test('model hook', function (assert) {
     const params = {
       limit: 'all',
     };
