@@ -5,14 +5,14 @@ import sinon from 'sinon';
 
 const { stub } = sinon;
 
-module('Unit | Controller | index', function(hooks) {
+module('Unit | Controller | index', function (hooks) {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.controller = this.owner.lookup('controller:index');
   });
 
-  test('headerMessage, responseMessage and emailAddress', function(assert) {
+  test('headerMessage, responseMessage and emailAddress', function (assert) {
     const { controller } = this;
     assert.expect(3);
     assert.equal(controller.headerMessage, 'Demo Home Page');
@@ -20,7 +20,7 @@ module('Unit | Controller | index', function(hooks) {
     assert.equal(controller.emailAddress, '');
   });
 
-  test('saveInvitation action', function(assert) {
+  test('saveInvitation action', function (assert) {
     const { controller } = this;
     const responseMessage = 'Thank you! We saved your email address with the following id: 1';
     const response = EmberObject.create({ id: 1 });

@@ -15,7 +15,7 @@ export default class HomeController extends Controller {
   saveInvitation() {
     const newInvitation = this.store.createRecord('invitation', { email: this.emailAddress });
 
-    newInvitation.save().then(response => {
+    newInvitation.save().then((response) => {
       this.responseMessage = `Thank you! We saved your email address with the following id: ${response.id}`;
       this.emailAddress = '';
     });

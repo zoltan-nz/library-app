@@ -5,9 +5,9 @@ import sinon from 'sinon';
 
 const { spy } = sinon;
 
-module('Unit | Controller | books', function(hooks) {
+module('Unit | Controller | books', function (hooks) {
   setupTest(hooks);
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     const rollbackAttributes = spy();
     const save = spy();
     this.book = EmberObject.create({
@@ -17,7 +17,7 @@ module('Unit | Controller | books', function(hooks) {
     this.controller = this.owner.lookup('controller:books');
   });
 
-  test('aliased model properties', function(assert) {
+  test('aliased model properties', function (assert) {
     const { controller } = this;
     controller.set('model', {
       authors: 'authors',
@@ -30,14 +30,14 @@ module('Unit | Controller | books', function(hooks) {
     assert.equal(controller.get('libraries'), 'libraries');
   });
 
-  test('editBook', function(assert) {
+  test('editBook', function (assert) {
     const { book, controller } = this;
     controller.send('editBook', book);
     assert.expect(1);
     assert.equal(book.get('isEditing'), true);
   });
 
-  test('cancelBookEdit', function(assert) {
+  test('cancelBookEdit', function (assert) {
     const { book, controller } = this;
     controller.send('cancelBookEdit', book);
     assert.expect(2);
@@ -45,7 +45,7 @@ module('Unit | Controller | books', function(hooks) {
     assert.ok(book.rollbackAttributes.calledOnce);
   });
 
-  test('saveBook', function(assert) {
+  test('saveBook', function (assert) {
     assert.expect(3);
 
     const { book, controller } = this;
@@ -60,14 +60,14 @@ module('Unit | Controller | books', function(hooks) {
     assert.ok(book.isEditing);
   });
 
-  test('editAuthor', function(assert) {
+  test('editAuthor', function (assert) {
     const { book, controller } = this;
     controller.send('editAuthor', book);
     assert.expect(1);
     assert.equal(book.get('isAuthorEditing'), true);
   });
 
-  test('cancelAuthorEdit', function(assert) {
+  test('cancelAuthorEdit', function (assert) {
     const { book, controller } = this;
     controller.send('cancelAuthorEdit', book);
     assert.expect(2);
@@ -75,19 +75,19 @@ module('Unit | Controller | books', function(hooks) {
     assert.ok(book.rollbackAttributes.calledOnce);
   });
 
-  skip('saveAuthor', function(assert) {
+  skip('saveAuthor', function (assert) {
     // TODO: check if firebase adapter has been fixed
     assert.ok(false);
   });
 
-  test('editLibrary', function(assert) {
+  test('editLibrary', function (assert) {
     const { book, controller } = this;
     controller.send('editLibrary', book);
     assert.expect(1);
     assert.equal(book.get('isLibraryEditing'), true);
   });
 
-  test('cancelLibraryEdit', function(assert) {
+  test('cancelLibraryEdit', function (assert) {
     const { book, controller } = this;
     controller.send('cancelLibraryEdit', book);
     assert.expect(2);
@@ -95,7 +95,7 @@ module('Unit | Controller | books', function(hooks) {
     assert.ok(book.rollbackAttributes.calledOnce);
   });
 
-  skip('saveLibrary', function(assert) {
+  skip('saveLibrary', function (assert) {
     // TODO: check if firebase adapter has been fixed
     assert.ok(false);
   });

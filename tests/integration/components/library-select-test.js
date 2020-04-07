@@ -5,10 +5,10 @@ import hbs from 'htmlbars-inline-precompile';
 import libraries from '../../fixtures/libraries';
 import book from '../../fixtures/book';
 
-module('Integration | Component | library-select', function(hooks) {
+module('Integration | Component | library-select', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     assert.expect(5);
 
     const saveLibrary = (libraryRecord, bookRecord) => {
@@ -30,7 +30,7 @@ module('Integration | Component | library-select', function(hooks) {
           @default={{book.library}}
           @onChange={{action saveLibrary}}
         />
-      `,
+      `
     );
 
     const component = this.element.querySelector('select');
@@ -39,7 +39,7 @@ module('Integration | Component | library-select', function(hooks) {
     assert.equal(
       component.options[component.selectedIndex].text,
       'Jerde - Bogisich Library',
-      'component renders with default library selected',
+      'component renders with default library selected'
     );
 
     await fillIn('.form-control', '2');
@@ -47,7 +47,7 @@ module('Integration | Component | library-select', function(hooks) {
     assert.equal(
       component.options[component.selectedIndex].text,
       'Gerlach and Sons Library',
-      'component renders changed selection',
+      'component renders changed selection'
     );
   });
 });

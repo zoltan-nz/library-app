@@ -13,7 +13,7 @@ export default class AuthorSelectComponent extends Component {
   @action
   change(event) {
     const selectedAuthorId = event.target.value;
-    const selectedAuthor = this.authors.find(record => record.id === selectedAuthorId);
+    const selectedAuthor = this.authors.find((record) => record.id === selectedAuthorId);
     this.onChange(selectedAuthor, this.book);
   }
 }

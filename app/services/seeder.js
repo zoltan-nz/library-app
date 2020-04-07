@@ -65,8 +65,8 @@ export default class SeederService extends Service {
     const listOfNewRandomAuthorPromises = range(counter).map(() => this._createAndSaveRandomAuthor());
     const newAuthors = await Promise.all(listOfNewRandomAuthorPromises);
 
-    const listOfNewBookPromises = newAuthors.map(author =>
-      this._createAndSaveRandomBooksForAuthorInLibraries(author, libraryRecords),
+    const listOfNewBookPromises = newAuthors.map((author) =>
+      this._createAndSaveRandomBooksForAuthorInLibraries(author, libraryRecords)
     );
     await Promise.all(listOfNewBookPromises);
 
@@ -79,7 +79,7 @@ export default class SeederService extends Service {
     this.deletingAuthorsInProgress = true;
 
     const authorRecords = await this.store.findAll('author');
-    const destroyBookPromises = authorRecords.map(author => this._destroyAll(author.books));
+    const destroyBookPromises = authorRecords.map((author) => this._destroyAll(author.books));
     await Promise.all(destroyBookPromises);
 
     await this._destroyAll(authorRecords);
@@ -91,24 +91,15 @@ export default class SeederService extends Service {
   // Create a new library record, it uses our randomize function from our LibraryModel, which generates some fake data in
   // the new record. The save method is a Promise, so we return a Promise. For this reason the function can be async.
   async _createAndSaveRandomLibrary() {
-    return this.store
-      .createRecord('library')
-      .randomize()
-      .save();
+    return this.store.createRecord('library').randomize().save();
   }
 
   async _createAndSaveRandomAuthor() {
-    return this.store
-      .createRecord('author')
-      .randomize()
-      .save();
+    return this.store.createRecord('author').randomize().save();
   }
 
   async _createAndSaveRandomBook(author, library) {
-    return this.store
-      .createRecord('book')
-      .randomize(author, library)
-      .save();
+    return this.store.createRecord('book').randomize(author, library).save();
   }
 
   async _createAndSaveRandomBooksForAuthorInLibraries(author, libraries) {
@@ -139,7 +130,7 @@ export default class SeederService extends Service {
   async _destroyAll(records) {
     // destroyRecord() is a Promise and will be fulfilled when the backend database is confirmed the delete
     // lets collect these Promises in an array
-    const recordsAreDestroying = records.map(item => item.destroyRecord());
+    const recordsAreDestroying = records.map((item) => item.destroyRecord());
 
     // Wrap all Promise in one common Promise
     return Promise.all(recordsAreDestroying);

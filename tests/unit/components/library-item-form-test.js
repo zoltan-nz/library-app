@@ -4,19 +4,19 @@ import sinon from 'sinon';
 
 const { spy } = sinon;
 
-module('Unit | Component | library-item-form', function(hooks) {
+module('Unit | Component | library-item-form', function (hooks) {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.component = this.owner.lookup('component:library-item-form');
   });
 
-  test('default action exists', function(assert) {
+  test('default action exists', function (assert) {
     assert.expect(1);
     assert.equal(this.component.handleClick(), undefined);
   });
 
-  test('buttonClicked action', function(assert) {
+  test('buttonClicked action', function (assert) {
     const { component } = this;
     component.set('handleClick', spy());
     component.send('buttonClicked', 'test');

@@ -4,20 +4,20 @@ import hbs from 'htmlbars-inline-precompile';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
 
-module('Integration | Component | seeder-block', function(hooks) {
+module('Integration | Component | seeder-block', function (hooks) {
   setupRenderingTest(hooks);
   let spy;
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     spy = sinon.spy();
   });
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     await render(hbs`<SeederBlock @sectionTitle="Dummy"/>`);
     assert.equal(this.element.querySelector('h3').textContent, 'Dummy');
   });
 
-  test('it renders valid input', async function(assert) {
+  test('it renders valid input', async function (assert) {
     this.set('dummyAction', spy);
 
     await render(hbs`
@@ -48,7 +48,7 @@ module('Integration | Component | seeder-block', function(hooks) {
     assert.notOk(deleteBtn.disabled);
   });
 
-  test('it renders invalid input', async function(assert) {
+  test('it renders invalid input', async function (assert) {
     this.set('dummyAction', spy);
 
     await render(hbs`
@@ -70,7 +70,7 @@ module('Integration | Component | seeder-block', function(hooks) {
     assert.notOk(deleteBtn.disabled);
   });
 
-  test('it renders generate and delete in progress buttons', async function(assert) {
+  test('it renders generate and delete in progress buttons', async function (assert) {
     assert.expect(6);
     this.set('inProgress', false);
 

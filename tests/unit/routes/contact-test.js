@@ -5,10 +5,10 @@ import sinon from 'sinon';
 
 const { spy, stub } = sinon;
 
-module('Unit | Route | contact', hooks => {
+module('Unit | Route | contact', (hooks) => {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.createRecord = stub().returns('contact');
     this.destroyRecord = spy();
     this.route = this.owner.factoryFor('route:contact').create({
@@ -22,13 +22,13 @@ module('Unit | Route | contact', hooks => {
     });
   });
 
-  test('model hook', function(assert) {
+  test('model hook', function (assert) {
     assert.expect(2);
     assert.equal(this.route.model(), 'contact');
     assert.ok(this.createRecord.calledOnceWith('contact'));
   });
 
-  test('willTransition action', function(assert) {
+  test('willTransition action', function (assert) {
     const { destroyRecord, route } = this;
     route.send('willTransition');
     assert.expect(4);

@@ -4,10 +4,10 @@ import sinon from 'sinon';
 
 const { stub } = sinon;
 
-module('Unit | Route | authors', hooks => {
+module('Unit | Route | authors', (hooks) => {
   setupTest(hooks);
 
-  test('model hook', function(assert) {
+  test('model hook', function (assert) {
     this.findAll = stub().returns('authors');
     this.route = this.owner.factoryFor('route:authors').create({
       store: { findAll: this.findAll },
