@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { match, not } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 
-export default class HomeController extends Controller {
+export default class IndexController extends Controller {
   headerMessage = 'Demo Home Page';
   @tracked responseMessage = '';
   @tracked emailAddress = '';

@@ -1,14 +1,13 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
 
 export default class AuthorSelectComponent extends Component {
-  @tracked default = this.args.default;
-  @tracked authors = this.args.authors;
-  @tracked book = this.args.book;
+  default = this.args.default;
+  authors = this.args.authors;
+  book = this.args.book;
 
   //pass an action to override
-  @tracked onChange = this.args.onChange;
+  onChange = this.args.onChange;
 
   @action
   change(event) {
