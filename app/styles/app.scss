@@ -5,15 +5,6 @@ html {
   overflow-y: scroll;
 }
 
-.jumbotron {
-  h1 {
-    font-weight: 300;
-  }
-}
-.library-item {
-  min-height: 150px;
-}
-
 .alert-fade {
   height: 50px;
   opacity: 0;
@@ -21,11 +12,6 @@ html {
   &.alert-show {
     opacity: 1;
   }
-}
-
-.btn-narrow {
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .page-footer {

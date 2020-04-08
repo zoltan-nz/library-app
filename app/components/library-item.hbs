@@ -1,12 +1,12 @@
-<div class="panel panel-default library-item">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{@item.name}}</h3>
+<div class="card h-100">
+  <div class="card-header">
+    {{@item.name}}
   </div>
-  <div class="panel-body">
-    <p>Address: {{@item.address}}</p>
-    <p>Phone: {{@item.phone}}</p>
+  <div class="card-body">
+    <p class="card-text">Address: {{@item.address}}</p>
+    <p class="card-text">Phone: {{@item.phone}}</p>
   </div>
-  <div class="panel-footer">
+  <div class="card-footer">
     Number of books:
     <span class="text-left badge">
       {{@badge}}
@@ -16,3 +16,4 @@
     </span>
   </div>
 </div>
+
