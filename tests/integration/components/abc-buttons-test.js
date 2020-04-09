@@ -10,12 +10,10 @@ module('Integration | Component | abc-buttons', function (hooks) {
   test('it renders', async function (assert) {
     await render(hbs`{{abc-buttons}}`);
 
-    const component = this.element.querySelector('div');
-    const children = [...component.children];
+    const components = this.element.querySelectorAll('.btn');
 
-    assert.expect(28);
-    assert.dom(component).hasClass('btn-group');
-    assert.equal(component.childElementCount, 26);
-    children.forEach((child, i) => assert.dom(child).hasText(letters[i]));
+    assert.expect(27);
+    assert.equal(components.length, 26);
+    components.forEach((component, i) => assert.dom(component).hasText(letters[i]));
   });
 });

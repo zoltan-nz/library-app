@@ -22,7 +22,7 @@ module('Unit | Controller | index', function (hooks) {
 
   test('saveInvitation action', function (assert) {
     const { controller } = this;
-    const responseMessage = 'Thank you! We saved your email address with the following id: 1';
+    const responseMessage = 'Thank you! We saved a fake email address with the following id: 1';
     const response = EmberObject.create({ id: 1 });
     const save = stub().returns({ then: stub().yields(response) });
     const createRecord = stub().returns({ save });
