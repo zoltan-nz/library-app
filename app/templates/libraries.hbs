@@ -1,8 +1,16 @@
 <h1>Libraries</h1>
-<div class="well well-sm">
-  <ul class="nav nav-pills">
-    <LinkTo @route="libraries.index" @tagName="li"><a href>List all</a></LinkTo>
-    <LinkTo @route="libraries.new" @tagName="li"><a href>Add new</a></LinkTo>
-  </ul>
-</div>
+
+<hr class="my-3">
+
+<BsNav @type="pills" as |nav|>
+  <nav.item>
+    <nav.link-to @route="libraries.index">List all</nav.link-to>
+  </nav.item>
+  <nav.item>
+    <nav.link-to @route="libraries.new">Add new</nav.link-to>
+  </nav.item>
+</BsNav>
+
+<hr class="my-3">
+
 {{outlet}}

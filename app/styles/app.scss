@@ -1,16 +1,8 @@
 @import 'ember-bootstrap/bootstrap';
 @import 'spinner';
 
-body {
-  padding-top: 20px;
-}
-
 html {
   overflow-y: scroll;
-}
-
-.library-item {
-  min-height: 150px;
 }
 
 .alert-fade {
@@ -22,17 +14,12 @@ html {
   }
 }
 
-.btn-narrow {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
 .page-footer {
   padding: 20px;
   margin-top: 50px;
-  color: darken($brand-primary, 50);
-  background-color: lighten($brand-primary, 45);
-  border-top: 1px solid lighten($brand-primary, 30);
+  color: darken($primary, 50);
+  background-color: lighten($primary, 45);
+  border-top: 1px solid lighten($primary, 30);
 }
 
 .vtop {

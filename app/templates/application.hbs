@@ -1,58 +1,64 @@
-<div class="container">
+<header>
   <BsNavbar
-          @type="inverse"
-          @backgroundColor="inverse"
-          @collapsed={{false}}
+          @type="dark"
+          @backgroundColor="dark"
+          @collapsed={{true}}
           @onCollapse={{fn (mut this.collapsed) true}}
-          @onExpand={{fn (mut this.collapsed) false}}
-          as |navbar|>
-    <div class="navbar-header">
-      <navbar.toogle />
-      <LinkTo @route="index" class="navbar-brand">Library App</LinkTo>
+          @onExpand={{fn (mut this.collapsed) false}} as |navbar|>
+    <div class="container d-flex">
+      <div class="navbar-header">
+        <navbar.toggle/>
+        <FaIcon @icon="book-open" class="fa-inverse"/>
+        <LinkTo @route="index" class="navbar-brand">Library App</LinkTo>
+      </div>
+      <navbar.content>
+        <navbar.nav as |nav|>
+          <nav.item>
+            <nav.link-to @route="index">Home</nav.link-to>
+          </nav.item>
+          <nav.item>
+            <nav.link-to @route="libraries">Libraries</nav.link-to>
+          </nav.item>
+          <nav.item>
+            <nav.link-to @route="authors">Authors</nav.link-to>
+          </nav.item>
+          <nav.item>
+            <nav.link-to @route="books">Books</nav.link-to>
+          </nav.item>
+        </navbar.nav>
+        <navbar.nav class="ml-auto" as |nav|>
+          <nav.item>
+            <nav.link-to @route="about">About</nav.link-to>
+          </nav.item>
+          <nav.item>
+            <nav.link-to @route="contact">Contact</nav.link-to>
+          </nav.item>
+          <nav.dropdown as |dd|>
+            <dd.toggle>Admin <span class="caret"></span></dd.toggle>
+            <dd.menu as |ddm|>
+              <ddm.item>
+                <ddm.link-to @route="admin.invitations">Invitations</ddm.link-to>
+              </ddm.item>
+              <ddm.item>
+                <ddm.link-to @route="admin.contacts">Contacts</ddm.link-to>
+              </ddm.item>
+              <ddm.item>
+                <ddm.link-to @route="admin.seeder">Seeder</ddm.link-to>
+              </ddm.item>
+            </dd.menu>
+          </nav.dropdown>
+        </navbar.nav>
+      </navbar.content>
     </div>
-    <navbar.content>
-      <navbar.nav as |nav|>
-        <nav.item>
-          <nav.linkTo @route="index">Home</nav.linkTo>
-        </nav.item>
-        <nav.item>
-          <nav.linkTo @route="libraries">Libraries</nav.linkTo>
-        </nav.item>
-        <nav.item>
-          <nav.linkTo @route="authors">Authors</nav.linkTo>
-        </nav.item>
-        <nav.item>
-          <nav.linkTo @route="books">Books</nav.linkTo>
-        </nav.item>
-      </navbar.nav>
-      <navbar.nav class="navbar-right" as |nav|>
-        <nav.item>
-          <nav.linkTo @route="about">About</nav.linkTo>
-        </nav.item>
-        <nav.item>
-          <nav.linkTo @route="contact">Contact</nav.linkTo>
-        </nav.item>
-        <nav.dropdown as |dd|>
-          <dd.toggle>Admin <span class="caret"></span></dd.toggle>
-          <dd.menu as |ddm|>
-            <ddm.item>
-              <ddm.link-to @route="admin.invitations">Invitations</ddm.link-to>
-            </ddm.item>
-            <ddm.item>
-              <ddm.link-to @route="admin.contacts">Contacts</ddm.link-to>
-            </ddm.item>
-            <ddm.item>
-              <ddm.link-to @route="admin.seeder">Seeder</ddm.link-to>
-            </ddm.item>
-          </dd.menu>
-        </nav.dropdown>
-      </navbar.nav>
-    </navbar.content>
   </BsNavbar>
+</header>
 
+<main role="main" class="container mt-4">
   {{outlet}}
+</main>
 
-  <footer class="page-footer">
+<footer class="page-footer">
+  <div class="container mt-4">
     <p>
       Welcome in the Ember.js Octane Demo App. Please click through and check all menu point and features. You can build
       this application if you follow our free <a href="http://yoember.com">Ember Octane tutorial</a>.
@@ -65,5 +71,5 @@
     </p>
     <p>If you run this app from your own computer, don"t forget to update Firebase parameters in <code>config/environment.js</code>
     </p>
-  </footer>
-</div>
+  </div>
+</footer>

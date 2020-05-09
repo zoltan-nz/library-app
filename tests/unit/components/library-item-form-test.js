@@ -13,7 +13,7 @@ module('Unit | Component | library-item-form', function (hooks) {
 
   test('default action exists', function (assert) {
     assert.expect(1);
-    assert.equal(this.component.handleClick(), undefined);
+    assert.equal(this.component.handleClick, undefined);
   });
 
   test('buttonClicked action', function (assert) {
