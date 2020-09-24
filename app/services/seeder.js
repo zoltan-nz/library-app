@@ -4,6 +4,7 @@ import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Faker from 'faker';
 import { range } from 'lodash';
+import { dropTask } from 'ember-concurrency-decorators';
 
 const DONE_MESSAGE_VISIBILITY_TIME_MS = 3000;
 
@@ -11,11 +12,6 @@ export default class SeederService extends Service {
   @service() store;
 
   @tracked doneMessage;
-
-  @tracked seedingLibrariesInProgress;
-  @tracked deletingLibrariesInProgress;
-  @tracked seedingAuthorsInProgress;
-  @tracked deletingAuthorsInProgress;
 
   visibilityTimer = DONE_MESSAGE_VISIBILITY_TIME_MS;
 
@@ -28,63 +24,50 @@ export default class SeederService extends Service {
     this._runLater = later(() => (this.doneMessage = ''), this.visibilityTimer);
   }
 
-  @action
-  async seedRandomLibraries(volume) {
-    this.seedingLibrariesInProgress = true;
-
+  @dropTask
+  *seedRandomLibraries(volume) {
     const counter = parseInt(volume, 10);
     const listOfNewRandomLibraryPromises = range(counter).map(() => this._createAndSaveRandomLibrary());
+    yield Promise.all(listOfNewRandomLibraryPromises);
 
-    await Promise.all(listOfNewRandomLibraryPromises);
-
-    this.seedingLibrariesInProgress = false;
     this.showDone('Libraries are generated.');
   }
 
-  @action
-  async deleteLibraries() {
-    this.deletingLibrariesInProgress = true;
+  @dropTask
+  *deleteLibraries() {
+    const libraryRecords = yield this.store.findAll('library');
+    yield this._destroyAll(libraryRecords);
 
-    const libraryRecords = await this.store.findAll('library');
-    await this._destroyAll(libraryRecords);
-
-    this.deletingLibrariesInProgress = false;
     this.showDone('Libraries are deleted.');
   }
 
-  @action
-  async seedRandomAuthorsWithBooks(volume) {
-    let libraryRecords = await this.store.findAll('library');
+  @dropTask
+  *seedRandomAuthorsWithBooks(volume) {
+    let libraryRecords = yield this.store.findAll('library');
 
     // Generate at least one Library if there isn't any.
-    if (!libraryRecords.length) libraryRecords = [await this._createAndSaveRandomLibrary()];
-
-    this.seedingAuthorsInProgress = true;
+    if (!libraryRecords.length) libraryRecords = [yield this._createAndSaveRandomLibrary()];
 
     const counter = parseInt(volume, 10);
     const listOfNewRandomAuthorPromises = range(counter).map(() => this._createAndSaveRandomAuthor());
-    const newAuthors = await Promise.all(listOfNewRandomAuthorPromises);
+    const newAuthors = yield Promise.all(listOfNewRandomAuthorPromises);
 
     const listOfNewBookPromises = newAuthors.map((author) =>
       this._createAndSaveRandomBooksForAuthorInLibraries(author, libraryRecords)
     );
-    await Promise.all(listOfNewBookPromises);
+    yield Promise.all(listOfNewBookPromises);
 
-    this.seedingAuthorsInProgress = false;
     this.showDone('Authors with books are generated.');
   }
 
-  @action
-  async deleteAuthorsAndTheirBooks() {
-    this.deletingAuthorsInProgress = true;
-
-    const authorRecords = await this.store.findAll('author');
+  @dropTask
+  *deleteAuthorsAndTheirBooks() {
+    const authorRecords = yield this.store.findAll('author');
     const destroyBookPromises = authorRecords.map((author) => this._destroyAll(author.books));
-    await Promise.all(destroyBookPromises);
+    yield Promise.all(destroyBookPromises);
 
-    await this._destroyAll(authorRecords);
+    yield this._destroyAll(authorRecords);
 
-    this.deletingAuthorsInProgress = false;
     this.showDone('Authors with books are deleted.');
   }
 

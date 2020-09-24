@@ -6,10 +6,9 @@ import sinon from 'sinon';
 
 module('Integration | Component | seeder-block', function (hooks) {
   setupRenderingTest(hooks);
-  let spy;
 
   hooks.beforeEach(function () {
-    spy = sinon.spy();
+    this.spy = sinon.spy();
   });
 
   test('it renders', async function (assert) {
@@ -18,13 +17,13 @@ module('Integration | Component | seeder-block', function (hooks) {
   });
 
   test('it renders valid input', async function (assert) {
-    this.set('dummyAction', spy);
+    this.set('dummyTask', { perform: this.spy });
 
     await render(hbs`
       <SeederBlock
         @sectionTitle="Libraries"
-        @seederFn={{this.dummyAction}}
-        @destroyerFn={{this.dummyAction}}
+        @seederTask={{this.dummyTask}}
+        @destroyerTask={{this.dummyTask}}
       />
     `);
 
@@ -49,13 +48,9 @@ module('Integration | Component | seeder-block', function (hooks) {
   });
 
   test('it renders invalid input', async function (assert) {
-    this.set('dummyAction', spy);
-
     await render(hbs`
       <SeederBlock
         @sectionTitle="Libraries"
-        @seederFn={{this.dummyAction}}
-        @destroyerFn={{this.dummyAction}}
       />
     `);
 

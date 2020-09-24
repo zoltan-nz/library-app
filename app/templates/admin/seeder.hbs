@@ -11,17 +11,17 @@
 </div>
 
 <SeederBlock
-        @sectionTitle="Libraries"
-        @seederFn={{this.seederService.seedRandomLibraries}}
-        @destroyerFn={{this.seederService.deleteLibraries}}
-        @seedingInProgress={{this.seederService.seedingLibrariesInProgress}}
-        @deletingInProgress={{this.seederService.deletingLibrariesInProgress}}
+  @sectionTitle="Libraries"
+  @seederTask={{this.seederService.seedRandomLibraries}}
+  @destroyerTask={{this.seederService.deleteLibraries}}
+  @seedingInProgress={{this.seederService.seedRandomLibraries.isRunning}}
+  @deletingInProgress={{this.seederService.deleteLibraries.isRunning}}
 />
 
 <SeederBlock
-        @sectionTitle="Authors with Books"
-        @seederFn={{this.seederService.seedRandomAuthorsWithBooks}}
-        @destroyerFn={{this.seederService.deleteAuthorsAndTheirBooks}}
-        @seedingInProgress={{this.seederService.seedingAuthorsInProgress}}
-        @deletingInProgress={{this.seederService.deletingAuthorsInProgress}}
+  @sectionTitle="Authors with Books"
+  @seederTask={{this.seederService.seedRandomAuthorsWithBooks}}
+  @destroyerTask={{this.seederService.deleteAuthorsAndTheirBooks}}
+  @seedingInProgress={{this.seederService.seedRandomAuthorsWithBooks.isRunning}}
+  @deletingInProgress={{this.seederService.deleteAuthorsAndTheirBooks.isRunning}}
 />
