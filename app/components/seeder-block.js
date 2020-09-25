@@ -16,18 +16,18 @@ export default class SeederBlockComponent extends Component {
 
   placeholder = `Max ${MAX_VALUE}`;
 
-  @or('isCounterNotValid', 'generateInProgress', 'deleteInProgress') generateIsDisabled;
-  @or('generateInProgress', 'deleteInProgress') deleteIsDisabled;
+  @or('isCounterNotValid', 'seedingInProgress', 'deletingInProgress') generateIsDisabled;
+  @or('seedingInProgress', 'deletingInProgress') deleteIsDisabled;
 
   @action
   generate() {
     if (this.counter && this.isCounterValid) {
-      this.seederFn(this.counter);
+      this.seederTask.perform(this.counter);
     }
   }
 
   @action
   delete() {
-    this.destroyerFn();
+    this.destroyerTask.perform();
   }
 }
