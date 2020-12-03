@@ -1,3 +1,4 @@
+import { set } from '@ember/object';
 import Model, { attr, hasMany } from '@ember-data/model';
 import { notEmpty } from '@ember/object/computed';
 import Faker from 'faker';
@@ -12,7 +13,7 @@ export default class LibraryModel extends Model {
   @notEmpty('name') isValid;
 
   randomize() {
-    this.name = `${Faker.company.companyName()} Library`;
+    set(this, 'name', `${Faker.company.companyName()} Library`);
     this.address = this._fullAddress();
     this.phone = Faker.phone.phoneNumber();
 
