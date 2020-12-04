@@ -14,6 +14,6 @@ export default class LibrariesNewRoute extends Route {
   willTransition() {
     // rollbackAttributes() removes the record from the store
     // if the model 'isNew'
-    this.controller.model.rollbackAttributes();
+    this.controllerFor('libraries.new').model.rollbackAttributes();
   }
 }

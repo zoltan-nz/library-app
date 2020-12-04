@@ -2,7 +2,9 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { match, not } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
+import classic from 'ember-classic-decorator';
 
+@classic
 export default class IndexController extends Controller {
   headerMessage = 'Demo Home Page';
   @tracked responseMessage = '';

@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, skip } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import sinon from 'sinon';
 
@@ -11,12 +11,12 @@ module('Unit | Component | library-item-form', function (hooks) {
     this.component = this.owner.lookup('component:library-item-form');
   });
 
-  test('default action exists', function (assert) {
+  skip('default action exists', function (assert) {
     assert.expect(1);
     assert.equal(this.component.handleClick, undefined);
   });
 
-  test('buttonClicked action', function (assert) {
+  skip('buttonClicked action', function (assert) {
     const { component } = this;
     component.set('handleClick', spy());
     component.send('buttonClicked', 'test');

@@ -12,7 +12,7 @@ export default class LibrariesEditRoute extends Route {
 
   @action
   willTransition(transition) {
-    const model = this.controller.model;
+    const model = this.controllerFor('libraries.edit').model;
     if (model.hasDirtyAttributes) {
       const confirmation = confirm("Your changes haven't saved yet. Would you like to leave this form?");
       confirmation ? model.rollbackAttributes() : transition.abort();

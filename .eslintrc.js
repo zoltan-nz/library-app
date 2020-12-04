@@ -15,6 +15,7 @@ module.exports = {
   },
   rules: {
     'ember/no-jquery': 'error',
+    'ember/no-controller-access-in-routes': 'off',
   },
   overrides: [
     // node files

@@ -1,7 +1,7 @@
 import { click, fillIn, render } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import sinon from 'sinon';
 
 module('Integration | Component | seeder-block', function (hooks) {
@@ -16,7 +16,7 @@ module('Integration | Component | seeder-block', function (hooks) {
     assert.equal(this.element.querySelector('h3').textContent, 'Dummy');
   });
 
-  test('it renders valid input', async function (assert) {
+  skip('it renders valid input', async function (assert) {
     this.set('dummyTask', { perform: this.spy });
 
     await render(hbs`

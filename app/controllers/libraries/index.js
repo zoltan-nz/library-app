@@ -2,7 +2,9 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { equal } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
+import classic from 'ember-classic-decorator';
 
+@classic
 export default class LibrariesIndexController extends Controller {
   @tracked queryParams = ['filter', 'limit', 'letter'];
   @tracked filter = '';

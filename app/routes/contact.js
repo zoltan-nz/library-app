@@ -8,12 +8,12 @@ export default class ContactRoute extends Route {
 
   @action
   willTransition() {
-    let model = this.controller.get('model');
+    let model = this.controllerFor('contact').get('model');
 
     if (model.isNew) {
       model.destroyRecord();
     }
 
-    this.controller.set('responseMessage', false);
+    this.controllerFor('contact').set('responseMessage', false);
   }
 }

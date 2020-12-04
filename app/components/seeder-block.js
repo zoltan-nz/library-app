@@ -1,11 +1,13 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { lte, not, or } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import classic from 'ember-classic-decorator';
 
 const MAX_VALUE = 100;
 
+@classic
 export default class SeederBlockComponent extends Component {
   @service('seeder') seederService;
   @tracked counter = null;

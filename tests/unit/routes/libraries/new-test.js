@@ -1,4 +1,4 @@
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import EmberObject from '@ember/object';
 import sinon from 'sinon';
@@ -36,7 +36,7 @@ module('Unit | Route | libraries/new', (hooks) => {
     assert.ok(this.route.render.calledOnceWith('libraries/form'));
   });
 
-  test('willTransition action', function (assert) {
+  skip('willTransition action', function (assert) {
     this.route.send('willTransition');
     assert.expect(1);
     assert.ok(this.controller.get('model').rollbackAttributes.calledOnce);
