@@ -21,8 +21,6 @@
     "test:coverage": "COVERAGE=true ember test",
     "format": "prettier --list-different --write **/*.{js,html,json,css,scss,md}",
     "format:check": "prettier --check **/*.{js,html,json,css,scss,md}",
-    "ci:report:codacy": "cat ./coverage/lcov.info | codacy-coverage",
-    "ci:report:coveralls": "cat ./coverage/lcov.info | coveralls",
     "ci": "run-s -l lint:js:check format:check test:coverage"
   },
   "devDependencies": {
@@ -34,8 +32,6 @@
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.5.3",
     "broccoli-asset-rev": "^3.0.0",
-    "codacy-coverage": "^3.4.0",
-    "coveralls": "^3.1.0",
     "ember-auto-import": "^1.9.0",
     "ember-bootstrap": "^4.5.0",
     "ember-classic-decorator": "^2.0.0",
