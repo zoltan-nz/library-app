@@ -1,0 +1,39 @@
+name: Run tests & report coverage
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [14]
+        os: [ubuntu-latest]
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Set Node.js version
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+
+      - name: Install npm dependencies
+        run: yarn
+
+      - name: Lint and test
+        run: yarn ci
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      #- name: Codacy
+        #uses: codacy/codacy-coverage-reporter-action@v1
+        #with:
+          #project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}

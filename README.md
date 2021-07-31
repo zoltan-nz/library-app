@@ -1,7 +1,7 @@
 # Ember.js Octane Tutorial - Demo Application
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3cc355a9c33d4f82b8c4ec6505b0636e)](https://app.codacy.com/app/zdebre/library-app?utm_source=github.com&utm_medium=referral&utm_content=zoltan-nz/library-app&utm_campaign=Badge_Grade_Settings)
-[![tests](https://travis-ci.org/zoltan-nz/library-app.svg?branch=master)](https://travis-ci.org/zoltan-nz/library-app?branch=master)
+![CI](https://github.com/zoltan-nz/library-app/actions/workflows/ci.yml/badge.svg)
 [![coverage](https://coveralls.io/repos/github/zoltan-nz/library-app/badge.svg?branch=master)](https://coveralls.io/github/zoltan-nz/library-app?branch=master)
 
 This is the original repository of the Library App.
