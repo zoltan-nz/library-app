@@ -1,14 +1,16 @@
 # Ember.js Octane Tutorial - Demo Application
 
 [![CI Build Status][ci-badge]][ci-badge-url]
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4ac6ea9d92ad4ae6b7befa2d2c399def)](https://www.codacy.com/gh/zoltan-nz/library-app/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zoltan-nz/library-app&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/4ac6ea9d92ad4ae6b7befa2d2c399def)](https://www.codacy.com/gh/zoltan-nz/library-app/dashboard?utm_source=github.com&utm_medium=referral&utm_content=zoltan-nz/library-app&utm_campaign=Badge_Coverage)
+[![Codacy Grade Badge][codacy-grade-badge]][codacy-grade-badge-url]
+[![Codacy Coverage Badge][codacy-coverage-badge]][codacy-coverage-badge-url]
 [![Coveralls Coverage Status][coveralls-badge]][coveralls-badge-url]
 
 [ci-badge]: https://github.com/zoltan-nz/library-app/workflows/CI/badge.svg
 [ci-badge-url]: https://github.com/zoltan-nz/library-app/actions?query=workflow:CI
-[codacy-badge]: https://api.codacy.com/project/badge/Grade/3cc355a9c33d4f82b8c4ec6505b0636e
-[codacy-badge-url]: https://app.codacy.com/app/zdebre/library-app
+[codacy-grade-badge]: https://app.codacy.com/project/badge/Grade/4ac6ea9d92ad4ae6b7befa2d2c399def
+[codacy-grade-badge-url]: https://www.codacy.com/gh/zoltan-nz/library-app/dashboard?utm_source=github.com&utm_medium=referral&utm_content=zoltan-nz/library-app&utm_campaign=Badge_Grade
+[codacy-coverage-badge]: https://app.codacy.com/project/badge/Coverage/4ac6ea9d92ad4ae6b7befa2d2c399def
+[codacy-coverage-badge-url]: https://www.codacy.com/gh/zoltan-nz/library-app/dashboard?utm_source=github.com&utm_medium=referral&utm_content=zoltan-nz/library-app&utm_campaign=Badge_Coverage
 [coveralls-badge]: https://coveralls.io/repos/github/zoltan-nz/library-app/badge.svg?branch=master
 [coveralls-badge-url]: https://coveralls.io/github/zoltan-nz/library-app?branch=master
 

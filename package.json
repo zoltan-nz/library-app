@@ -19,8 +19,8 @@
     "test": "run-p --aggregate-output -l lint test:ember",
     "test:ember": "ember test",
     "test:coverage": "COVERAGE=true ember test",
-    "format": "prettier --list-different --write **/*.{js,html,json,css,scss,md}",
-    "format:check": "prettier --check **/*.{js,html,json,css,scss,md}",
+    "format": "prettier --list-different --write **/*.{js,html,json,scss,md}",
+    "format:check": "prettier --check **/*.{js,html,json,scss,md}",
     "ci": "run-s -l lint:js:check format:check test:coverage"
   },
   "devDependencies": {
