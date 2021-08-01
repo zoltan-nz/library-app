@@ -1,4 +1,4 @@
-name: Run tests & report coverage
+name: CI
 on: [push, pull_request]
 
 jobs:
@@ -28,12 +28,12 @@ jobs:
       - name: Lint and test
         run: yarn ci
 
-      - name: Coveralls
+      - name: Coveralls Coverage Reporter
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      #- name: Codacy
-        #uses: codacy/codacy-coverage-reporter-action@v1
-        #with:
-          #project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      - name: Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
