@@ -1,8 +1,15 @@
 # Ember.js Octane Tutorial - Demo Application
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3cc355a9c33d4f82b8c4ec6505b0636e)](https://app.codacy.com/app/zdebre/library-app?utm_source=github.com&utm_medium=referral&utm_content=zoltan-nz/library-app&utm_campaign=Badge_Grade_Settings)
-![CI](https://github.com/zoltan-nz/library-app/actions/workflows/ci.yml/badge.svg)
-[![coverage](https://coveralls.io/repos/github/zoltan-nz/library-app/badge.svg?branch=master)](https://coveralls.io/github/zoltan-nz/library-app?branch=master)
+[![CI Build Status][ci-badge]][ci-badge-url]
+[![Codacy Grade Status][codacy-badge]][codacy-badge-url]
+[![Coveralls Coverage Status][coveralls-badge]][coveralls-badge-url]
+
+[ci-badge]: https://github.com/zoltan-nz/library-app/workflows/CI/badge.svg
+[ci-badge-url]: https://github.com/zoltan-nz/library-app/actions?query=workflow:CI
+[codacy-badge]: https://api.codacy.com/project/badge/Grade/3cc355a9c33d4f82b8c4ec6505b0636e
+[codacy-badge-url]: https://app.codacy.com/app/zdebre/library-app
+[coveralls-badge]: https://coveralls.io/repos/github/zoltan-nz/library-app/badge.svg?branch=master
+[coveralls-badge-url]: https://coveralls.io/github/zoltan-nz/library-app?branch=master
 
 This is the original repository of the Library App.
 
