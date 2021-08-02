@@ -21,7 +21,8 @@
     "test:coverage": "COVERAGE=true ember test",
     "format": "prettier --list-different --write **/*.{js,html,json,scss,md}",
     "format:check": "prettier --check **/*.{js,html,json,scss,md}",
-    "ci": "run-s -l lint:js:check format:check test:coverage"
+    "ci": "run-s -l lint:js:check format:check test:coverage",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
