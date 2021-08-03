@@ -1,15 +1,15 @@
-name: CI
-on: [push, pull_request]
+name: Codacy Coverage Reporter
+on: ['push']
 
 jobs:
-  test:
+  codacy-coverage-reporter:
     name: Node ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        node: [14]
+        node: ['14']
         os: [ubuntu-latest]
 
     steps:
@@ -28,7 +28,8 @@ jobs:
       - name: Lint and test
         run: yarn ci
 
-      - name: Coveralls Coverage Reporter
-        uses: coverallsapp/github-action@master
+      - name: Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov.info
