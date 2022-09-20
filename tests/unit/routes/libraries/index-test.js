@@ -20,8 +20,8 @@ module('Unit | Route | libraries/index', (hooks) => {
 
   test('queryParams property', function (assert) {
     assert.expect(2);
-    assert.equal(this.route.queryParams.limit.refreshModel, true);
-    assert.equal(this.route.queryParams.letter.refreshModel, true);
+    assert.true(this.route.queryParams.limit.refreshModel);
+    assert.true(this.route.queryParams.letter.refreshModel);
   });
 
   test('model hook', function (assert) {

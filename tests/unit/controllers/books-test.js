@@ -34,14 +34,14 @@ module('Unit | Controller | books', function (hooks) {
     const { book, controller } = this;
     controller.send('editBook', book);
     assert.expect(1);
-    assert.equal(book.get('isEditing'), true);
+    assert.true(book.get('isEditing'));
   });
 
   test('cancelBookEdit', function (assert) {
     const { book, controller } = this;
     controller.send('cancelBookEdit', book);
     assert.expect(2);
-    assert.equal(book.get('isEditing'), false);
+    assert.false(book.get('isEditing'));
     assert.ok(book.rollbackAttributes.calledOnce);
   });
 
@@ -52,7 +52,7 @@ module('Unit | Controller | books', function (hooks) {
 
     book.isValid = true;
     controller.send('saveBook', book);
-    assert.equal(book.isEditing, false);
+    assert.false(book.isEditing);
     assert.ok(book.save.calledOnce);
 
     (book.isEditing = true), (book.isValid = false);
@@ -64,14 +64,14 @@ module('Unit | Controller | books', function (hooks) {
     const { book, controller } = this;
     controller.send('editAuthor', book);
     assert.expect(1);
-    assert.equal(book.get('isAuthorEditing'), true);
+    assert.true(book.get('isAuthorEditing'));
   });
 
   test('cancelAuthorEdit', function (assert) {
     const { book, controller } = this;
     controller.send('cancelAuthorEdit', book);
     assert.expect(2);
-    assert.equal(book.get('isAuthorEditing'), false);
+    assert.false(book.get('isAuthorEditing'));
     assert.ok(book.rollbackAttributes.calledOnce);
   });
 
@@ -84,14 +84,14 @@ module('Unit | Controller | books', function (hooks) {
     const { book, controller } = this;
     controller.send('editLibrary', book);
     assert.expect(1);
-    assert.equal(book.get('isLibraryEditing'), true);
+    assert.true(book.get('isLibraryEditing'));
   });
 
   test('cancelLibraryEdit', function (assert) {
     const { book, controller } = this;
     controller.send('cancelLibraryEdit', book);
     assert.expect(2);
-    assert.equal(book.get('isLibraryEditing'), false);
+    assert.false(book.get('isLibraryEditing'));
     assert.ok(book.rollbackAttributes.calledOnce);
   });
 

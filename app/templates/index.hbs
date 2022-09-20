@@ -1,25 +1,29 @@
-<section class="jumbotron text-center">
-  <h1 class="display-4">{{this.headerMessage}}</h1>
-  <p class="lead">This is an example form for invitation. <br> Start building your own application today, follow our
-    free
-    <a href="https://yoember.com" target="_blank" rel="noopener noreferrer">Ember.js Tutorial</a>.
+<section class='jumbotron text-center'>
+  <h1 class='display-4'>{{this.headerMessage}}</h1>
+  <p class='lead'>This is an example form for invitation.
+    <br />
+    Start building your own application today, follow our free
+    <a href='https://yoember.com' target='_blank' rel='noopener noreferrer'>Ember.js Tutorial</a>.
   </p>
-  <hr class="my-4">
+  <hr class='my-4' />
   <p>Don't forget to check out other menu points as well. ;)</p>
 
-  <div class="form-row justify-content-center">
-    <div class="col-md-6">
-      <Input @type="email"
-             @value={{this.emailAddress}}
-             class="form-control"
-             placeholder="Please type a fake e-mail address."
-             @autofocus="autofocus"/>
+  <div class='form-row justify-content-center'>
+    <div class='col-md-6'>
+      <Input
+        @type='email'
+        @value={{this.emailAddress}}
+        class='form-control'
+        placeholder='Please type a fake e-mail address.'
+        autofocus='autofocus'
+      />
     </div>
-    <div class="col-md-2">
-      <button type="button"
-              class="btn btn-primary btn"
-              disabled={{this.isDisabled}}
-        {{on 'click' (fn this.saveInvitation)}}
+    <div class='col-md-2'>
+      <button
+        type='button'
+        class='btn btn-primary btn'
+        disabled={{this.isDisabled}}
+        {{on 'click' this.saveInvitation}}
       >
         Request invitation
       </button>
@@ -27,6 +31,6 @@
   </div>
 
   {{#if this.responseMessage}}
-    <div class="alert alert-success mt-3" role="alert">{{this.responseMessage}}</div>
+    <div class='alert alert-success mt-3' role='alert'>{{this.responseMessage}}</div>
   {{/if}}
 </section>

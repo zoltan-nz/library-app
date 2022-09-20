@@ -10,7 +10,7 @@ module.exports = function (defaults) {
     },
 
     'ember-bootstrap': {
-      bootstrapVersion: 4,
+      bootstrapVersion: 5,
       importBootstrapCSS: false,
     },
   });

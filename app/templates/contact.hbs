@@ -1,36 +1,49 @@
 <h1>Contact Page</h1>
-<p class="well well-sm">If you have any question or feedback please leave a message with your email address.</p>
-<div class="row">
-  <div class="col-md-6">
+<p class='well well-sm'>If you have any question or feedback please leave a message with your email address.</p>
+<div class='row'>
+  <div class='col-md-6'>
     {{#if this.responseMessage}}
-      <br>
-      <div class="alert alert-success">
+      <br />
+      <div class='alert alert-success'>
         <h4>Thank you! Your message is sent.</h4>
         <p>To: {{this.model.email}}</p>
         <p>Message: {{this.model.message}}</p>
         <p>Reference ID: {{this.model.id}}</p>
       </div>
     {{else}}
-      <div class="form-group has-feedback {{if this.model.isValidEmail "has-success"}}">
+      <div class='form-group has-feedback {{if this.model.isValidEmail "has-success"}}'>
         <label>Your email address*:</label>
-        <Input @type="email" class="form-control" placeholder="Your email address" @value={{this.model.email}}
-               @autofocus="autofocus"/>
+        <Input
+          @type='email'
+          class='form-control'
+          placeholder='Your email address'
+          @value={{this.model.email}}
+          autofocus='autofocus'
+        />
         {{#if this.model.isValidEmail}}
-          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          <span class='glyphicon glyphicon-ok form-control-feedback'></span>
         {{/if}}
       </div>
-      <div class="form-group has-feedback {{if this.model.isMessageLongEnough "has-success"}}">
+      <div class='form-group has-feedback {{if this.model.isMessageLongEnough "has-success"}}'>
         <label>Your message*:</label>
-        <Textarea class="form-control" placeholder="Your message. (At least 5 characters.)" @rows="5"
-                  @value={{this.model.message}} />
+        <Textarea
+          class='form-control'
+          placeholder='Your message. (At least 5 characters.)'
+          rows='5'
+          @value={{this.model.message}}
+        />
 
         {{#if this.model.isMessageLongEnough}}
-          <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+          <span class='glyphicon glyphicon-ok form-control-feedback'></span>
         {{/if}}
 
       </div>
-      <button type="submit" class="btn btn-success" {{on 'click' (fn this.sendMessage this.model)}}
-              disabled={{this.model.isNotValid}}>
+      <button
+        type='submit'
+        class='btn btn-success'
+        {{on 'click' (fn this.sendMessage this.model)}}
+        disabled={{this.model.isNotValid}}
+      >
         Send
       </button>
     {{/if}}

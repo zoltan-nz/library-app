@@ -1,11 +1,11 @@
 <h2>{{this.title}}</h2>
-<div class="row">
-  <div class="col-md-6">
+<div class='row'>
+  <div class='col-md-6'>
     <LibraryItemForm @item={{this.model}} @buttonLabel={{this.buttonLabel}} @handleClick={{this.saveLibrary}} />
   </div>
-  <div class="col-md-4">
+  <div class='col-md-4'>
     <LibraryItem @item={{this.model}} @badge={{this.model.books.length}}>
-      <br>
+      <br />
     </LibraryItem>
   </div>
 </div>
