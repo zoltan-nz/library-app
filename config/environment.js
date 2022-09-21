@@ -5,7 +5,7 @@ module.exports = function (environment) {
     modulePrefix: 'library-app',
     environment,
     rootURL: '/',
-    locationType: 'auto',
+    locationType: 'history',
 
     // !!! UPDATE KEYS IN .env FILE!!! Copy .env-sample and save as .env, update values based on your config in Firebase.
     // Visit https://console.firebase.google.com/
