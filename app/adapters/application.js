@@ -1,3 +1,3 @@
-import RealtimeDatabaseAdapter from 'emberfire/adapters/realtime-database';
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 
-export default class ApplicationAdapter extends RealtimeDatabaseAdapter {}
+export default class ApplicationAdapter extends JSONAPIAdapter {}
