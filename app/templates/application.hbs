@@ -8,11 +8,11 @@
     as |navbar|
   >
     <div class='container d-flex'>
-      <div class='navbar-header'>
-        <navbar.toggle />
-        <FaIcon @icon='book-open' class='fa-inverse' />
-        <LinkTo @route='index' class='navbar-brand'>Library App</LinkTo>
-      </div>
+      <navbar.toggle/>
+      <LinkTo @route='index' class='navbar-brand ps-2'>
+        <FaIcon @icon='book-open' class='fa-inverse'/>
+        Library App
+      </LinkTo>
       <navbar.content>
         <navbar.nav as |nav|>
           <nav.item>

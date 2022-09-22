@@ -8,8 +8,8 @@
   <hr class='my-4' />
   <p>Don't forget to check out other menu points as well. ;)</p>
 
-  <div class='form-row justify-content-center'>
-    <div class='col-md-6'>
+  <div class='row justify-content-center'>
+    <div class='col-5'>
       <Input
         @type='email'
         @value={{this.emailAddress}}
@@ -18,7 +18,7 @@
         autofocus='autofocus'
       />
     </div>
-    <div class='col-md-2'>
+    <div class='col-2'>
       <button type='button' class='btn btn-primary btn' disabled={{this.isDisabled}} {{on 'click' this.saveInvitation}}>
         Request invitation
       </button>
