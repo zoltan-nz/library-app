@@ -33,8 +33,8 @@
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.8.1",
-    "@fortawesome/ember-fontawesome": "^0.2.2",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/ember-fontawesome": "^0.4.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "babel-eslint": "^10.1.0",
