@@ -1,7 +1,10 @@
 import { action } from '@ember/object';
 import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
 export default class LibrariesEditRoute extends Route {
+  @service store;
+
   model(params) {
     return this.store.findRecord('library', params.library_id);
   }
