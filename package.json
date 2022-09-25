@@ -55,7 +55,6 @@
     "ember-cli-terser": "^4.0.2",
     "ember-cli-update": "^1.0.1",
     "ember-concurrency": "^2.3.7",
-    "ember-concurrency-decorators": "^2.0.3",
     "ember-data": "^4.6.3",
     "ember-export-application-global": "^2.0.1",
     "ember-faker": "^2.0.1",
