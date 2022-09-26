@@ -76,7 +76,6 @@ module('Unit | Controller | books', function (hooks) {
   });
 
   skip('saveAuthor', function (assert) {
-    // TODO: check if firebase adapter has been fixed
     assert.ok(false);
   });
 
@@ -96,7 +95,6 @@ module('Unit | Controller | books', function (hooks) {
   });
 
   skip('saveLibrary', function (assert) {
-    // TODO: check if firebase adapter has been fixed
     assert.ok(false);
   });
 });
