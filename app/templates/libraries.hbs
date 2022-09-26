@@ -1,16 +1,16 @@
 <h1>Libraries</h1>
 
-<hr class="my-3">
+<hr class='my-3' />
 
-<BsNav @type="pills" as |nav|>
+<BsNav @type='pills' as |nav|>
   <nav.item>
-    <nav.link-to @route="libraries.index">List all</nav.link-to>
+    <nav.linkTo @route='libraries.index'>List all</nav.linkTo>
   </nav.item>
   <nav.item>
-    <nav.link-to @route="libraries.new">Add new</nav.link-to>
+    <nav.linkTo @route='libraries.new'>Add new</nav.linkTo>
   </nav.item>
 </BsNav>
 
-<hr class="my-3">
+<hr class='my-3' />
 
 {{outlet}}

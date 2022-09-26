@@ -3,9 +3,12 @@ import { action } from '@ember/object';
 import { match, not } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 import classic from 'ember-classic-decorator';
+import { service } from '@ember/service';
 
 @classic
 export default class IndexController extends Controller {
+  @service store;
+
   headerMessage = 'Demo Home Page';
   @tracked responseMessage = '';
   @tracked emailAddress = '';

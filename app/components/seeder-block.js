@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { lte, not, or } from '@ember/object/computed';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import classic from 'ember-classic-decorator';
 
@@ -24,12 +24,12 @@ export default class SeederBlockComponent extends Component {
   @action
   generate() {
     if (this.counter && this.isCounterValid) {
-      this.seederTask.perform(this.counter);
+      this.args.seederTask.perform(this.counter);
     }
   }
 
   @action
   delete() {
-    this.destroyerTask.perform();
+    this.args.destroyerTask.perform();
   }
 }

@@ -1,41 +1,41 @@
 <h1>Authors</h1>
-<table class="table table-bordered table-striped">
+<table class='table table-bordered table-striped'>
   <thead>
-  <tr>
-    <th>
-      Name
-      <br><small class="small not-bold">(Click on name for editing)</small>
-    </th>
-    <th class="vtop">Books</th>
-  </tr>
+    <tr>
+      <th>
+        Name
+        <br /><small class='small not-bold'>(Click on name for editing)</small>
+      </th>
+      <th class='vtop'>Books</th>
+    </tr>
   </thead>
   <tbody>
-  {{#each this.model as |author|}}
-    <tr>
-      <td>
-        {{#if author.isEditing}}
-          <form {{on 'submit' (fn this.saveAuthor author)}} class="form-inline">
-            <div class="input-group">
-              <Input @value={{author.name}} class="form-control"/>
-              <div class="input-group-btn">
-                <button type="submit" class="btn btn-success" disabled={{author.isNotValid}}>Save</button>
-                <button type="button" class="btn btn-danger" {{on 'click' (fn this.cancelAuthorEdit author)}}>Cancel
-                </button>
+    {{#each this.model as |author|}}
+      <tr>
+        <td>
+          {{#if author.isEditing}}
+            <form {{on 'submit' (fn this.saveAuthor author)}} class='form-inline'>
+              <div class='input-group'>
+                <Input @value={{author.name}} class='form-control' />
+                <div class='input-group-btn'>
+                  <button type='submit' class='btn btn-success' disabled={{author.isNotValid}}>Save</button>
+                  <button type='button' class='btn btn-danger' {{on 'click' (fn this.cancelAuthorEdit author)}}>Cancel
+                  </button>
+                </div>
               </div>
-            </div>
-          </form>
-        {{else}}
-          <span role="button" {{on 'click' (fn this.editAuthor author)}}>{{author.name}}</span>
-        {{/if}}
-      </td>
-      <td>
-        <ul>
-          {{#each author.books as |book|}}
-            <li>{{book.title}}</li>
-          {{/each}}
-        </ul>
-      </td>
-    </tr>
-  {{/each}}
+            </form>
+          {{else}}
+            <span role='button' {{on 'click' (fn this.editAuthor author)}}>{{author.name}}</span>
+          {{/if}}
+        </td>
+        <td>
+          <ul>
+            {{#each author.books as |book|}}
+              <li>{{book.title}}</li>
+            {{/each}}
+          </ul>
+        </td>
+      </tr>
+    {{/each}}
   </tbody>
 </table>

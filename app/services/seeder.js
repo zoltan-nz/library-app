@@ -1,10 +1,10 @@
 import { action } from '@ember/object';
 import { cancel, later } from '@ember/runloop';
-import Service, { inject as service } from '@ember/service';
+import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import Faker from 'faker';
 import { range } from 'lodash';
-import { dropTask } from 'ember-concurrency-decorators';
+import { dropTask } from 'ember-concurrency';
 
 const DONE_MESSAGE_VISIBILITY_TIME_MS = 3000;
 

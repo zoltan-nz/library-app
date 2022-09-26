@@ -1,3 +1,1 @@
-import RealtimeDatabaseAdapter from 'emberfire/adapters/realtime-database';
-
-export default class ApplicationAdapter extends RealtimeDatabaseAdapter {}
+export { default } from 'ember-local-storage/adapters/local';

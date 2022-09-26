@@ -1,34 +1,34 @@
-<div class="btn-toolbar">
-  <div class="btn-group mr-2">
-    <LinkTo @query={{hash limit="all" letter=""}} class="btn btn-outline-info">All</LinkTo>
-    <LinkTo @query={{hash limit="abc"}} class="btn btn-outline-info">Abc</LinkTo>
+<div class='btn-toolbar'>
+  <div class='btn-group mr-2'>
+    <LinkTo @query={{hash limit='all' letter=''}} class='btn btn-outline-info'>All</LinkTo>
+    <LinkTo @query={{hash limit='abc'}} class='btn btn-outline-info'>Abc</LinkTo>
   </div>
   {{#if this.limitAll}}
-    <Input @value={{this.filter}} class="form-control col-md-5" placeholder="Filter by library name"/>
+    <Input @value={{this.filter}} class='form-control col-md-5' placeholder='Filter by library name' />
   {{else}}
-    <div class="btn-group">
-      <AbcButtons/>
+    <div class='btn-group'>
+      <AbcButtons />
     </div>
   {{/if}}
 </div>
 
-<hr class="my-3">
+<hr class='my-3' />
 
-<div class="row row-cols-3">
+<div class='row row-cols-3'>
   {{#each this.filteredList as |library|}}
-    <div class="col mb-2">
+    <div class='col mb-2'>
       <LibraryItem @item={{library}} @badge={{library.books.length}}>
-        <LinkTo @route="libraries.edit" @model={{library.id}} class="btn btn-success btn-xs">Edit</LinkTo>
-        <button type="button" class="btn btn-danger btn-xs" {{on 'click' (fn this.deleteLibrary library)}}>Delete
+        <LinkTo @route='libraries.edit' @model={{library.id}} class='btn btn-success btn-xs'>Edit</LinkTo>
+        <button type='button' class='btn btn-danger btn-xs' {{on 'click' (fn this.deleteLibrary library)}}>Delete
         </button>
       </LibraryItem>
     </div>
   {{else}}
     {{#if this.model.isUpdating}}
-      <SpinnerCube/>
+      <SpinnerCube />
     {{else}}
-      <div class="col-md-12 text-center">
-        <div class="alert alert-info">
+      <div class='col-md-12 text-center'>
+        <div class='alert alert-info'>
           Sorry, no result.
         </div>
       </div>

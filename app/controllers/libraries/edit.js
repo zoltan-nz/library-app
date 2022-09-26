@@ -1,12 +1,16 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import { service } from '@ember/service';
 
 export default class LibrariesEditController extends Controller {
+  @service router;
+
   buttonLabel = 'Save changes';
   title = 'Edit library';
 
   @action
-  saveLibrary(newLibrary) {
-    newLibrary.save().then(() => this.transitionToRoute('libraries'));
+  async saveLibrary(newLibrary) {
+    await newLibrary.save();
+    this.router.transitionTo('libraries.index');
   }
 }

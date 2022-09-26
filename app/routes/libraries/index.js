@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { service } from '@ember/service';
 
 export default class LibrariesIndexRoute extends Route {
+  @service store;
+
   queryParams = {
     limit: { refreshModel: true },
     letter: { refreshModel: true },
